@@ -12,7 +12,7 @@ public final class UIXManager {
 	public static Color TEXT_COLOR3 = Color.rgb(126, 20, 219);
 	public static Color TEXT_COLOR4 = Color.rgb(200, 103, 0);
 	public static Color TEXT_COLOR5 = Color.rgb(16, 62, 110);
-	public static Color GLOW = Color.rgb(40, 40, 40);
+	public static Color GLOW = Color.web("#454B53");
 	
 	//Fonts
 	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12);
@@ -37,6 +37,7 @@ public final class UIXManager {
 	
 	//Image-Icons
 	public static Image appImageIcon = getImageIcon("blaze-182");
+	public static Image nextPageIcon = getImageIcon("chevron-right-48");
 
 	//Icon Loaders
 	public synchronized static Image getImageIcon(String name){

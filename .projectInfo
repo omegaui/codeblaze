@@ -1,0 +1,40 @@
+>JDK Path
+-/usr/lib/jvm/jdk-17
+>Main Class
+-omegaui.codeblaze.App
+>Language Tag
+-0
+>Opened Editors on Main Tab Panel
+-project-root$/src/omegaui/codeblaze/App.java
+-project-root$/src/omegaui/codeblaze/io/view/LauncherViewFX.java
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+>Caret Positions
+-project-root$/src/omegaui/codeblaze/App.java
+|0
+|383
+-project-root$/src/omegaui/codeblaze/io/view/LauncherViewFX.java
+|670
+|1409
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+|230
+|1894
+>Last Active Editor
+-project-root$/src/omegaui/codeblaze/io/view/LauncherViewFX.java
+>Project Classpath : Required Jars
+-project-root$/lib/AnimateFX-1.2.1.jar
+-project-root$/lib/fontawesomefx-8.9.jar
+-project-root$/lib/materialfx-11.13.5.jar
+-project-root$/lib/virtualizedfx-11.2.6.jar
+-project-root$/lib/fontawesomefx-materialicons-2.2.0-9.1.2.jar
+>Project Classpath : Required Native Libraries
+-/usr/lib/jvm/ext/lib
+>Project Classpath : Required Resource Roots
+-project-root$/res
+>Project Classpath : Required Modules
+-/usr/lib/jvm/ext/lib/javafx.base.jar
+-/usr/lib/jvm/ext/lib/javafx.controls.jar
+-/usr/lib/jvm/ext/lib/javafx.fxml.jar
+-/usr/lib/jvm/ext/lib/javafx.graphics.jar
+-/usr/lib/jvm/ext/lib/javafx.media.jar
+-/usr/lib/jvm/ext/lib/javafx.swing.jar
+-/usr/lib/jvm/ext/lib/javafx.web.jar
