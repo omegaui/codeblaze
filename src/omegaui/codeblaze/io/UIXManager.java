@@ -1,18 +1,14 @@
 package omegaui.codeblaze.io;
-import javafx.scene.paint.Color;
+import javax.imageio.ImageIO;
 
-import omegaui.utilsfx.DynoFont;
+import java.awt.image.BufferedImage;
 
-import javafx.scene.image.Image;
+import omegaui.paint.DynoFont;
+import omegaui.paint.PixelColor;
 public final class UIXManager {
-
 	//Colors
-	public static Color TEXT_COLOR1 = Color.rgb(26, 36, 219);
-	public static Color TEXT_COLOR2 = Color.web("#F4767A");
-	public static Color TEXT_COLOR3 = Color.rgb(126, 20, 219);
-	public static Color TEXT_COLOR4 = Color.rgb(200, 103, 0);
-	public static Color TEXT_COLOR5 = Color.rgb(16, 62, 110);
-	public static Color GLOW = Color.web("#454B53");
+	public static PixelColor BACKGROUND = new PixelColor(255, 255, 255);
+	public static PixelColor GLOW = new PixelColor(40, 40, 40);
 	
 	//Fonts
 	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12);
@@ -34,13 +30,18 @@ public final class UIXManager {
 	public static DynoFont PX44 = new DynoFont("Ubuntu Mono", 44);
 	public static DynoFont PX46 = new DynoFont("Ubuntu Mono", 46);
 	public static DynoFont PX48 = new DynoFont("Ubuntu Mono", 48);
-	
-	//Image-Icons
-	public static Image appImageIcon = getImageIcon("blaze-182");
-	public static Image nextPageIcon = getImageIcon("chevron-right-48");
 
-	//Icon Loaders
-	public synchronized static Image getImageIcon(String name){
-		return new Image(UIXManager.class.getResource("/icons/icons8-" + name + ".png").toExternalForm());
+	//Icons
+	public static BufferedImage appIcon = getIcon("blaze-182");
+
+	//Resource Providers
+	public static synchronized BufferedImage getIcon(String name){
+		try{
+			return ImageIO.read(UIXManager.class.getResourceAsStream("/icons/icons8-" + name + ".png"));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -1,29 +1,64 @@
 package omegaui.codeblaze;
-import omegaui.codeblaze.io.ViewManager;
+import omegaui.codeblaze.io.AppInstanceProvider;
+import omegaui.codeblaze.io.AppStateManager;
 
-import javafx.stage.Stage;
+import omegaui.codeblaze.ui.panel.GlassPanel;
 
-import javafx.application.Application;
-public class App extends Application{
+import java.awt.BorderLayout;
 
-	private Stage primaryStage;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import static omegaui.codeblaze.io.UIXManager.*;
+
+public class App extends JFrame{
+
+	private GlassPanel glassPanel;
 	
-	@Override
-	public void start(Stage stage) {
-		this.primaryStage = stage;
+	private App(){
+		super("CodeBlaze");
+		setLayout(new BorderLayout());
+		setSize(1000, 650);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		registerAppInstanceProvider();
 		
-		ViewManager.init(this);
+		initContentPanel();
+		initGlassUI();
+		initUI();
+
+		initState();
 		
-		stage.centerOnScreen();
-		stage.setAlwaysOnTop(true);
-		stage.show();
+		setVisible(true);
 	}
 
-	public javafx.stage.Stage getPrimaryStage() {
-		return primaryStage;
+	private void registerAppInstanceProvider(){
+		AppInstanceProvider.setCurrentAppInstance(this);
 	}
-	
+
+	private void initContentPanel(){
+		JPanel contentPanel = new JPanel(getLayout());
+		contentPanel.setBackground(BACKGROUND);
+		setBackground(BACKGROUND);
+		setContentPane(contentPanel);
+	}
+
+	private void initGlassUI(){
+		glassPanel = new GlassPanel(this);
+		setGlassPane(glassPanel);
+	}
+
+	private void initUI(){
+		glassPanel = new GlassPanel(this);
+		setGlassPane(glassPanel);
+	}
+
+	private void initState(){
+		AppStateManager.initAppState();
+	}
+
 	public static void main(String[] args){
-		launch(args);
+		new App();
 	}
 }
