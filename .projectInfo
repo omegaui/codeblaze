@@ -5,21 +5,17 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/App.java
--project-root$/src/omegaui/codeblaze/io/AppDataProvider.java
 -project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
+-project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/App.java
-|384
-|766
--project-root$/src/omegaui/codeblaze/io/AppDataProvider.java
-|0
-|160
 -project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
 |0
-|77
+|841
+-project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
+|794
+|1533
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/App.java
+-project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
 >Project Classpath : Required Native Libraries
 -/usr/lib/jvm/ext/lib
 >Project Classpath : Required Resource Roots
