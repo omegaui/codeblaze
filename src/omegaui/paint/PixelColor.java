@@ -181,8 +181,8 @@ public class PixelColor extends Color {
      * @param red value of the red color
      * @return The Corresponding color
      */
-    public Color withRed(int red){
-        return new Color(red, getGreen(), getBlue());
+    public PixelColor withRed(int red){
+        return new PixelColor(red, getGreen(), getBlue());
     }
 
     /**
@@ -190,8 +190,8 @@ public class PixelColor extends Color {
      * @param green value of the green color
      * @return The Corresponding color
      */
-    public Color withGreen(int green){
-        return new Color(getRed(), green, getBlue());
+    public PixelColor withGreen(int green){
+        return new PixelColor(getRed(), green, getBlue());
     }
 
     /**
@@ -199,8 +199,8 @@ public class PixelColor extends Color {
      * @param blue value of the blue color
      * @return The Corresponding color
      */
-    public Color withBlue(int blue){
-        return new Color(getRed(), getGreen(), blue);
+    public PixelColor withBlue(int blue){
+        return new PixelColor(getRed(), getGreen(), blue);
     }
 
     /**
@@ -208,8 +208,8 @@ public class PixelColor extends Color {
      * @param opacity opacity of the current color, allowed range is from 0f to 1f i.e. 0% to 100%
      * @return The Corresponding color
      */
-    public Color withOpacity(float opacity){
+    public PixelColor withOpacity(float opacity){
         int alpha = (int)(opacity * 255);
-        return new Color(getRed(), getGreen(), getBlue(), alpha);
+        return new PixelColor(getRed(), getGreen(), getBlue(), alpha);
     }
 }

@@ -19,6 +19,7 @@ public class App extends JFrame{
 		super("CodeBlaze");
 		setLayout(new BorderLayout());
 		setSize(1000, 650);
+		setMinimumSize(getSize());
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 

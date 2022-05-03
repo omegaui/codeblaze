@@ -8,7 +8,20 @@ import omegaui.paint.PixelColor;
 public final class UIXManager {
 	//Colors
 	public static PixelColor BACKGROUND = new PixelColor(255, 255, 255);
-	public static PixelColor GLOW = new PixelColor(40, 40, 40);
+	public static PixelColor GLOW = new PixelColor(80, 80, 80);
+	public static PixelColor HOVER = new PixelColor(200, 200, 200, 100);
+
+	public static PixelColor primaryColor = new PixelColor(26, 36, 219);
+	public static PixelColor secondaryColor = new PixelColor(223, 33, 15);
+	public static PixelColor focusColor = new PixelColor(126, 20, 219);
+	public static PixelColor warningColor = new PixelColor(200, 103, 0);
+	public static PixelColor tertiaryColor = new PixelColor(16, 62, 110);
+
+	public static PixelColor primaryColorShade = primaryColor.withOpacity(0.4f);
+	public static PixelColor secondaryColorShade = primaryColor.withOpacity(0.4f);
+	public static PixelColor focusColorShade = primaryColor.withOpacity(0.4f);
+	public static PixelColor warningColorShade = primaryColor.withOpacity(0.4f);
+	public static PixelColor tertiaryColorShade = primaryColor.withOpacity(0.4f);
 	
 	//Fonts
 	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12);

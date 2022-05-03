@@ -5,33 +5,21 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/ui/view/LauncherViewFX.java
 -project-root$/src/omegaui/codeblaze/App.java
--project-root$/src/omegaui/codeblaze/ui/view/EditingViewFX.java
--project-root$/src/omegaui/codeblaze/ui/view/AbstractViewFX.java
--project-root$/src/omegaui/codeblaze/io/ViewManager.java
+-project-root$/src/omegaui/codeblaze/io/AppDataProvider.java
+-project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/ui/view/LauncherViewFX.java
-|895
-|1638
 -project-root$/src/omegaui/codeblaze/App.java
+|384
+|766
+-project-root$/src/omegaui/codeblaze/io/AppDataProvider.java
 |0
-|414
--project-root$/src/omegaui/codeblaze/ui/view/EditingViewFX.java
+|160
+-project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
 |0
-|224
--project-root$/src/omegaui/codeblaze/ui/view/AbstractViewFX.java
-|0
-|206
--project-root$/src/omegaui/codeblaze/io/ViewManager.java
-|395
-|811
+|77
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/view/EditingViewFX.java
->Project Classpath : Required Jars
--project-root$/lib/AnimateFX-1.2.1.jar
--project-root$/lib/materialfx-11.13.5.jar
--project-root$/lib/virtualizedfx-11.2.6.jar
+-project-root$/src/omegaui/codeblaze/App.java
 >Project Classpath : Required Native Libraries
 -/usr/lib/jvm/ext/lib
 >Project Classpath : Required Resource Roots
