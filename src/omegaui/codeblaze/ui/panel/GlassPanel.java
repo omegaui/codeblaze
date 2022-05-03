@@ -20,7 +20,8 @@ public final class GlassPanel extends JPanel {
 	private App app;
 
 	// Views
-	private LauncherPanel launcherPanel;
+	private static LauncherPanel launcherPanel;
+	private static FileCreationPanel fileCreationPanel;
 
 	public GlassPanel(App app){
 		super(new BorderLayout());
@@ -30,11 +31,26 @@ public final class GlassPanel extends JPanel {
 
 	public void initUI(){
 		launcherPanel = new LauncherPanel(app);
+		fileCreationPanel = new FileCreationPanel(app);
+		
 		putToView(launcherPanel);
 	}
 
 	public void putToView(JPanel panel){
 		removeAll();
 		add(panel, BorderLayout.CENTER);
+		panel.setVisible(false);
+		panel.setVisible(true);
+		app.getContentPane().doLayout();
 	}
+
+	public static omegaui.codeblaze.ui.panel.LauncherPanel getLauncherPanel() {
+		return launcherPanel;
+	}
+	
+	public static omegaui.codeblaze.ui.panel.FileCreationPanel getFileCreationPanel() {
+		return fileCreationPanel;
+	}
+
+	
 }

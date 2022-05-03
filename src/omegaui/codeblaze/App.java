@@ -59,6 +59,10 @@ public class App extends JFrame{
 		AppStateManager.initAppState();
 	}
 
+	public omegaui.codeblaze.ui.panel.GlassPanel getGlassPanel() {
+		return glassPanel;
+	}
+	
 	public static void main(String[] args){
 		new App();
 	}

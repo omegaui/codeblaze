@@ -54,7 +54,9 @@ public final class LauncherPanel extends JPanel implements ResizeAware{
 	}
 	
 	public void initActions(){
-		createFileComp = new TextComp("Create New File", HOVER, BACKGROUND, tertiaryColor, null);
+		createFileComp = new TextComp("Create New File", HOVER, BACKGROUND, tertiaryColor, ()->{
+			app.getGlassPanel().putToView(GlassPanel.getFileCreationPanel());
+		});
 		createFileComp.setFont(PX18.bold());
 		createFileComp.setArc(6, 6);
 		add(createFileComp);

@@ -46,6 +46,10 @@ public final class UIXManager {
 
 	//Icons
 	public static BufferedImage appIcon = getIcon("blaze-182");
+	
+	public static BufferedImage backIcon = getIcon("back-64");
+	public static BufferedImage cancelIcon = getIcon("cancel-64");
+	public static BufferedImage fileIcon = getIcon("file-64");
 
 	//Resource Providers
 	public static synchronized BufferedImage getIcon(String name){
