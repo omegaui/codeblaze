@@ -5,31 +5,15 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
--project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
 -project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
--project-root$/src/omegaui/codeblaze/App.java
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
--project-root$/src/omegaui/codeblaze/ui/component/TextInputField.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
-|292
-|739
--project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
-|901
-|1630
 -project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
-|1216
-|1692
--project-root$/src/omegaui/codeblaze/App.java
-|416
-|1330
+|523
+|879
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
-|124
-|548
--project-root$/src/omegaui/codeblaze/ui/component/TextInputField.java
-|1116
-|1537
+|460
+|2702
 >Last Active Editor
 -project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
 >Project Classpath : Required Resource Roots

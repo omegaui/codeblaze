@@ -50,6 +50,7 @@ public final class UIXManager {
 	public static BufferedImage backIcon = getIcon("back-64");
 	public static BufferedImage cancelIcon = getIcon("cancel-64");
 	public static BufferedImage fileIcon = getIcon("file-64");
+	public static BufferedImage templateIcon = getIcon("template-64");
 
 	//Resource Providers
 	public static synchronized BufferedImage getIcon(String name){

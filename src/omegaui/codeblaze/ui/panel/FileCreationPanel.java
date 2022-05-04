@@ -29,6 +29,10 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 	private EdgeComp parentDirLabel;
 	private TextInputField parentDirField;
 
+	private TextComp manageTemplateComp;
+	
+	private TextComp createComp;
+
 	public FileCreationPanel(App app){
 		this.app = app;
 		initUI();
@@ -63,6 +67,10 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 
 		fileNameField = new TextInputField("Enter File Name", "");
 		fileNameField.setFont(PX16.bold());
+		fileNameField.setOnAction(()->createComp.runnable.run());
+		fileNameField.setValidationTask((field)->{
+			return !field.getText().isEmpty();
+		});
 		add(fileNameField);
 
 		parentDirLabel = new EdgeComp("Parent Directory", GLOW, HOVER, GLOW, null);
@@ -75,7 +83,26 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		parentDirField.setEditable(false);
 		add(parentDirField);
 
+		manageTemplateComp = new TextComp("Manage Templates", HOVER, BACKGROUND, GLOW, null);
+		manageTemplateComp.setImage(templateIcon, 64, 64);
+		manageTemplateComp.setArc(6, 6);
+		manageTemplateComp.setImageCoordinates(10, 70/2 - 64/2);
+		manageTemplateComp.setFont(PX16.bold());
+		manageTemplateComp.setTextAlignment(TextComp.TEXT_ALIGNMENT_RIGHT);
+		add(manageTemplateComp);
+
+		createComp = new TextComp("Create", HOVER, BACKGROUND, GLOW, ()->{
+			validateProvidedData();
+		});
+		createComp.setFont(PX18.bold());
+		createComp.setArc(6, 6);
+		add(createComp);
+
 		putAnimationLayer(closeComp, getImageSizeAnimationLayer(20, +5, true), ACTION_MOUSE_ENTERED);
+	}
+
+	public void validateProvidedData(){
+		
 	}
 
 	@Override
@@ -84,11 +111,14 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		titleComp.setBounds(getWidth()/2 - 300/2, 50, 300, 50);
 		closeComp.setBounds(getWidth() - 50 - 40, 52, 40, 40);
 
-		fileNameLabel.setBounds(titleComp.getX() - 250, 150, 250, 30);
-		fileNameField.setBounds(titleComp.getX() + 20, 150, getWidth()/3, 30);
+		fileNameLabel.setBounds(titleComp.getX() - 200, 150, 250, 30);
+		fileNameField.setBounds(titleComp.getX() + 70, 150, getWidth()/3, 30);
 
-		parentDirLabel.setBounds(titleComp.getX() - 250, 200, 250, 30);
-		parentDirField.setBounds(titleComp.getX() + 20, 200, getWidth()/3, 30);
+		parentDirLabel.setBounds(titleComp.getX() - 200, 200, 250, 30);
+		parentDirField.setBounds(titleComp.getX() + 70, 200, getWidth()/3, 30);
+
+		manageTemplateComp.setBounds(getWidth()/2 - 220/2, getHeight()/2, 220, 70);
+		createComp.setBounds(getWidth()/2 - 100/2, getHeight() - 100, 100, 30);
 	}
 
 	@Override

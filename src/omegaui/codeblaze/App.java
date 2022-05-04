@@ -5,18 +5,26 @@ import omegaui.codeblaze.io.AppStateManager;
 import omegaui.codeblaze.ui.panel.GlassPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.BorderFactory;
 
 import static omegaui.codeblaze.io.UIXManager.*;
 
 public class App extends JFrame{
 
 	private GlassPanel glassPanel;
-	
+
 	private App(){
 		super("CodeBlaze");
+
 		setLayout(new BorderLayout());
 		setSize(1000, 650);
 		setMinimumSize(getSize());
@@ -24,13 +32,13 @@ public class App extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		registerAppInstanceProvider();
-		
+
 		initContentPanel();
 		initGlassUI();
 		initUI();
 
 		initState();
-		
+
 		setVisible(true);
 	}
 
@@ -62,7 +70,7 @@ public class App extends JFrame{
 	public omegaui.codeblaze.ui.panel.GlassPanel getGlassPanel() {
 		return glassPanel;
 	}
-	
+
 	public static void main(String[] args){
 		new App();
 	}

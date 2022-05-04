@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.component;
+import omegaui.listener.KeyStrokeListener;
+
 import java.awt.geom.RoundRectangle2D;
 
 import java.awt.event.MouseAdapter;
@@ -17,7 +19,9 @@ import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
 import static omegaui.component.animation.Animations.*;
 
-public class TextInputField extends JTextField{
+import static java.awt.event.KeyEvent.*;
+
+public class TextInputField extends JTextField implements ValidationAware{
 	
 	private String hint;
 	private String pressHint;
@@ -30,6 +34,12 @@ public class TextInputField extends JTextField{
 	private Color color1;
 	private Color color2;
 	private Color color3;
+
+	private Runnable onAction = ()->{};
+
+	private TextInputFieldValidationTask validationTask = (field)->{
+		return true;
+	};
 	
 	public TextInputField(String hint, String pressHint){
 		this.hint = hint;
@@ -44,6 +54,23 @@ public class TextInputField extends JTextField{
 		setBorder(BorderFactory.createLineBorder(HOVER, 2, true));
 		setHorizontalAlignment(JTextField.CENTER);
 		setOpaque(false);
+
+		KeyStrokeListener keyListener = new KeyStrokeListener(this);
+		keyListener.setOnAnyKeyPressed((e)->{
+			if(e.getKeyCode() != VK_ENTER){
+				resetValidationChecks();
+			}
+		});
+		keyListener.putKeyStroke((e)->{
+			if(validationTask.performValidation(TextInputField.this)){
+				validationPassed();
+				getOnAction().run();
+			}
+			else{
+				validationFailed();
+			}
+		}, VK_ENTER).useAutoReset().setStopKeys(VK_CONTROL, VK_ALT, VK_SHIFT);
+		addKeyListener(keyListener);
 		
 		addMouseListener(new MouseAdapter(){
 			@Override
@@ -94,6 +121,34 @@ public class TextInputField extends JTextField{
 			}
 		});
 	}
+
+	@Override
+	public void resetValidationChecks() {
+		validationPassed();
+	}
+	
+	@Override
+	public void validationPassed() {
+		setBorder(BorderFactory.createLineBorder(HOVER, 2, true));
+	}
+	
+	@Override
+	public void validationFailed() {
+		setBorder(BorderFactory.createLineBorder(warningColor, 2, true));
+	}
+
+	public void setValidationTask(TextInputFieldValidationTask validationTask){
+		this.validationTask = validationTask;
+	}
+	
+	public java.lang.Runnable getOnAction() {
+		return onAction;
+	}
+	
+	public void setOnAction(java.lang.Runnable onAction) {
+		this.onAction = onAction;
+	}
+	
 	
 	public void setHint(String hint) {
 		this.hint = hint;
