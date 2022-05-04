@@ -1,0 +1,50 @@
+package omegaui.codeblaze.io;
+
+import java.io.File;
+import java.io.InputStream;
+import java.io.FileOutputStream;
+
+public final class AppResourceManager {
+
+	public static final String ROOT_DIR_NAME = ".codeblaze";
+
+	public static void checkResources(){
+		createDir(ROOT_DIR_NAME);
+		createDir(ROOT_DIR_NAME, ".file-templates");
+	}
+
+	public static void createDir(String path){
+		File dir = new File(path);
+		if(!dir.exists())
+			dir.mkdir();
+	}
+
+	public static void createDir(String... path){
+		String pathx = "";
+		for(String px : path)
+			pathx += px + File.separator;
+		pathx = pathx.substring(0, pathx.length() - 1);
+		
+		File dir = new File(pathx);
+		if(!dir.exists())
+			dir.mkdir();
+	}
+
+	public static void copyResource(String resourcePath, String targetPath){
+		try{
+			String targetDir = targetPath.substring(0, targetPath.lastIndexOf(File.separatorChar));
+			createDir(targetDir);
+			
+			FileOutputStream out = new FileOutputStream(targetPath);
+			InputStream in = AppResourceManager.class.getResourceAsStream(resourcePath);
+			while(in.available() > 0){
+				out.write(in.read());
+			}
+			out.close();
+			in.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+}

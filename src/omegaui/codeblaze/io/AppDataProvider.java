@@ -1,5 +1,6 @@
 package omegaui.codeblaze.io;
 public final class AppDataProvider {
+	
 	public static final String appVersionSemantic(){
 		return appVersion() + "-" + buildState();
 	}
@@ -11,4 +12,5 @@ public final class AppDataProvider {
 	public static final String buildState(){
 		return "alpha";
 	}
+	
 }

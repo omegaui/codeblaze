@@ -7,13 +7,21 @@
 >Opened Editors on Main Tab Panel
 -project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
+-project-root$/src/omegaui/codeblaze/io/AppStateManager.java
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
 >Caret Positions
 -project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
-|523
-|879
+|1153
+|1741
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
 |460
-|2702
+|1545
+-project-root$/src/omegaui/codeblaze/io/AppStateManager.java
+|0
+|159
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+|0
+|439
 >Last Active Editor
 -project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
 >Project Classpath : Required Resource Roots
