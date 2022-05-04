@@ -7,24 +7,30 @@
 >Opened Editors on Main Tab Panel
 -project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
 -project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
+-project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
+-project-root$/src/omegaui/codeblaze/App.java
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+-project-root$/src/omegaui/codeblaze/ui/component/TextInputField.java
 >Caret Positions
 -project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
-|0
-|841
+|292
+|739
 -project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
-|794
-|907
+|901
+|1630
+-project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
+|1216
+|1692
+-project-root$/src/omegaui/codeblaze/App.java
+|416
+|1330
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+|124
+|548
+-project-root$/src/omegaui/codeblaze/ui/component/TextInputField.java
+|1116
+|1537
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/panel/LauncherPanel.java
->Project Classpath : Required Native Libraries
--/usr/lib/jvm/ext/lib
+-project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
 >Project Classpath : Required Resource Roots
 -project-root$/res
->Project Classpath : Required Modules
--/usr/lib/jvm/ext/lib/javafx.base.jar
--/usr/lib/jvm/ext/lib/javafx.controls.jar
--/usr/lib/jvm/ext/lib/javafx.fxml.jar
--/usr/lib/jvm/ext/lib/javafx.graphics.jar
--/usr/lib/jvm/ext/lib/javafx.media.jar
--/usr/lib/jvm/ext/lib/javafx.swing.jar
--/usr/lib/jvm/ext/lib/javafx.web.jar
