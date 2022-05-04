@@ -83,7 +83,9 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		parentDirField.setEditable(false);
 		add(parentDirField);
 
-		manageTemplateComp = new TextComp("Manage Templates", HOVER, BACKGROUND, GLOW, null);
+		manageTemplateComp = new TextComp("Manage Templates", HOVER, BACKGROUND, GLOW, ()->{
+			app.getGlassPanel().putToView(GlassPanel.getTemplateManagementPanel());
+		});
 		manageTemplateComp.setImage(templateIcon, 64, 64);
 		manageTemplateComp.setArc(6, 6);
 		manageTemplateComp.setImageCoordinates(10, 70/2 - 64/2);
