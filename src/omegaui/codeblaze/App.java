@@ -1,4 +1,6 @@
 package omegaui.codeblaze;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.AppStateManager;
 
@@ -72,6 +74,8 @@ public class App extends JFrame{
 	}
 
 	public static void main(String[] args){
+		FlatLightLaf.install();
+		
 		new App();
 	}
 }

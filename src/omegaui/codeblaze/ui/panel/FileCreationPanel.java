@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.panel;
+import java.io.File;
+
 import omegaui.codeblaze.ui.component.TextInputField;
 
 
@@ -10,6 +12,8 @@ import omegaui.codeblaze.App;
 import javax.swing.JPanel;
 
 import omegaui.codeblaze.io.ResizeAware;
+import omegaui.codeblaze.io.AppInstanceProvider;
+import omegaui.codeblaze.io.AppUtils;
 
 import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
@@ -84,13 +88,14 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		add(parentDirField);
 
 		manageTemplateComp = new TextComp("Manage Templates", HOVER, BACKGROUND, GLOW, ()->{
-			app.getGlassPanel().putToView(GlassPanel.getTemplateManagementPanel());
+			AppUtils.browse(new File(".codeblaze", ".file-templates"));
 		});
 		manageTemplateComp.setImage(templateIcon, 64, 64);
 		manageTemplateComp.setArc(6, 6);
 		manageTemplateComp.setImageCoordinates(10, 70/2 - 64/2);
 		manageTemplateComp.setFont(PX16.bold());
 		manageTemplateComp.setTextAlignment(TextComp.TEXT_ALIGNMENT_RIGHT);
+		manageTemplateComp.setTextLeftAlignmentMargin(10);
 		add(manageTemplateComp);
 
 		createComp = new TextComp("Create", HOVER, BACKGROUND, GLOW, ()->{

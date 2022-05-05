@@ -1,4 +1,6 @@
 package omegaui.codeblaze.io;
+import omegaui.dynamic.database.DataBase;
+
 
 import java.io.File;
 import java.io.InputStream;
@@ -7,6 +9,8 @@ import java.io.FileOutputStream;
 public final class AppResourceManager {
 
 	public static final String ROOT_DIR_NAME = ".codeblaze";
+
+	private static DataBase appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
 
 	public static void checkResources(){
 		createDir(ROOT_DIR_NAME);
@@ -46,5 +50,9 @@ public final class AppResourceManager {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public static synchronized DataBase appDataBase(){
+		return appDataBase;
 	}
 }

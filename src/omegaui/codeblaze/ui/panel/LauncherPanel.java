@@ -4,6 +4,7 @@ import omegaui.component.TextComp;
 import omegaui.codeblaze.App;
 
 import omegaui.codeblaze.io.ResizeAware;
+import omegaui.codeblaze.io.FileManager;
 
 import javax.swing.JPanel;
 
@@ -61,7 +62,9 @@ public final class LauncherPanel extends JPanel implements ResizeAware{
 		createFileComp.setArc(6, 6);
 		add(createFileComp);
 		
-		openFileComp = new TextComp("Open a Local File", HOVER, BACKGROUND, tertiaryColor, null);
+		openFileComp = new TextComp("Open a Local File", HOVER, BACKGROUND, tertiaryColor, ()->{
+			FileManager.openFile();
+		});
 		openFileComp.setFont(PX18.bold());
 		openFileComp.setArc(6, 6);
 		add(openFileComp);

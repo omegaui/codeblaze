@@ -4,37 +4,7 @@
 -omegaui.codeblaze.App
 >Language Tag
 -0
->Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
--project-root$/src/omegaui/codeblaze/io/AppStateManager.java
--project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
--project-root$/src/omegaui/codeblaze/ui/panel/TemplateManagementPanel.java
--project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
--project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
->Caret Positions
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
-|460
-|1545
--project-root$/src/omegaui/codeblaze/io/AppStateManager.java
-|0
-|159
--project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
-|361
-|212
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
-|409
-|1094
--project-root$/src/omegaui/codeblaze/ui/panel/TemplateManagementPanel.java
-|0
-|470
--project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
-|88
-|1046
--project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
-|1449
-|2539
->Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+>Project Classpath : Required Jars
+-project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots
 -project-root$/res

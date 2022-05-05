@@ -17,32 +17,32 @@ public final class UIXManager {
 	public static PixelColor warningColor = new PixelColor(200, 103, 0);
 	public static PixelColor tertiaryColor = new PixelColor(16, 62, 110);
 
-	public static PixelColor primaryColorShade = primaryColor.withOpacity(0.4f);
-	public static PixelColor secondaryColorShade = primaryColor.withOpacity(0.4f);
-	public static PixelColor focusColorShade = primaryColor.withOpacity(0.4f);
-	public static PixelColor warningColorShade = primaryColor.withOpacity(0.4f);
-	public static PixelColor tertiaryColorShade = primaryColor.withOpacity(0.4f);
+	public static PixelColor primaryColorShade = primaryColor.withOpacity(0.2f);
+	public static PixelColor secondaryColorShade = secondaryColor.withOpacity(0.2f);
+	public static PixelColor focusColorShade = focusColor.withOpacity(0.2f);
+	public static PixelColor warningColorShade = warningColor.withOpacity(0.2f);
+	public static PixelColor tertiaryColorShade = tertiaryColor.withOpacity(0.2f);
 	
 	//Fonts
-	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12);
-	public static DynoFont PX14 = new DynoFont("Ubuntu Mono", 14);
-	public static DynoFont PX16 = new DynoFont("Ubuntu Mono", 16);
-	public static DynoFont PX18 = new DynoFont("Ubuntu Mono", 18);
-	public static DynoFont PX20 = new DynoFont("Ubuntu Mono", 20);
-	public static DynoFont PX22 = new DynoFont("Ubuntu Mono", 22);
-	public static DynoFont PX24 = new DynoFont("Ubuntu Mono", 24);
-	public static DynoFont PX26 = new DynoFont("Ubuntu Mono", 26);
-	public static DynoFont PX28 = new DynoFont("Ubuntu Mono", 28);
-	public static DynoFont PX30 = new DynoFont("Ubuntu Mono", 30);
-	public static DynoFont PX32 = new DynoFont("Ubuntu Mono", 32);
-	public static DynoFont PX34 = new DynoFont("Ubuntu Mono", 34);
-	public static DynoFont PX36 = new DynoFont("Ubuntu Mono", 36);
-	public static DynoFont PX38 = new DynoFont("Ubuntu Mono", 38);
-	public static DynoFont PX40 = new DynoFont("Ubuntu Mono", 40);
-	public static DynoFont PX42 = new DynoFont("Ubuntu Mono", 42);
-	public static DynoFont PX44 = new DynoFont("Ubuntu Mono", 44);
-	public static DynoFont PX46 = new DynoFont("Ubuntu Mono", 46);
-	public static DynoFont PX48 = new DynoFont("Ubuntu Mono", 48);
+	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12).bold();
+	public static DynoFont PX14 = new DynoFont("Ubuntu Mono", 14).bold();
+	public static DynoFont PX16 = new DynoFont("Ubuntu Mono", 16).bold();
+	public static DynoFont PX18 = new DynoFont("Ubuntu Mono", 18).bold();
+	public static DynoFont PX20 = new DynoFont("Ubuntu Mono", 20).bold();
+	public static DynoFont PX22 = new DynoFont("Ubuntu Mono", 22).bold();
+	public static DynoFont PX24 = new DynoFont("Ubuntu Mono", 24).bold();
+	public static DynoFont PX26 = new DynoFont("Ubuntu Mono", 26).bold();
+	public static DynoFont PX28 = new DynoFont("Ubuntu Mono", 28).bold();
+	public static DynoFont PX30 = new DynoFont("Ubuntu Mono", 30).bold();
+	public static DynoFont PX32 = new DynoFont("Ubuntu Mono", 32).bold();
+	public static DynoFont PX34 = new DynoFont("Ubuntu Mono", 34).bold();
+	public static DynoFont PX36 = new DynoFont("Ubuntu Mono", 36).bold();
+	public static DynoFont PX38 = new DynoFont("Ubuntu Mono", 38).bold();
+	public static DynoFont PX40 = new DynoFont("Ubuntu Mono", 40).bold();
+	public static DynoFont PX42 = new DynoFont("Ubuntu Mono", 42).bold();
+	public static DynoFont PX44 = new DynoFont("Ubuntu Mono", 44).bold();
+	public static DynoFont PX46 = new DynoFont("Ubuntu Mono", 46).bold();
+	public static DynoFont PX48 = new DynoFont("Ubuntu Mono", 48).bold();
 
 	//Icons
 	public static BufferedImage appIcon = getIcon("blaze-182");
@@ -50,6 +50,9 @@ public final class UIXManager {
 	public static BufferedImage backIcon = getIcon("back-64");
 	public static BufferedImage cancelIcon = getIcon("cancel-64");
 	public static BufferedImage fileIcon = getIcon("file-64");
+	public static BufferedImage folderIcon = getIcon("folder-50");
+	public static BufferedImage homeIcon = getIcon("home-folder-48");
+	public static BufferedImage levelUpIcon = getIcon("up-3-50");
 	public static BufferedImage templateIcon = getIcon("template-64");
 
 	//Resource Providers
