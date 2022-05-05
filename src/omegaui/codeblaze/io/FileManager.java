@@ -18,6 +18,7 @@ public final class FileManager {
 	}
 
 	public static void openFile(){
+		fileSelectionDialog.setTitle("Open a Local File");
 		LinkedList<File> files = fileSelectionDialog.selectFiles();
 		if(!files.isEmpty()){
 			CodeEditor editor = loadFile(files.get(0));
@@ -36,7 +37,7 @@ public final class FileManager {
 	}
 
 	public static void focusTo(CodeEditor editor){
-		AppInstanceProvider.getCurrentAppInstance().add(editor, BorderLayout.CENTER);
+		AppInstanceProvider.getCurrentAppInstance().add(editor.getScrollPane(), BorderLayout.CENTER);
 		AppInstanceProvider.getCurrentAppInstance().getGlassPanel().setVisible(false);
 	}
 }

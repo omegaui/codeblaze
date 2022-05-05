@@ -14,7 +14,11 @@ public final class AppResourceManager {
 
 	public static void checkResources(){
 		createDir(ROOT_DIR_NAME);
-		createDir(ROOT_DIR_NAME, ".file-templates");
+		createDir(ROOT_DIR_NAME, "templates");
+		createDir(ROOT_DIR_NAME, "compiler-scripts");
+		createDir(ROOT_DIR_NAME, "interpreter-scripts");
+		createDir(ROOT_DIR_NAME, "event-scripts");
+		createDir(ROOT_DIR_NAME, "event-scripts", "onFileSaved");
 	}
 
 	public static void createDir(String path){
