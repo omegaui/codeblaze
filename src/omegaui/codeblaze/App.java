@@ -1,4 +1,7 @@
 package omegaui.codeblaze;
+import omegaui.codeblaze.ui.component.ToolMenu;
+import omegaui.codeblaze.ui.component.BottomPane;
+
 import com.formdev.flatlaf.FlatLightLaf;
 
 import omegaui.codeblaze.io.AppInstanceProvider;
@@ -24,19 +27,18 @@ public class App extends JFrame{
 
 	private GlassPanel glassPanel;
 
+	private ToolMenu toolMenu;
+	private BottomPane bottomPane;
+
 	private App(){
 		super("CodeBlaze");
 
-		setLayout(new BorderLayout());
 		setSize(1000, 650);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		registerAppInstanceProvider();
-
-		initContentPanel();
-		initGlassUI();
 		initUI();
 
 		initState();
@@ -48,25 +50,34 @@ public class App extends JFrame{
 		AppInstanceProvider.setCurrentAppInstance(this);
 	}
 
-	private void initContentPanel(){
-		JPanel contentPanel = new JPanel(getLayout());
-		contentPanel.setBackground(BACKGROUND);
-		setBackground(BACKGROUND);
-		setContentPane(contentPanel);
-	}
-
-	private void initGlassUI(){
-		glassPanel = new GlassPanel(this);
-		setGlassPane(glassPanel);
-	}
-
 	private void initUI(){
+		toolMenu = new ToolMenu(this);
+
+		bottomPane = new BottomPane(this);
+		
 		glassPanel = new GlassPanel(this);
-		setGlassPane(glassPanel);
 	}
 
 	private void initState(){
 		AppStateManager.initAppState();
+	}
+
+	public void switchViewToGlassPane(){
+		remove(toolMenu);
+		remove(bottomPane);
+		add(glassPanel, BorderLayout.CENTER);
+		doLayout();
+		getContentPane().setVisible(false);
+		getContentPane().setVisible(true);
+	}
+
+	public void switchViewToContentPane(){
+		add(toolMenu, BorderLayout.NORTH);
+		add(bottomPane, BorderLayout.SOUTH);
+		remove(glassPanel);
+		doLayout();
+		getContentPane().setVisible(false);
+		getContentPane().setVisible(true);
 	}
 
 	public omegaui.codeblaze.ui.panel.GlassPanel getGlassPanel() {
@@ -75,7 +86,7 @@ public class App extends JFrame{
 
 	public static void main(String[] args){
 		FlatLightLaf.install();
-		
+
 		new App();
 	}
 }

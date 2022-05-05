@@ -2,6 +2,7 @@ package omegaui.codeblaze.ui.panel;
 import java.io.File;
 
 import omegaui.codeblaze.ui.component.TextInputField;
+import omegaui.codeblaze.ui.component.MessagePane;
 
 
 import omegaui.component.TextComp;
@@ -36,6 +37,8 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 	private TextComp manageTemplateComp;
 	
 	private TextComp createComp;
+
+	private MessagePane messagePane;
 
 	public FileCreationPanel(App app){
 		this.app = app;
@@ -105,6 +108,9 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		createComp.setArc(6, 6);
 		add(createComp);
 
+		messagePane = new MessagePane();
+		add(messagePane);
+
 		putAnimationLayer(closeComp, getImageSizeAnimationLayer(20, +5, true), ACTION_MOUSE_ENTERED);
 	}
 
@@ -126,6 +132,8 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 
 		manageTemplateComp.setBounds(getWidth()/2 - 220/2, getHeight()/2, 220, 70);
 		createComp.setBounds(getWidth()/2 - 100/2, getHeight() - 100, 100, 30);
+
+		messagePane.setBounds(0, getHeight() - 30, getWidth(), 30);
 	}
 
 	@Override

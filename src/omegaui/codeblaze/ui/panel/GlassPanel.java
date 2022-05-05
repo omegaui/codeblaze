@@ -30,10 +30,14 @@ public final class GlassPanel extends JPanel {
 	}
 
 	public void initUI(){
+
+		setBackground(BACKGROUND);
+		
 		launcherPanel = new LauncherPanel(app);
 		fileCreationPanel = new FileCreationPanel(app);
-		
+
 		putToView(launcherPanel);
+		
 	}
 
 	public void putToView(JPanel panel){
