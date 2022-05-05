@@ -101,9 +101,7 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		manageTemplateComp.setTextLeftAlignmentMargin(10);
 		add(manageTemplateComp);
 
-		createComp = new TextComp("Create", HOVER, BACKGROUND, GLOW, ()->{
-			validateProvidedData();
-		});
+		createComp = new TextComp("Create", HOVER, BACKGROUND, GLOW, this::validateProvidedData);
 		createComp.setFont(PX18.bold());
 		createComp.setArc(6, 6);
 		add(createComp);
