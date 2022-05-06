@@ -80,6 +80,10 @@ public class App extends JFrame{
 		getContentPane().setVisible(true);
 	}
 
+	public void exit(){
+		dispose();
+	}
+
 	public omegaui.codeblaze.ui.panel.GlassPanel getGlassPanel() {
 		return glassPanel;
 	}

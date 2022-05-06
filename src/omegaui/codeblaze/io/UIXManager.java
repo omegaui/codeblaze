@@ -49,6 +49,8 @@ public final class UIXManager {
 	public static DynoFont PX44 = new DynoFont("Ubuntu Mono", 44).bold();
 	public static DynoFont PX46 = new DynoFont("Ubuntu Mono", 46).bold();
 	public static DynoFont PX48 = new DynoFont("Ubuntu Mono", 48).bold();
+	
+	public static DynoFont UBUNTU_PX12 = new DynoFont("Ubuntu", 12).bold();
 
 	//Icons
 	public static BufferedImage appIcon = getIcon("blaze-182");

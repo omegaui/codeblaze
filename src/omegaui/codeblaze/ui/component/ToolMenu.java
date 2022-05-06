@@ -3,6 +3,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import omegaui.codeblaze.io.ResizeAware;
+import omegaui.codeblaze.io.AppInstanceProvider;
 
 import omegaui.component.TextComp;
 
@@ -32,6 +33,8 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 	private Menu settingsMenu;
 	private Menu helpMenu;
 
+	private MaterialPopup filePopup;
+
 	public ToolMenu(App app){
 		this.app = app;
 		setPreferredSize(new Dimension(100, 80));
@@ -47,14 +50,21 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		iconComp.setClickable(false);
 		add(iconComp);
 
-		fileMenu = new Menu("File");
+		filePopup = new MaterialPopup();
+		filePopup.createItem("Create a New File", "Ctrl + N", ()->{})
+				 .createItem("Open a Local File", "Ctrl + SHIFT + N", ()->{})
+				 .createItem("Recent Files", "Ctrl + SHIFT + R", ()->{})
+				 .createItem("Exit", AppInstanceProvider.getCurrentAppInstance()::exit);
+		fileMenu = new Menu(filePopup, "File");
 		add(fileMenu);
 
-		settingsMenu = new Menu("Settings");
-		add(settingsMenu);
+//		settingsMenu = new Menu("Settings");
+//		add(settingsMenu);
 
-		helpMenu = new Menu("Help");
-		add(helpMenu);
+//		helpMenu = new Menu("Help");
+//		add(helpMenu);
+
+		
 	}
 
 	@Override
@@ -62,8 +72,8 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		iconComp.setBounds(0, 0, 40, 40);
 
 		fileMenu.setBounds(45, 8, 50, 25);
-		settingsMenu.setBounds(95, 8, 65, 25);
-		helpMenu.setBounds(160, 8, 50, 25);
+//		settingsMenu.setBounds(95, 8, 65, 25);
+//		helpMenu.setBounds(160, 8, 50, 25);
 	}
 
 	@Override
@@ -77,15 +87,13 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		
 		private String text;
 
-//		private OPopupWindow popup;
+		private MaterialPopup popup;
 		
 		private volatile boolean enter;
 		
-		public Menu(
-//			OPopupWindow popup, 
-			String text) {
+		public Menu(MaterialPopup popup, String text) {
 			this.text = text;
-//			this.popup = popup;
+			this.popup = popup;
 			setFont(PX14);
 			setSize(100, ToolMenu.this.getHeight());
 			setPreferredSize(getSize());
@@ -108,12 +116,12 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		}
 
 		public void showPopup(){
-//			if(popup.isVisible()){
-//				popup.setVisible(false);
-//				return;
-//			}
-//			popup.setLocation(getX() + screen.getX(), getY() + getHeight() + 15 + getHeight() + screen.getY());
-//			popup.setVisible(true);
+			if(popup.isVisible()){
+				popup.setVisible(false);
+				return;
+			}
+			popup.setLocation(getX() + AppInstanceProvider.getCurrentAppInstance().getX(), getY() + getHeight() + 15 + getHeight() + AppInstanceProvider.getCurrentAppInstance().getY());
+			popup.setVisible(true);
 		}
 		
 		@Override
