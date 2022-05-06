@@ -1,4 +1,6 @@
 package omegaui.codeblaze.io;
+import java.awt.Color;
+
 import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
@@ -22,6 +24,10 @@ public final class UIXManager {
 	public static PixelColor focusColorShade = focusColor.withOpacity(0.2f);
 	public static PixelColor warningColorShade = warningColor.withOpacity(0.2f);
 	public static PixelColor tertiaryColorShade = tertiaryColor.withOpacity(0.2f);
+	
+	public static PixelColor back1 = new PixelColor(Color.decode("#f3f3f3"));
+	public static PixelColor back2 = new PixelColor(Color.decode("#fcfcfc"));
+	public static PixelColor back3 = new PixelColor(Color.decode("#eaeaea"));
 	
 	//Fonts
 	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12).bold();

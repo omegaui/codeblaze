@@ -24,6 +24,10 @@ import java.awt.image.ColorModel;
 
 public class PixelColor extends Color {
 
+	public PixelColor(Color color){
+		this(color.getRGB());
+	}
+
     /**
      * Creates an opaque sRGB color with the specified red, green,
      * and blue values in the range (0 - 255).
