@@ -1,9 +1,13 @@
 package omegaui.codeblaze.ui.component;
+import omegaui.codeblaze.ui.panel.GlassPanel;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
 
 import omegaui.codeblaze.io.ResizeAware;
 import omegaui.codeblaze.io.AppInstanceProvider;
+import omegaui.codeblaze.io.FileManager;
 
 import omegaui.component.TextComp;
 
@@ -30,10 +34,12 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 	private TextComp iconComp;
 
 	private Menu fileMenu;
-	private Menu settingsMenu;
+	private Menu viewMenu;
 	private Menu helpMenu;
 
 	private MaterialPopup filePopup;
+	private MaterialPopup viewPopup;
+	private MaterialPopup helpPopup;
 
 	public ToolMenu(App app){
 		this.app = app;
@@ -51,20 +57,37 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		add(iconComp);
 
 		filePopup = new MaterialPopup();
-		filePopup.createItem("Create a New File", "Ctrl + N", ()->{})
-				 .createItem("Open a Local File", "Ctrl + SHIFT + N", ()->{})
-				 .createItem("Recent Files", "Ctrl + SHIFT + R", ()->{})
-				 .createItem("Exit", AppInstanceProvider.getCurrentAppInstance()::exit);
+		filePopup
+		.createItem("Create a New File", "Ctrl + N", ()->{
+			app.switchViewToGlassPane();
+			app.getGlassPanel().putToView(GlassPanel.getFileCreationPanel());
+		})
+		.createItem("Open a Local File", "Ctrl + SHIFT + N", ()->{
+			FileManager.openFile();
+		})
+		.createItem("Recent Files", "Ctrl + SHIFT + R", ()->{
+			
+		})
+		.createItem("Exit", AppInstanceProvider.getCurrentAppInstance()::exit);
 		fileMenu = new Menu(filePopup, "File");
+		filePopup.setContextMenuVisiblityShortcut(KeyEvent.VK_F, fileMenu::showPopup);
 		add(fileMenu);
 
-//		settingsMenu = new Menu("Settings");
-//		add(settingsMenu);
+		viewPopup = new MaterialPopup();
+		viewPopup.createItem("Enter Focus Mode", "Ctrl + SHIFT + T", ()->{});
+		viewMenu = new Menu(viewPopup, "View");
+		viewPopup.setContextMenuVisiblityShortcut(KeyEvent.VK_V, viewMenu::showPopup);
+		add(viewMenu);
 
-//		helpMenu = new Menu("Help");
-//		add(helpMenu);
-
-		
+		helpPopup = new MaterialPopup();
+		helpPopup.createItem("How to Manage Templates?", ()->{})
+		.createItem("How to Manage Compile Script?", ()->{})
+		.createItem("How to Manage Execution Script?", ()->{})
+		.createItem("How to Add Event Scripts?", ()->{})
+		.createItem("About", ()->{});
+		helpMenu = new Menu(helpPopup, "Help");
+		helpPopup.setContextMenuVisiblityShortcut(KeyEvent.VK_H, helpMenu::showPopup);
+		add(helpMenu);
 	}
 
 	@Override
@@ -72,8 +95,8 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		iconComp.setBounds(0, 0, 40, 40);
 
 		fileMenu.setBounds(45, 8, 50, 25);
-//		settingsMenu.setBounds(95, 8, 65, 25);
-//		helpMenu.setBounds(160, 8, 50, 25);
+		viewMenu.setBounds(95, 8, 50, 25);
+		helpMenu.setBounds(145, 8, 50, 25);
 	}
 
 	@Override
@@ -81,16 +104,16 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		super.layout();
 		manageBounds();
 	}
-	
+
 
 	public class Menu extends JComponent {
-		
+
 		private String text;
 
 		private MaterialPopup popup;
-		
+
 		private volatile boolean enter;
-		
+
 		public Menu(MaterialPopup popup, String text) {
 			this.text = text;
 			this.popup = popup;
@@ -123,7 +146,7 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 			popup.setLocation(getX() + AppInstanceProvider.getCurrentAppInstance().getX(), getY() + getHeight() + 15 + getHeight() + AppInstanceProvider.getCurrentAppInstance().getY());
 			popup.setVisible(true);
 		}
-		
+
 		@Override
 		public void paint(Graphics g2D) {
 			Graphics2D g = (Graphics2D)g2D;

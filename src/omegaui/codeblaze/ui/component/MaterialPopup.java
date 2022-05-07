@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.component;
+import omegaui.listener.KeyStrokeListener;
+
 import java.util.LinkedList;
 
 import java.awt.event.FocusListener;
@@ -17,9 +19,15 @@ import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
 import static omegaui.component.animation.Animations.*;
 
-public final class MaterialPopup extends JDialog implements FocusListener{
+import static java.awt.event.KeyEvent.*;
+
+public final class MaterialPopup extends JDialog implements FocusListener {
+
+	private int contextMenuVisiblityShortcut;
 
 	private LinkedList<MaterialPopupItem> items = new LinkedList<>();
+
+	private int pointer;
 
 	public MaterialPopup(){
 		super(AppInstanceProvider.getCurrentAppInstance(), false);
@@ -27,7 +35,9 @@ public final class MaterialPopup extends JDialog implements FocusListener{
 		setType(Type.POPUP);
 		setLayout(null);
 		setResizable(false);
+		setSize(400, 400);
 		initUI();
+		initKeyStrokeListener();
 	}
 
 	public void initUI(){
@@ -36,6 +46,46 @@ public final class MaterialPopup extends JDialog implements FocusListener{
 		setBackground(BACKGROUND);
 		panel.setBackground(BACKGROUND);
 		addFocusListener(this);
+	}
+
+	public void initKeyStrokeListener(){
+		KeyStrokeListener listener = new KeyStrokeListener(this);
+		listener.putKeyStroke((e)->{
+			if(pointer - 1 >= 0){
+				items.get(pointer--).setEnter(false);
+				items.get(pointer).setEnter(true);
+			}
+		}, VK_UP).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT).useAutoReset();
+		listener.putKeyStroke((e)->{
+			if(pointer + 1 < items.size()){
+				items.get(pointer++).setEnter(false);
+				items.get(pointer).setEnter(true);
+			}
+		}, VK_DOWN).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT).useAutoReset();
+		listener.putKeyStroke((e)->{
+			items.get(pointer).doClick();
+		}, VK_ENTER).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT).useAutoReset();
+		listener.putKeyStroke((e)->{
+			setVisible(false);
+		}, VK_H).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT).useAutoReset();
+		addKeyListener(listener);
+	}
+
+	public int getContextMenuVisiblityShortcut() {
+		return contextMenuVisiblityShortcut;
+	}
+	
+	public void setContextMenuVisiblityShortcut(int contextMenuVisiblityShortcut, Runnable visiblityAction) {
+		this.contextMenuVisiblityShortcut = contextMenuVisiblityShortcut;
+		AppInstanceProvider.getCurrentAppInstance().getAppWideKeyStrokeListener().putKeyStroke((e)->{
+			visiblityAction.run();
+		}, VK_ALT, contextMenuVisiblityShortcut).setStopKeys(VK_CONTROL, VK_SHIFT);
+	}
+	
+
+	public MaterialPopup width(int w){
+		setSize(w, 400);
+		return this;
 	}
 
 	public MaterialPopup createItem(String text, Runnable action){
@@ -64,15 +114,16 @@ public final class MaterialPopup extends JDialog implements FocusListener{
 	@Override
 	public void setVisible(boolean value){
 		if(value){
-			setSize(400, items.size() * 30 + ((items.size() - 1) * 5) + 10);
+			setSize(getWidth(), items.size() * 30 + ((items.size() - 1) * 5) + 10);
 			relocate();
+			items.get(pointer = 0).setEnter(true);
 		}
 		super.setVisible(value);
 	}
 
 	@Override
 	public void focusGained(FocusEvent focusEvent) {
-
+		
 	}
 
 	@Override

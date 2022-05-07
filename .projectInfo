@@ -11,27 +11,31 @@
 -project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
 -project-root$/src/omegaui/codeblaze/App.java
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
+-project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
 >Caret Positions
 -project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
-|670
-|1148
+|1134
+|2460
 -project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
-|630
-|845
+|935
+|1643
 -project-root$/src/omegaui/codeblaze/io/AppStateManager.java
 |0
 |388
 -project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
-|649
-|1473
+|953
+|2059
 -project-root$/src/omegaui/codeblaze/App.java
-|838
-|1573
+|308
+|2968
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
-|691
+|432
 |2838
+-project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
+|355
+|769
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
+-project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots

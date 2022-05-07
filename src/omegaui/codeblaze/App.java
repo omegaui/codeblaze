@@ -1,4 +1,8 @@
 package omegaui.codeblaze;
+import java.awt.event.KeyEvent;
+
+import omegaui.listener.KeyStrokeListener;
+
 import omegaui.codeblaze.ui.component.ToolMenu;
 import omegaui.codeblaze.ui.component.BottomPane;
 
@@ -15,6 +19,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.Insets;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,6 +36,8 @@ public class App extends JFrame{
 	private ToolMenu toolMenu;
 	private BottomPane bottomPane;
 
+	private KeyStrokeListener appWideKeyStrokeListener;
+
 	private App(){
 		super("CodeBlaze");
 
@@ -39,6 +47,8 @@ public class App extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		registerAppInstanceProvider();
+		
+		initAppWideKeyStrokeListener();
 		initUI();
 
 		initState();
@@ -48,6 +58,29 @@ public class App extends JFrame{
 
 	private void registerAppInstanceProvider(){
 		AppInstanceProvider.setCurrentAppInstance(this);
+	}
+
+	private void initAppWideKeyStrokeListener(){
+		appWideKeyStrokeListener = new KeyStrokeListener(this);
+		
+		KeyEventDispatcher dispatcher = new KeyEventDispatcher(){
+			@Override
+	        public boolean dispatchKeyEvent(KeyEvent e) {
+	        	if (e.getID() == KeyEvent.KEY_PRESSED) {
+                	appWideKeyStrokeListener.keyPressed(e);
+	            } 
+	            else if (e.getID() == KeyEvent.KEY_RELEASED) {
+	                appWideKeyStrokeListener.keyReleased(e);
+	            }
+	            else if (e.getID() == KeyEvent.KEY_TYPED) {
+	                appWideKeyStrokeListener.keyTyped(e);
+	            }
+	            return false;
+	        }
+		};
+		
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(dispatcher);
 	}
 
 	private void initUI(){
@@ -84,6 +117,10 @@ public class App extends JFrame{
 		dispose();
 	}
 
+	public omegaui.listener.KeyStrokeListener getAppWideKeyStrokeListener() {
+		return appWideKeyStrokeListener;
+	}
+	
 	public omegaui.codeblaze.ui.panel.GlassPanel getGlassPanel() {
 		return glassPanel;
 	}

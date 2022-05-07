@@ -62,6 +62,14 @@ public final class MaterialPopupItem extends JComponent{
 		add(itemNameComp);
 	}
 
+	public void doClick(){
+		itemNameComp.runnable.run();
+	}
+
+	public void setEnter(boolean value){
+		itemNameComp.setEnter(value);
+	}
+	
 	@Override
 	public void layout(){
 		itemNameComp.setBounds(0, 0, getWidth(), getHeight());
