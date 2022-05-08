@@ -43,7 +43,7 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 
 	public ToolMenu(App app){
 		this.app = app;
-		setPreferredSize(new Dimension(100, 80));
+		setPreferredSize(new Dimension(100, 60));
 		initUI();
 	}
 

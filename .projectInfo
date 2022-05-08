@@ -5,45 +5,41 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/io/AppStateManager.java
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
--project-root$/src/omegaui/codeblaze/App.java
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
--project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
--project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
--project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabCompHolderPanel.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabHolder.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabsHolderPanel.java
+-project-root$/src/omegaui/codeblaze/ui/component/TabComp.java
+-project-root$/src/omegaui/codeblaze/io/TabData.java
+-project-root$/src/omegaui/codeblaze/io/TabHistory.java
+-project-root$/src/omegaui/codeblaze/ui/listener/TabPanelListener.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/io/AppStateManager.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabCompHolderPanel.java
+|475
+|1459
+-project-root$/src/omegaui/codeblaze/ui/panel/TabHolder.java
+|355
+|1466
+-project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
+|2475
+|4699
+-project-root$/src/omegaui/codeblaze/ui/panel/TabsHolderPanel.java
 |0
-|262
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
-|885
-|2059
--project-root$/src/omegaui/codeblaze/App.java
-|208
-|2229
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
-|432
-|2838
--project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
+|2266
+-project-root$/src/omegaui/codeblaze/ui/component/TabComp.java
+|268
+|816
+-project-root$/src/omegaui/codeblaze/io/TabData.java
+|239
+|840
+-project-root$/src/omegaui/codeblaze/io/TabHistory.java
 |295
-|769
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
-|1658
-|3364
--project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
-|446
-|772
--project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+|826
+-project-root$/src/omegaui/codeblaze/ui/listener/TabPanelListener.java
 |0
-|565
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
-|298
-|1133
+|844
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots

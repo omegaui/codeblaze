@@ -1,10 +1,14 @@
 package omegaui.codeblaze.ui.component;
+import java.awt.Component;
+
 import omegaui.listener.KeyStrokeListener;
 
 import java.util.LinkedList;
 
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import java.awt.geom.RoundRectangle2D;
 
@@ -108,6 +112,38 @@ public final class MaterialPopup extends JDialog implements FocusListener {
 			items.get(i).setBounds(blockX, blockY, blockW, blockH);
 			blockY += 5 + blockH;
 		}
+	}
+	
+	public void invokeOnMouseLeftPress(Component c, Runnable onPress){
+		invokeOnMouseLeftPress(this, c, onPress);
+	}
+
+	public void invokeOnMouseRightPress(Component c, Runnable onPress){
+		invokeOnMouseRightPress(this, c, onPress);
+	}
+
+	public static void invokeOnMouseLeftPress(MaterialPopup popup, Component c, Runnable onPress){
+		c.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e){
+				onPress.run();
+				popup.setLocation(e.getLocationOnScreen());
+				popup.setVisible(true);
+			}
+		});
+	}
+
+	public static void invokeOnMouseRightPress(MaterialPopup popup, Component c, Runnable onPress){
+		c.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e){
+				if(e.getButton() == 3){
+					onPress.run();
+					popup.setLocation(e.getLocationOnScreen());
+					popup.setVisible(true);
+				}
+			}
+		});
 	}
 
 	@Override

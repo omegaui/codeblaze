@@ -1,5 +1,10 @@
 package omegaui.codeblaze.io;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Graphics;
+import java.awt.Component;
 
 import javax.imageio.ImageIO;
 
@@ -8,6 +13,12 @@ import java.awt.image.BufferedImage;
 import omegaui.paint.DynoFont;
 import omegaui.paint.PixelColor;
 public final class UIXManager {
+	//Image Object to be used for computing text dimension.
+	public static BufferedImage testImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+
+	//App Variables
+	public static int tabHeight = 30;
+	
 	//Colors
 	public static PixelColor BACKGROUND = new PixelColor(255, 255, 255);
 	public static PixelColor GLOW = new PixelColor(80, 80, 80);
@@ -51,6 +62,8 @@ public final class UIXManager {
 	public static DynoFont PX48 = new DynoFont("Ubuntu Mono", 48).bold();
 	
 	public static DynoFont UBUNTU_PX12 = new DynoFont("Ubuntu", 12).bold();
+	public static DynoFont UBUNTU_PX14 = new DynoFont("Ubuntu", 14).bold();
+	public static DynoFont UBUNTU_PX16 = new DynoFont("Ubuntu", 16).bold();
 
 	//Icons
 	public static BufferedImage appIcon = getIcon("blaze-182");
@@ -63,6 +76,38 @@ public final class UIXManager {
 	public static BufferedImage homeIcon = getIcon("home-folder-48");
 	public static BufferedImage levelUpIcon = getIcon("up-3-50");
 	public static BufferedImage templateIcon = getIcon("template-64");
+	public static BufferedImage tabsIcon = getIcon("apps-tab-96");
+
+	//Drawers
+	
+	public static int computeWidth(String name, Font font){
+		if(font == null)
+			return 8;
+		Graphics2D g = (Graphics2D)testImage.getGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g.setFont(font);
+		return g.getFontMetrics().stringWidth(name);
+	}
+
+	public static int computeHeight(Font font){
+		if(font == null)
+			return 8;
+		Graphics g = testImage.getGraphics();
+		g.setFont(font);
+		return g.getFontMetrics().getHeight();
+	}
+
+	public static void drawAtCenter(String text, Graphics2D g, Component c){
+		g.drawString(text, c.getWidth()/2 - computeWidth(text, g.getFont())/2,
+		c.getHeight()/2 - computeHeight(g.getFont())/2 + g.getFontMetrics().getAscent() - g.getFontMetrics().getDescent() + 1);
+	}
+
+
+	//Theme Providers
+	public static boolean isDarkMode(){
+		return false;
+	}
 
 	//Resource Providers
 	public static synchronized BufferedImage getIcon(String name){

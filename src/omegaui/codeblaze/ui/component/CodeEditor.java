@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.Theme;
 
 import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
@@ -37,8 +38,10 @@ public class CodeEditor extends RSyntaxTextArea {
 
 	public void initUI(){
 		setAutoscrolls(true);
+		loadTheme();
+		
 		setFont(new Font("JetBrains Mono", Font.PLAIN, 15));
-
+		
 		scrollPane = new RTextScrollPane(this);
 		scrollPane.setLineNumbersEnabled(true);
 		scrollPane.getGutter().setCurrentLineNumberColor(Color.BLACK);
@@ -158,6 +161,19 @@ public class CodeEditor extends RSyntaxTextArea {
 		}
 	}
 
+	public void loadTheme(){
+		try{
+			Theme.load(getClass().getResourceAsStream("/editor-themes/light.xml"), getFont()).apply(this);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public java.io.File getFile() {
+		return file;
+	}
+	
 	public RTextScrollPane getScrollPane(){
 		return scrollPane;
 	}

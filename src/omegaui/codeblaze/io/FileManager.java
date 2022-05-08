@@ -8,6 +8,11 @@ import java.io.File;
 import omegaui.codeblaze.ui.component.CodeEditor;
 
 import java.util.LinkedList;
+
+import static omegaui.codeblaze.io.UIXManager.*;
+import static omegaui.codeblaze.io.AppDataProvider.*;
+import static omegaui.component.animation.Animations.*;
+
 public final class FileManager {
 	
 	private static LinkedList<CodeEditor> codeEditors = new LinkedList<>();
@@ -21,9 +26,11 @@ public final class FileManager {
 		fileSelectionDialog.setTitle("Open a Local File");
 		LinkedList<File> files = fileSelectionDialog.selectFiles();
 		if(!files.isEmpty()){
-			CodeEditor editor = loadFile(files.get(0));
-			if(editor != null)
-				focusTo(editor);
+			for(File file : files){
+				CodeEditor editor = loadFile(file);
+				if(editor != null)
+					addNewEditor(editor);
+			}
 		}
 	}
 
@@ -36,9 +43,22 @@ public final class FileManager {
 		return null;
 	}
 
-	public static void focusTo(CodeEditor editor){
-		AppInstanceProvider.getCurrentAppInstance().add(editor.getScrollPane(), BorderLayout.CENTER);
+	public static void addNewEditor(CodeEditor editor){
+		AppInstanceProvider.getCurrentAppInstance().getTabPanel().addTab(
+			editor.getFile().getName(), 
+			editor.getFile().getAbsolutePath(), 
+			editor.getFile().getAbsolutePath(), 
+			fileIcon, 
+			editor.getScrollPane(), 
+			tertiaryColor, 
+			null, 
+			null
+		);
 		
 		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
+	}
+
+	public static void removeCodeEditor(CodeEditor editor){
+		codeEditors.remove(editor);
 	}
 }

@@ -12,6 +12,8 @@ import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.AppStateManager;
 
 import omegaui.codeblaze.ui.panel.GlassPanel;
+import omegaui.codeblaze.ui.panel.SplitPanel;
+import omegaui.codeblaze.ui.panel.TabPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -31,12 +33,20 @@ import static omegaui.codeblaze.io.UIXManager.*;
 
 public class App extends JFrame{
 
+	public static final int CONTENT_VIEW = 1;
+	public static final int GLASS_VIEW = 2;
+	
+	private int viewState = -1;
+
 	private GlassPanel glassPanel;
 
 	private ToolMenu toolMenu;
 	private BottomPane bottomPane;
 
 	private KeyStrokeListener appWideKeyStrokeListener;
+
+	private SplitPanel splitPanel;
+	private TabPanel tabPanel;
 
 	private App(){
 		super("CodeBlaze");
@@ -89,6 +99,11 @@ public class App extends JFrame{
 		bottomPane = new BottomPane(this);
 		
 		glassPanel = new GlassPanel(this);
+
+		tabPanel = new TabPanel(TabPanel.TAB_LOCATION_TOP);
+
+		splitPanel = new SplitPanel(SplitPanel.VERTICAL_SPLIT);
+		splitPanel.setTopComponent(tabPanel);
 	}
 
 	private void initState(){
@@ -96,8 +111,10 @@ public class App extends JFrame{
 	}
 
 	public void switchViewToGlassPane(){
+		viewState = GLASS_VIEW;
 		remove(toolMenu);
 		remove(bottomPane);
+		remove(splitPanel);
 		add(glassPanel, BorderLayout.CENTER);
 		doLayout();
 		getContentPane().setVisible(false);
@@ -105,9 +122,11 @@ public class App extends JFrame{
 	}
 
 	public void switchViewToContentPane(){
+		viewState = CONTENT_VIEW;
+		remove(glassPanel);
 		add(toolMenu, BorderLayout.NORTH);
 		add(bottomPane, BorderLayout.SOUTH);
-		remove(glassPanel);
+		add(splitPanel, BorderLayout.CENTER);
 		doLayout();
 		getContentPane().setVisible(false);
 		getContentPane().setVisible(true);
@@ -123,6 +142,14 @@ public class App extends JFrame{
 	
 	public omegaui.codeblaze.ui.panel.GlassPanel getGlassPanel() {
 		return glassPanel;
+	}
+
+	public omegaui.codeblaze.ui.panel.TabPanel getTabPanel() {
+		return tabPanel;
+	}
+
+	public int getViewState() {
+		return viewState;
 	}
 
 	public static void main(String[] args){
