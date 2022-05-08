@@ -91,7 +91,7 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		add(parentDirField);
 
 		manageTemplateComp = new TextComp("Manage Templates", HOVER, BACKGROUND, GLOW, ()->{
-			AppUtils.browse(new File(".codeblaze", ".file-templates"));
+			AppUtils.browse(new File(".codeblaze", "templates"));
 		});
 		manageTemplateComp.setImage(templateIcon, 64, 64);
 		manageTemplateComp.setArc(6, 6);
@@ -122,11 +122,14 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		titleComp.setBounds(getWidth()/2 - 300/2, 50, 300, 50);
 		closeComp.setBounds(getWidth() - 50 - 40, 52, 40, 40);
 
-		fileNameLabel.setBounds(titleComp.getX() - 200, 150, 250, 30);
-		fileNameField.setBounds(titleComp.getX() + 70, 150, getWidth()/3, 30);
+		int width = 250 + getWidth()/3;
+		int x = getWidth()/2 - width/2;
+		
+		fileNameLabel.setBounds(x, 150, 250, 30);
+		fileNameField.setBounds(x + fileNameLabel.getWidth() + 10, 150, getWidth()/3, 30);
 
-		parentDirLabel.setBounds(titleComp.getX() - 200, 200, 250, 30);
-		parentDirField.setBounds(titleComp.getX() + 70, 200, getWidth()/3, 30);
+		parentDirLabel.setBounds(x, 200, 250, 30);
+		parentDirField.setBounds(x + parentDirLabel.getWidth() + 10, 200, getWidth()/3, 30);
 
 		manageTemplateComp.setBounds(getWidth()/2 - 220/2, getHeight()/2, 220, 70);
 		createComp.setBounds(getWidth()/2 - 100/2, getHeight() - 100, 100, 30);

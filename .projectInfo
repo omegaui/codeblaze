@@ -5,37 +5,45 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
--project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
 -project-root$/src/omegaui/codeblaze/io/AppStateManager.java
 -project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
 -project-root$/src/omegaui/codeblaze/App.java
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
 -project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
->Caret Positions
 -project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
-|1134
-|2460
 -project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
-|935
-|1643
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+>Caret Positions
 -project-root$/src/omegaui/codeblaze/io/AppStateManager.java
 |0
-|388
+|262
 -project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
-|953
+|885
 |2059
 -project-root$/src/omegaui/codeblaze/App.java
-|308
-|2968
+|208
+|2229
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
 |432
 |2838
 -project-root$/src/omegaui/codeblaze/ui/panel/GlassPanel.java
-|355
+|295
 |769
->Last Active Editor
 -project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
+|1658
+|3364
+-project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
+|446
+|772
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+|0
+|565
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+|298
+|1133
+>Last Active Editor
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots

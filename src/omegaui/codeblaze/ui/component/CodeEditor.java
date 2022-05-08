@@ -1,4 +1,7 @@
 package omegaui.codeblaze.ui.component;
+import java.awt.Font;
+import java.awt.Color;
+
 import omegaui.listener.KeyStrokeListener;
 
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -34,11 +37,13 @@ public class CodeEditor extends RSyntaxTextArea {
 
 	public void initUI(){
 		setAutoscrolls(true);
+		setFont(new Font("JetBrains Mono", Font.PLAIN, 15));
 
 		scrollPane = new RTextScrollPane(this);
 		scrollPane.setLineNumbersEnabled(true);
-		scrollPane.getGutter().setCurrentLineNumberColor(GLOW);
-		scrollPane.getGutter().setLineNumberColor(HOVER.withOpacity(1f));
+		scrollPane.getGutter().setCurrentLineNumberColor(Color.BLACK);
+		scrollPane.getGutter().setLineNumberColor(GLOW);
+		scrollPane.getGutter().setLineNumberFont(getFont());
 	}
 
 	public void initKeyListener(){

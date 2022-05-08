@@ -57,8 +57,7 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		add(iconComp);
 
 		filePopup = new MaterialPopup();
-		filePopup
-		.createItem("Create a New File", "Ctrl + N", ()->{
+		filePopup.createItem("Create a New File", "Ctrl + N", ()->{
 			app.switchViewToGlassPane();
 			app.getGlassPanel().putToView(GlassPanel.getFileCreationPanel());
 		})
@@ -66,6 +65,12 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 			FileManager.openFile();
 		})
 		.createItem("Recent Files", "Ctrl + SHIFT + R", ()->{
+			
+		})
+		.createItem("Save All Editors", "Ctrl + Alt + S", ()->{
+			
+		})
+		.createItem("Close All Editors", "Ctrl + Alt + X", ()->{
 			
 		})
 		.createItem("Exit", AppInstanceProvider.getCurrentAppInstance()::exit);

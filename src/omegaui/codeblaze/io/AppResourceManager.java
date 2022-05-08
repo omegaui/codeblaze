@@ -1,4 +1,7 @@
 package omegaui.codeblaze.io;
+import java.awt.GraphicsEnvironment;
+import java.awt.Font;
+
 import omegaui.dynamic.database.DataBase;
 
 
@@ -13,6 +16,21 @@ public final class AppResourceManager {
 	private static DataBase appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
 
 	public static void checkResources(){
+		//Installing Fonts
+
+		try{
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, AppResourceManager.class.getResourceAsStream("/Ubuntu-Bold.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, AppResourceManager.class.getResourceAsStream("/UbuntuMono-Bold.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, AppResourceManager.class.getResourceAsStream("/JetBrainsMono-Regular.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, AppResourceManager.class.getResourceAsStream("/JetBrainsMono-Bold.ttf")));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
+		//Creating up configuration structure
+		
 		createDir(ROOT_DIR_NAME);
 		createDir(ROOT_DIR_NAME, "templates");
 		createDir(ROOT_DIR_NAME, "compiler-scripts");
@@ -32,7 +50,7 @@ public final class AppResourceManager {
 		for(String px : path)
 			pathx += px + File.separator;
 		pathx = pathx.substring(0, pathx.length() - 1);
-		
+
 		File dir = new File(pathx);
 		if(!dir.exists())
 			dir.mkdir();
@@ -42,7 +60,7 @@ public final class AppResourceManager {
 		try{
 			String targetDir = targetPath.substring(0, targetPath.lastIndexOf(File.separatorChar));
 			createDir(targetDir);
-			
+
 			FileOutputStream out = new FileOutputStream(targetPath);
 			InputStream in = AppResourceManager.class.getResourceAsStream(resourcePath);
 			while(in.available() > 0){

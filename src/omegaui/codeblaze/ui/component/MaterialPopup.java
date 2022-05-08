@@ -82,7 +82,6 @@ public final class MaterialPopup extends JDialog implements FocusListener {
 		}, VK_ALT, contextMenuVisiblityShortcut).setStopKeys(VK_CONTROL, VK_SHIFT);
 	}
 	
-
 	public MaterialPopup width(int w){
 		setSize(w, 400);
 		return this;
