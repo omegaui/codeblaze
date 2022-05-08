@@ -6,10 +6,9 @@ public final class AppStateManager {
 		
 		AppResourceManager.checkResources();
 		
-//		AppInstanceProvider.getCurrentAppInstance().switchViewToGlassPane();
-//		AppInstanceProvider.getCurrentAppInstance().getGlassPanel().putToView(GlassPanel.getLauncherPanel());
+		AppInstanceProvider.getCurrentAppInstance().switchViewToGlassPane();
 
-		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
+//		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
 		
 	}
 	

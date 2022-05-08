@@ -11,7 +11,10 @@ import java.io.FileOutputStream;
 
 public final class AppResourceManager {
 
+	public static final String USER_HOME = System.getProperty("user.home");
+	
 	public static final String ROOT_DIR_NAME = ".codeblaze";
+	public static final String TEMPLATE_DIR_NAME = "templates";
 
 	private static DataBase appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
 
@@ -46,12 +49,7 @@ public final class AppResourceManager {
 	}
 
 	public static void createDir(String... path){
-		String pathx = "";
-		for(String px : path)
-			pathx += px + File.separator;
-		pathx = pathx.substring(0, pathx.length() - 1);
-
-		File dir = new File(pathx);
+		File dir = new File(combinePath(path));
 		if(!dir.exists())
 			dir.mkdir();
 	}
@@ -72,6 +70,18 @@ public final class AppResourceManager {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public static synchronized boolean isPathExists(String... path){
+		return new File(combinePath(path)).exists();
+	}
+
+	public static synchronized String combinePath(String... path){
+		String pathx = "";
+		for(String px : path)
+			pathx += px + File.separator;
+		pathx = pathx.substring(0, pathx.length() - 1);
+		return pathx;
 	}
 
 	public static synchronized DataBase appDataBase(){

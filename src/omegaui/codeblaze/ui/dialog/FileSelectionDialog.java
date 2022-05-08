@@ -648,10 +648,6 @@ public class FileSelectionDialog extends JDialog{
 		return selections;
 	}
 
-	public BufferedImage getPreferredIconForFile(File file){
-		return file.isDirectory() ? folderIcon : fileIcon;
-	}
-
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);

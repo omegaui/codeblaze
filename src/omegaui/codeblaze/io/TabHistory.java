@@ -59,6 +59,7 @@ public class TabHistory implements TabPanelListener{
 	@Override
 	public void goneEmpty(TabPanel tabPanel) {
 		tabs.clear();
+		AppInstanceProvider.getCurrentAppInstance().switchViewToGlassPane();
 	}
 
 	public java.util.LinkedList getActivatedTabs() {

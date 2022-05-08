@@ -1,4 +1,7 @@
 package omegaui.codeblaze.ui.component;
+import omegaui.codeblaze.io.FileManager;
+import omegaui.codeblaze.io.AppInstanceProvider;
+
 import java.awt.Font;
 import java.awt.Color;
 
@@ -51,6 +54,9 @@ public class CodeEditor extends RSyntaxTextArea {
 
 	public void initKeyListener(){
 		keyStrokeListener = new KeyStrokeListener(this);
+		keyStrokeListener.putKeyStroke((e)->{
+			saveFile();
+		}, VK_CONTROL, VK_S).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		addKeyListener(keyStrokeListener);
 	}
 
@@ -158,6 +164,19 @@ public class CodeEditor extends RSyntaxTextArea {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+		}
+	}
+
+	public void saveFile(){
+		if(getText().equals(savedText))
+			return;
+		AppInstanceProvider.getCurrentAppInstance().setMessage("Saving " + file.getName() + " ... ", file.getName());
+		if(FileManager.overwriteToFile(file, getText())){
+			savedText = getText();
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Saved " + file.getName() + "!", "Saved");
+		}
+		else{
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Failed to Save " + file.getName() + "!", "Failed to Save");
 		}
 	}
 

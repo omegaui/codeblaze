@@ -1,6 +1,6 @@
 /*
  * TabPanel
- * Copyright (C) 2021 Omega UI
+ * Copyright (C) 2022 Omega UI
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -299,15 +299,6 @@ public class TabPanel extends JPanel{
 
 	public TabHistory getTabHistory() {
 		return tabHistory;
-	}
-
-	@Override
-	public void paint(Graphics graphics){
-		Graphics2D g = (Graphics2D)graphics;
-		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		super.paint(g);
 	}
 
 }

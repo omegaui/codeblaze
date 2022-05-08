@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import omegaui.codeblaze.io.ResizeAware;
 import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.AppUtils;
+import omegaui.codeblaze.io.FileManager;
+import omegaui.codeblaze.io.AppResourceManager;
 
 import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
@@ -85,9 +87,10 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		parentDirLabel.setEnabled(false);
 		add(parentDirLabel);
 
-		parentDirField = new TextInputField("~/codeblaze-source-files");
+		parentDirField = new TextInputField(AppResourceManager.combinePath(AppResourceManager.USER_HOME, "Documents"));
 		parentDirField.setFont(PX16.bold());
 		parentDirField.setEditable(false);
+		parentDirField.setToolTipText(AppResourceManager.combinePath(AppResourceManager.USER_HOME, "Documents"));
 		add(parentDirField);
 
 		manageTemplateComp = new TextComp("Manage Templates", HOVER, BACKGROUND, GLOW, ()->{
@@ -113,7 +116,11 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 	}
 
 	public void validateProvidedData(){
-		
+		String log = FileManager.createNewFile(new File(parentDirField.getToolTipText(), fileNameField.getText()));
+		if(log != null){
+			messagePane.setMessage(log, "Access Denied", "Already Exists");
+			fileNameField.validationFailed();
+		}
 	}
 
 	@Override

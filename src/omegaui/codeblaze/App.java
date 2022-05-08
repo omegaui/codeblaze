@@ -136,6 +136,14 @@ public class App extends JFrame{
 		dispose();
 	}
 
+	public void setMessage(String text){
+		bottomPane.getMessagePane().setMessage(text);
+	}
+
+	public void setMessage(String text, String... highlights){
+		bottomPane.getMessagePane().setMessage(text, highlights);
+	}
+
 	public omegaui.listener.KeyStrokeListener getAppWideKeyStrokeListener() {
 		return appWideKeyStrokeListener;
 	}
@@ -146,6 +154,14 @@ public class App extends JFrame{
 
 	public omegaui.codeblaze.ui.panel.TabPanel getTabPanel() {
 		return tabPanel;
+	}
+
+	public omegaui.codeblaze.ui.component.ToolMenu getToolMenu() {
+		return toolMenu;
+	}
+	
+	public omegaui.codeblaze.ui.component.BottomPane getBottomPane() {
+		return bottomPane;
 	}
 
 	public int getViewState() {

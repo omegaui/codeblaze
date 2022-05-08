@@ -1,4 +1,6 @@
 package omegaui.codeblaze.io;
+import java.io.File;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -77,6 +79,25 @@ public final class UIXManager {
 	public static BufferedImage levelUpIcon = getIcon("up-3-50");
 	public static BufferedImage templateIcon = getIcon("template-64");
 	public static BufferedImage tabsIcon = getIcon("apps-tab-96");
+	
+	public static BufferedImage cLangIcon = getIcon("c-programming-48");
+	public static BufferedImage cPlusPlusIcon = getIcon("c++-48");
+	public static BufferedImage rustIcon = getIcon("rust-48");
+	public static BufferedImage pythonIcon = getIcon("python-48");
+	public static BufferedImage javaIcon = getIcon("java-48");
+	public static BufferedImage kotlinIcon = getIcon("kotlin-48");
+	public static BufferedImage groovyIcon = getIcon("groovy-48");
+	public static BufferedImage webIcon = getIcon("web-app-64");
+	public static BufferedImage dartIcon = getIcon("dart-48");
+	public static BufferedImage juliaIcon = getIcon("julia-48");
+	public static BufferedImage xmlIcon = getIcon("xml-48");
+	
+	public static BufferedImage imageIcon = getIcon("panorama-96");
+	public static BufferedImage archiveIcon = getIcon("archive-48");
+	
+	public static BufferedImage linuxIcon = getIcon("penguin-50");
+	public static BufferedImage windowsIcon = getIcon("windows-10-50");
+	public static BufferedImage appleIcon = getIcon("apple-50");
 
 	//Drawers
 	
@@ -119,4 +140,44 @@ public final class UIXManager {
 		}
 		return null;
 	}
+	
+	public static BufferedImage getPreferredIconForFile(File file){
+		if(file.isDirectory())
+			return folderIcon;
+		if(file.getName().contains(".")){
+			String ext = file.getName().substring(file.getName().lastIndexOf('.'));
+			if(ext.equals(".png") || ext.equals(".jpg") || ext.equals(".jpeg") || ext.equals(".bmp") || ext.equals(".gif") || ext.equals(".svg") || ext.equals(".ico") || ext.equals(".jp2"))
+				return imageIcon;
+			if(ext.equals(".java") || ext.equals(".class"))
+				return javaIcon;
+			if(ext.equals(".py"))
+				return pythonIcon;
+			if(ext.equals(".kt"))
+				return kotlinIcon;
+			if(ext.equals(".groovy"))
+				return groovyIcon;
+			if(ext.equals(".dart"))
+				return dartIcon;
+			if(ext.equals(".js") || ext.equals(".css") || ext.equals(".html") || ext.equals(".jsx") || ext.equals(".ts") || ext.equals(".tsx"))
+				return webIcon;
+			if(ext.equals(".c"))
+				return cLangIcon;
+			if(ext.equals(".cpp"))
+				return cPlusPlusIcon;
+			if(ext.equals(".rs"))
+				return rustIcon;
+			if(ext.equals(".sh") || ext.equals(".run") || ext.equalsIgnoreCase(".appimage") || ext.equals(".deb") || ext.equals(".so") || ext.equals(".rpm"))
+				return linuxIcon;
+			if(ext.equalsIgnoreCase(".fxml") || ext.equals(".xml"))
+				return xmlIcon;
+			if(ext.equals(".cmd") || ext.equals(".bat") || ext.equals(".exe") || ext.equals(".msi") || ext.equals(".dll"))
+				return windowsIcon;
+			if(ext.equals(".dmg") || file.getName().endsWith(".dylib"))
+				return appleIcon;
+			if(file.getName().endsWith(".zip") || file.getName().endsWith(".7z") || file.getName().endsWith(".tar") || file.getName().endsWith(".tar.gz")  || file.getName().endsWith(".tar.xz") || file.getName().endsWith(".jar"))
+				return archiveIcon;
+		}
+		return fileIcon;
+	}
+
 }
