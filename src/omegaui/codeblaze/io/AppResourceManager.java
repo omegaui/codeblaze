@@ -16,7 +16,7 @@ public final class AppResourceManager {
 	public static final String ROOT_DIR_NAME = ".codeblaze";
 	public static final String TEMPLATE_DIR_NAME = "templates";
 
-	private static DataBase appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
+	private static DataBase appDataBase;
 
 	public static void checkResources(){
 		//Installing Fonts
@@ -40,6 +40,8 @@ public final class AppResourceManager {
 		createDir(ROOT_DIR_NAME, "interpreter-scripts");
 		createDir(ROOT_DIR_NAME, "event-scripts");
 		createDir(ROOT_DIR_NAME, "event-scripts", "onFileSaved");
+
+		appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
 	}
 
 	public static void createDir(String path){

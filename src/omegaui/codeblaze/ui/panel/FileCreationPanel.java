@@ -22,7 +22,7 @@ import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
 import static omegaui.component.animation.Animations.*;
 
-public final class FileCreationPanel extends JPanel implements ResizeAware{
+public final class FileCreationPanel extends JPanel implements ResizeAware {
 
 	private App app;
 
