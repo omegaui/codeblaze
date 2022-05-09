@@ -6,6 +6,7 @@ import omegaui.codeblaze.io.AppInstanceProvider;
 import java.awt.geom.RoundRectangle2D;
 
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
 import omegaui.component.TextComp;
 
@@ -87,6 +88,14 @@ public class ChoiceDialog extends JDialog {
 	public static int makeChoice(String question, String choice1, String choice2){
 		if(choiceDialog == null)
 			choiceDialog = new ChoiceDialog(AppInstanceProvider.getCurrentAppInstance());
+
+		int width = computeWidth(question, PX14) + 20;
+
+		if(width > 500 && width <= Toolkit.getDefaultToolkit().getScreenSize().width)
+			choiceDialog.setSize(width, choiceDialog.getHeight());
+		else
+			choiceDialog.setSize(500, 150);
+		
 		choiceDialog.choice = CANCEL;
 		choiceDialog.textComp.setText(question);
 		choiceDialog.choice1Comp.setText(choice1);

@@ -59,6 +59,9 @@ public class CodeEditor extends RSyntaxTextArea {
 		keyStrokeListener.putKeyStroke((e)->{
 			askAndSaveFile();
 		}, VK_CONTROL, VK_S).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
+		keyStrokeListener.putKeyStroke((e)->{
+			reloadFile();
+		}, VK_CONTROL, VK_R).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		addKeyListener(keyStrokeListener);
 	}
 
@@ -157,7 +160,7 @@ public class CodeEditor extends RSyntaxTextArea {
 			e.setSyntaxEditingStyle(CodeEditor.SYNTAX_STYLE_YAML);
 	}
 
-	public void loadFile(){
+	public boolean loadFile(){
 		try{
 			BufferedReader fread = new BufferedReader(new FileReader(file));
 			read(fread, file);
@@ -166,6 +169,25 @@ public class CodeEditor extends RSyntaxTextArea {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public void reloadFile(){
+		if(!isFileSaved()){
+			int choice = ChoiceDialog.makeChoice("You will lose any modifications, Do you want to continue and Reload the File?", "Yes, Reload and Lose Data", "No, Do Nothing");
+			if(choice != ChoiceDialog.CHOICE1){
+				AppInstanceProvider.getCurrentAppInstance().setMessage("Reload Operation Cancelled for " + file.getName() + "!", "Cancelled");
+				return;
+			}
+		}
+		AppInstanceProvider.getCurrentAppInstance().setMessage("Reloading " + file.getName() + " ... ", "Reloading");
+		if(!loadFile()){
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Failed to Reload " + file.getName() + ".", "Failed");
+		}
+		else{
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Reloaded " + file.getName() + ".", "Reloaded");
 		}
 	}
 

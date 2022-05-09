@@ -4,22 +4,6 @@
 -omegaui.codeblaze.App
 >Language Tag
 -0
->Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/ui/dialog/ChoiceDialog.java
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
->Caret Positions
--project-root$/src/omegaui/codeblaze/ui/dialog/ChoiceDialog.java
-|462
-|1116
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
-|1794
-|5084
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
-|3625
-|7221
->Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/dialog/ChoiceDialog.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots
