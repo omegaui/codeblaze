@@ -60,6 +60,10 @@ public class CodeEditor extends RSyntaxTextArea {
 			askAndSaveFile();
 		}, VK_CONTROL, VK_S).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		keyStrokeListener.putKeyStroke((e)->{
+			saveFile();
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Saved!, You Called Silent Save File on " + file.getName() + " -- Shortcut : Ctrl + SHIFT + S", "Silent Save");
+		}, VK_CONTROL, VK_SHIFT, VK_S).setStopKeys(VK_ALT).useAutoReset();
+		keyStrokeListener.putKeyStroke((e)->{
 			reloadFile();
 		}, VK_CONTROL, VK_R).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		addKeyListener(keyStrokeListener);
