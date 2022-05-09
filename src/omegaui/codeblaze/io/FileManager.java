@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.FileOutputStream;
 
 import omegaui.codeblaze.ui.component.CodeEditor;
+import omegaui.codeblaze.ui.component.MaterialPopup;
 
 import java.util.LinkedList;
 
@@ -96,7 +97,7 @@ public final class FileManager {
 				editor.saveFile();
 				removeCodeEditor(editor);
 			}, 
-			null
+			createPopup(editor)
 		);
 		
 		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
@@ -105,4 +106,33 @@ public final class FileManager {
 	public static void removeCodeEditor(CodeEditor editor){
 		codeEditors.remove(editor);
 	}
+
+	public static MaterialPopup createPopup(CodeEditor editor){
+		MaterialPopup popup = new MaterialPopup();
+		popup.createItem("Compile", "Ctrl + B", ()->{
+			
+		});
+		popup.createItem("Execute", "Ctrl + L", ()->{
+			
+		});
+		popup.createItem("Save", "Ctrl + S", ()->{
+			editor.askAndSaveFile();
+		});
+		popup.createItem("Silent Save", "Ctrl + SHIFT + S", ()->{
+			editor.saveSilently();
+		});
+		popup.createItem("Reload", "Ctrl + R", ()->{
+			editor.reloadFile();
+		});
+		return popup;
+	}
+
+	public static java.util.LinkedList getCodeEditors() {
+		return codeEditors;
+	}
+	
+	public static omegaui.codeblaze.ui.dialog.FileSelectionDialog getFileSelectionDialog() {
+		return fileSelectionDialog;
+	}
+
 }

@@ -60,8 +60,7 @@ public class CodeEditor extends RSyntaxTextArea {
 			askAndSaveFile();
 		}, VK_CONTROL, VK_S).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		keyStrokeListener.putKeyStroke((e)->{
-			saveFile();
-			AppInstanceProvider.getCurrentAppInstance().setMessage("Saved!, You Called Silent Save File on " + file.getName() + " -- Shortcut : Ctrl + SHIFT + S", "Silent Save");
+			saveSilently();
 		}, VK_CONTROL, VK_SHIFT, VK_S).setStopKeys(VK_ALT).useAutoReset();
 		keyStrokeListener.putKeyStroke((e)->{
 			reloadFile();
@@ -227,6 +226,11 @@ public class CodeEditor extends RSyntaxTextArea {
 			return true;
 		}
 		return false;
+	}
+
+	public void saveSilently(){
+		saveFile();
+		AppInstanceProvider.getCurrentAppInstance().setMessage("Saved!, You Called Silent Save File on " + file.getName() + " -- Shortcut : Ctrl + SHIFT + S", "Silent Save");
 	}
 
 	public void loadTheme(){

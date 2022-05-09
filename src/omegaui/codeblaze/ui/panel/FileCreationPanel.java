@@ -63,7 +63,10 @@ public final class FileCreationPanel extends JPanel implements ResizeAware{
 		add(titleComp);
 		
 		closeComp = new TextComp(cancelIcon, 32, 32, BACKGROUND, BACKGROUND, BACKGROUND, ()->{
-			app.getGlassPanel().putToView(GlassPanel.getLauncherPanel());
+			if(FileManager.getCodeEditors().isEmpty())
+				app.getGlassPanel().putToView(GlassPanel.getLauncherPanel());
+			else
+				app.switchViewToContentPane();
 		});
 		closeComp.setFont(PX32.bold());
 		closeComp.setArc(0, 0);
