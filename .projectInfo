@@ -4,6 +4,14 @@
 -omegaui.codeblaze.App
 >Language Tag
 -0
+>Opened Editors on Main Tab Panel
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+>Caret Positions
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+|0
+|202
+>Last Active Editor
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots

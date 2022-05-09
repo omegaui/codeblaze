@@ -94,7 +94,7 @@ public final class FileManager {
 			editor.getScrollPane(), 
 			tertiaryColor, 
 			()->{
-				editor.saveFile();
+				editor.askAndSaveFile();
 				removeCodeEditor(editor);
 			}, 
 			createPopup(editor)
@@ -108,7 +108,7 @@ public final class FileManager {
 	}
 
 	public static MaterialPopup createPopup(CodeEditor editor){
-		MaterialPopup popup = new MaterialPopup();
+		MaterialPopup popup = new MaterialPopup().width(250);
 		popup.createItem("Compile", "Ctrl + B", ()->{
 			
 		});

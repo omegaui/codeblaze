@@ -71,10 +71,12 @@ public class ChoiceDialog extends JDialog {
 		choice2Comp.setFont(UBUNTU_PX14);
 		add(choice2Comp);
 
-		cancelComp = new TextComp("Cancel", focusColorShade, primaryColorShade, primaryColor, this::dispose);
+		cancelComp = new TextComp(closeIcon, 15, 15, back1, back1, back1, this::dispose);
 		cancelComp.setFont(PX14);
 		cancelComp.setArc(5, 5);
 		add(cancelComp);
+
+		putAnimationLayer(cancelComp, getImageSizeAnimationLayer(20, +5, true), ACTION_MOUSE_ENTERED);
 	}
 
 	public void initKeyStrokeListener(){
@@ -117,6 +119,6 @@ public class ChoiceDialog extends JDialog {
 		setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
 		setLocationRelativeTo(null);
 		textComp.setBounds(0, getHeight()/2 - 15 - 25/2, getWidth(), 30);
-		cancelComp.setBounds(getWidth()/2 - 90/2, 200, 90, 25);
+		cancelComp.setBounds(getWidth() - 26, 1, 25, 25);
 	}
 }

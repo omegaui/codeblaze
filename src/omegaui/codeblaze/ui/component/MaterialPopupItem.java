@@ -22,7 +22,6 @@ public final class MaterialPopupItem extends JComponent{
 	private Runnable action;
 	
 	private TextComp itemNameComp;
-
 	
 	public MaterialPopupItem(MaterialPopup popup, String text, Runnable action){
 		this(popup, text, "", action, GLOW, "");

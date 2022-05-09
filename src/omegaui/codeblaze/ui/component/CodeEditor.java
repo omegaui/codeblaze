@@ -161,6 +161,8 @@ public class CodeEditor extends RSyntaxTextArea {
 			e.setSyntaxEditingStyle(CodeEditor.SYNTAX_STYLE_XML);
 		else if(f.getName().endsWith(".yaml") || f.getName().endsWith(".yml"))
 			e.setSyntaxEditingStyle(CodeEditor.SYNTAX_STYLE_YAML);
+		else if(f.getName().endsWith(".md"))
+			e.setSyntaxEditingStyle(CodeEditor.SYNTAX_STYLE_MARKDOWN);
 	}
 
 	public boolean loadFile(){
