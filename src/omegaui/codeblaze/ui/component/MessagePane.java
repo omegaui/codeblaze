@@ -42,4 +42,9 @@ public final class MessagePane extends JPanel {
 		messageComp.addHighlightText(highlights);
 	}
 
+	public void resetMessage(){
+		messageComp.setText(defaultText);
+		messageComp.addHighlightText("running process");
+	}
+
 }

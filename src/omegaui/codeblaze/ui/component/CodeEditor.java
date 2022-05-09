@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.component;
+import omegaui.codeblaze.ui.dialog.ChoiceDialog;
+
 import omegaui.codeblaze.io.FileManager;
 import omegaui.codeblaze.io.AppInstanceProvider;
 
@@ -55,7 +57,7 @@ public class CodeEditor extends RSyntaxTextArea {
 	public void initKeyListener(){
 		keyStrokeListener = new KeyStrokeListener(this);
 		keyStrokeListener.putKeyStroke((e)->{
-			saveFile();
+			askAndSaveFile();
 		}, VK_CONTROL, VK_S).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		addKeyListener(keyStrokeListener);
 	}
@@ -167,17 +169,38 @@ public class CodeEditor extends RSyntaxTextArea {
 		}
 	}
 
-	public void saveFile(){
-		if(getText().equals(savedText))
+	public boolean isFileSaved(){
+		return savedText.equals(getText());
+	}
+
+	public void askAndSaveFile(){
+		int choice = ChoiceDialog.CHOICE1;
+		if(!isFileSaved()){
+			choice = ChoiceDialog.makeChoice("Do you want to Save this file?", "Yes, Save!", "No, Lose Data!");
+		}
+		
+		if(choice != ChoiceDialog.CHOICE1){
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Save Operation Cancelled for " + file.getName() + "!", "Cancelled");
 			return;
+		}
+		
 		AppInstanceProvider.getCurrentAppInstance().setMessage("Saving " + file.getName() + " ... ", file.getName());
-		if(FileManager.overwriteToFile(file, getText())){
-			savedText = getText();
+		if(saveFile()){
 			AppInstanceProvider.getCurrentAppInstance().setMessage("Saved " + file.getName() + "!", "Saved");
 		}
 		else{
 			AppInstanceProvider.getCurrentAppInstance().setMessage("Failed to Save " + file.getName() + "!", "Failed to Save");
 		}
+	}
+
+	public boolean saveFile(){
+		if(getText().equals(savedText))
+			return true;
+		if(FileManager.overwriteToFile(file, getText())){
+			savedText = getText();
+			return true;
+		}
+		return false;
 	}
 
 	public void loadTheme(){

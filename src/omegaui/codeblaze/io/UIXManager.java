@@ -99,6 +99,8 @@ public final class UIXManager {
 	public static BufferedImage windowsIcon = getIcon("windows-10-50");
 	public static BufferedImage appleIcon = getIcon("apple-50");
 
+	public static BufferedImage closeIcon = getIcon("close-window-50");
+	
 	//Drawers
 	
 	public static int computeWidth(String name, Font font){
