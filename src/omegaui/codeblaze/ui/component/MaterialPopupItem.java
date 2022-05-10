@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.component;
+import java.awt.image.BufferedImage;
+
 import omegaui.component.TextComp;
 
 import java.awt.Color;
@@ -22,6 +24,8 @@ public final class MaterialPopupItem extends JComponent{
 	private Runnable action;
 	
 	private TextComp itemNameComp;
+
+	private BufferedImage icon;
 	
 	public MaterialPopupItem(MaterialPopup popup, String text, Runnable action){
 		this(popup, text, "", action, GLOW, "");
@@ -31,7 +35,16 @@ public final class MaterialPopupItem extends JComponent{
 		this(popup, text, shortcutText, action, GLOW, "");
 	}
 	
+	public MaterialPopupItem(MaterialPopup popup, BufferedImage icon, String text, String shortcutText, Runnable action){
+		this(popup, icon, text, shortcutText, action, GLOW, "");
+	}
+	
 	public MaterialPopupItem(MaterialPopup popup, String text, String shortcutText, Runnable action, Color highlightColor, String... highlights){
+		this(popup, null, text, shortcutText, action, highlightColor, highlights);
+	}
+	
+	public MaterialPopupItem(MaterialPopup popup, BufferedImage icon, String text, String shortcutText, Runnable action, Color highlightColor, String... highlights){
+		this.icon = icon;
 		this.popup = popup;
 		this.text = text;
 		this.shortcutText = shortcutText;
@@ -47,6 +60,7 @@ public final class MaterialPopupItem extends JComponent{
 		}){
 			@Override
 			public void draw(Graphics2D g){
+				super.draw(g);
 				g.setColor(color3);
 				g.setFont(UBUNTU_PX12);
 				g.drawString(shortcutText, getWidth() - g.getFontMetrics().stringWidth(shortcutText) - 10, getHeight()/2 - g.getFontMetrics().getHeight()/2 + g.getFontMetrics().getAscent() - g.getFontMetrics().getDescent() + 1);
@@ -59,6 +73,11 @@ public final class MaterialPopupItem extends JComponent{
 		itemNameComp.setTextLeftAlignmentMargin(20);
 		itemNameComp.setToolTipText(shortcutText);
 		add(itemNameComp);
+
+		if(icon != null){
+			itemNameComp.setImage(icon);
+			itemNameComp.setImageCoordinates(2, 2);
+		}
 	}
 
 	public void doClick(){
@@ -71,6 +90,9 @@ public final class MaterialPopupItem extends JComponent{
 	
 	@Override
 	public void layout(){
+		itemNameComp.setTextLeftAlignmentMargin(getHeight() + 5);
+		itemNameComp.w = getHeight() - 4;
+		itemNameComp.h = getHeight() - 4;
 		itemNameComp.setBounds(0, 0, getWidth(), getHeight());
 		super.layout();
 	}

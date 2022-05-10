@@ -5,13 +5,33 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
+-project-root$/src/omegaui/codeblaze/io/FileManager.java
+-project-root$/src/omegaui/codeblaze/ui/dialog/ChoiceDialog.java
+-project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
+-project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
+-project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
 -project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
 >Caret Positions
+-project-root$/src/omegaui/codeblaze/io/FileManager.java
+|2014
+|2910
+-project-root$/src/omegaui/codeblaze/ui/dialog/ChoiceDialog.java
+|1709
+|3182
+-project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
+|2896
+|4711
+-project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
+|1415
+|2767
+-project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
+|1301
+|1973
 -project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
-|0
-|202
+|4565
+|9300
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+-project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots

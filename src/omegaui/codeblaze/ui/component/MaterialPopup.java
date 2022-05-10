@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.component;
+import java.awt.image.BufferedImage;
+
 import java.awt.Component;
 
 import omegaui.listener.KeyStrokeListener;
@@ -40,6 +42,7 @@ public final class MaterialPopup extends JDialog implements FocusListener {
 		setLayout(null);
 		setResizable(false);
 		setSize(400, 400);
+		setFocusableWindowState(true);
 		initUI();
 		initKeyStrokeListener();
 	}
@@ -92,13 +95,21 @@ public final class MaterialPopup extends JDialog implements FocusListener {
 	}
 
 	public MaterialPopup createItem(String text, Runnable action){
-		items.add(new MaterialPopupItem(this, text, action));
+		return createItem(text, "", action);
+	}
+
+	public MaterialPopup createItem(String text, String shortcutText, Runnable action){
+		return createItem(null, text, shortcutText, action);
+	}
+
+	public MaterialPopup createItem(BufferedImage icon, String text, String shortcutText, Runnable action){
+		items.add(new MaterialPopupItem(this, icon, text, shortcutText, action));
 		add(items.getLast());
 		return this;
 	}
 
-	public MaterialPopup createItem(String text, String shortcutText, Runnable action){
-		items.add(new MaterialPopupItem(this, text, shortcutText, action));
+	public MaterialPopup createItem(BufferedImage icon, String text, Runnable action){
+		items.add(new MaterialPopupItem(this, icon, text, "", action));
 		add(items.getLast());
 		return this;
 	}

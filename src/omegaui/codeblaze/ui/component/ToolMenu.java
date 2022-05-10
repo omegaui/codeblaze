@@ -57,39 +57,39 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		add(iconComp);
 
 		filePopup = new MaterialPopup();
-		filePopup.createItem("Create a New File", "Ctrl + N", ()->{
+		filePopup.createItem(newIcon, "Create a New File", "Ctrl + N", ()->{
 			app.switchViewToGlassPane();
 			app.getGlassPanel().putToView(GlassPanel.getFileCreationPanel());
 		})
-		.createItem("Open a Local File", "Ctrl + SHIFT + N", ()->{
+		.createItem(openIcon, "Open a Local File", "Ctrl + SHIFT + N", ()->{
 			FileManager.openFile();
 		})
-		.createItem("Recent Files", "Ctrl + SHIFT + R", ()->{
+		.createItem(recentsIcon, "Recent Files", "Ctrl + SHIFT + R", ()->{
 			
 		})
-		.createItem("Save All Editors", "Ctrl + Alt + S", ()->{
+		.createItem(saveIcon, "Save All Editors", "Ctrl + Alt + S", ()->{
 			
 		})
-		.createItem("Close All Editors", "Ctrl + Alt + X", ()->{
+		.createItem(closeIcon, "Close All Editors", "Ctrl + Alt + X", ()->{
 			
 		})
-		.createItem("Exit", AppInstanceProvider.getCurrentAppInstance()::exit);
+		.createItem(exitIcon, "Exit", "Alt + F4", AppInstanceProvider.getCurrentAppInstance()::exit);
 		fileMenu = new Menu(filePopup, "File");
 		filePopup.setContextMenuVisiblityShortcut(KeyEvent.VK_F, fileMenu::showPopup);
 		add(fileMenu);
 
 		viewPopup = new MaterialPopup();
-		viewPopup.createItem("Enter Focus Mode", "Ctrl + SHIFT + T", ()->{});
+		viewPopup.createItem(focusIcon, "Enter Focus Mode", "Ctrl + SHIFT + T", ()->{});
 		viewMenu = new Menu(viewPopup, "View");
 		viewPopup.setContextMenuVisiblityShortcut(KeyEvent.VK_V, viewMenu::showPopup);
 		add(viewMenu);
 
 		helpPopup = new MaterialPopup();
-		helpPopup.createItem("How to Manage Templates?", ()->{})
-		.createItem("How to Manage Compile Script?", ()->{})
-		.createItem("How to Manage Execution Script?", ()->{})
-		.createItem("How to Add Event Scripts?", ()->{})
-		.createItem("About", ()->{});
+		helpPopup.createItem(questionIcon, "How to Manage Templates?", ()->{})
+		.createItem(questionIcon, "How to Manage Compile Script?", ()->{})
+		.createItem(questionIcon, "How to Manage Execution Script?", ()->{})
+		.createItem(questionIcon, "How to Add Event Scripts?", ()->{})
+		.createItem(appIcon, "About", ()->{});
 		helpMenu = new Menu(helpPopup, "Help");
 		helpPopup.setContextMenuVisiblityShortcut(KeyEvent.VK_H, helpMenu::showPopup);
 		add(helpMenu);

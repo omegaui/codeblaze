@@ -256,5 +256,4 @@ public class CodeEditor extends RSyntaxTextArea {
 		return keyStrokeListener;
 	}
 	
-	
 }

@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 
 import omegaui.paint.DynoFont;
 import omegaui.paint.PixelColor;
+
 public final class UIXManager {
 	//Image Object to be used for computing text dimension.
 	public static BufferedImage testImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
@@ -100,6 +101,15 @@ public final class UIXManager {
 	public static BufferedImage appleIcon = getIcon("apple-50");
 
 	public static BufferedImage closeIcon = getIcon("close-window-50");
+	public static BufferedImage openIcon = getIcon("open-58");
+	public static BufferedImage newIcon = getIcon("new-48");
+	public static BufferedImage recentsIcon = getIcon("time-card-48");
+	public static BufferedImage saveIcon = getIcon("hero-64");
+	public static BufferedImage exitIcon = getIcon("exit-sign-48");
+	
+	public static BufferedImage focusIcon = getIcon("focus-48");
+	
+	public static BufferedImage questionIcon = getIcon("question-64");
 	
 	//Drawers
 	
