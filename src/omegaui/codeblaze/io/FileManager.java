@@ -1,4 +1,6 @@
 package omegaui.codeblaze.io;
+import omegaui.dynamic.database.DataBase;
+
 import java.awt.BorderLayout;
 
 import omegaui.codeblaze.ui.dialog.FileSelectionDialog;
@@ -14,6 +16,7 @@ import java.util.LinkedList;
 
 import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
+import static omegaui.codeblaze.io.AppResourceManager.*;
 import static omegaui.codeblaze.io.TemplateManager.*;
 
 import static omegaui.component.animation.Animations.*;
@@ -23,8 +26,45 @@ public final class FileManager {
 	private static LinkedList<CodeEditor> codeEditors = new LinkedList<>();
 	private static FileSelectionDialog fileSelectionDialog;
 
-	static{
+	private static DataBase recentFilesDataBase;
+	private static DataBase lastSessionDataBase;
+
+	static {
 		fileSelectionDialog = new FileSelectionDialog(AppInstanceProvider.getCurrentAppInstance());
+
+		recentFilesDataBase = new DataBase(combinePath(ROOT_DIR_NAME, "recent-files.data"));
+		validateRecentFilesDataBase();
+
+		lastSessionDataBase = new DataBase(combinePath(ROOT_DIR_NAME, "last-session.data"));
+		validateLastSessionDataBase();
+
+		AppInstanceProvider.getCurrentAppInstance().addAppClosingOperation((app)->{
+			return true;
+		});
+	}
+
+	public synchronized static void validateRecentFilesDataBase(){
+		recentFilesDataBase.clear();
+
+		LinkedList<String> filePaths = recentFilesDataBase.getEntriesAsString("Recent Files Since First Startup");
+		if(!filePaths.isEmpty()){
+			for(String path : filePaths){
+				if(new File(path).exists())
+					recentFilesDataBase.addEntry("Recent Files Since First Startup", path);
+			}
+		}
+	}
+
+	public synchronized static void validateLastSessionDataBase(){
+		lastSessionDataBase.clear();
+
+		LinkedList<String> filePaths = lastSessionDataBase.getEntriesAsString("Last Opened Files");
+		if(!filePaths.isEmpty()){
+			for(String path : filePaths){
+				if(new File(path).exists())
+					lastSessionDataBase.addEntry("Last Opened Files", path);
+			}
+		}
 	}
 
 	public static synchronized String createNewFile(File file){
@@ -87,19 +127,19 @@ public final class FileManager {
 
 	public static void huntEditor(CodeEditor editor){
 		AppInstanceProvider.getCurrentAppInstance().getTabPanel().addTab(
-			editor.getFile().getName(), 
-			editor.getFile().getAbsolutePath(), 
-			editor.getFile().getAbsolutePath(), 
-			getPreferredIconForFile(editor.getFile()), 
-			editor.getScrollPane(), 
-			tertiaryColor, 
-			()->{
-				editor.askAndSaveFile();
-				removeCodeEditor(editor);
-			}, 
-			createPopup(editor)
+		editor.getFile().getName(),
+		editor.getFile().getAbsolutePath(),
+		editor.getFile().getAbsolutePath(),
+		getPreferredIconForFile(editor.getFile()),
+		editor.getScrollPane(),
+		tertiaryColor,
+		()->{
+			editor.askAndSaveFile();
+			removeCodeEditor(editor);
+		},
+		createPopup(editor)
 		);
-		
+
 		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
 	}
 
@@ -110,13 +150,13 @@ public final class FileManager {
 	public static MaterialPopup createPopup(CodeEditor editor){
 		MaterialPopup popup = new MaterialPopup().width(250);
 		popup.createItem(cookIcon, "Build & Run", "Ctrl + SHIFT + R", ()->{
-			
+
 		});
 		popup.createItem(buildIcon, "Build", "Ctrl + B", ()->{
-			
+
 		});
 		popup.createItem(runIcon, "Execute", "Ctrl + SHIFT + L", ()->{
-			
+
 		});
 		popup.createItem(saveIcon, "Save", "Ctrl + S", ()->{
 			editor.askAndSaveFile();
@@ -133,9 +173,13 @@ public final class FileManager {
 	public static java.util.LinkedList getCodeEditors() {
 		return codeEditors;
 	}
-	
+
 	public static omegaui.codeblaze.ui.dialog.FileSelectionDialog getFileSelectionDialog() {
 		return fileSelectionDialog;
+	}
+
+	public static omegaui.dynamic.database.DataBase getRecentFilesDataBase() {
+		return recentFilesDataBase;
 	}
 
 }

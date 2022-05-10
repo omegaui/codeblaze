@@ -1,5 +1,11 @@
 package omegaui.codeblaze;
+import omegaui.component.io.AppOperation;
+
+import java.util.LinkedList;
+
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import omegaui.listener.KeyStrokeListener;
 
@@ -10,6 +16,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.AppStateManager;
+import omegaui.codeblaze.io.FileManager;
 
 import omegaui.codeblaze.ui.panel.GlassPanel;
 import omegaui.codeblaze.ui.panel.SplitPanel;
@@ -31,7 +38,7 @@ import javax.swing.BorderFactory;
 
 import static omegaui.codeblaze.io.UIXManager.*;
 
-public class App extends JFrame{
+public class App extends JFrame {
 
 	public static final int CONTENT_VIEW = 1;
 	public static final int GLASS_VIEW = 2;
@@ -48,18 +55,21 @@ public class App extends JFrame{
 	private SplitPanel splitPanel;
 	private TabPanel tabPanel;
 
+	private LinkedList<AppOperation> appClosingOperations = new LinkedList<>();
+
 	private App(){
 		super("CodeBlaze");
 
 		setSize(1000, 650);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		registerAppInstanceProvider();
 		
 		initAppWideKeyStrokeListener();
 		initUI();
+		initDefaultAppOperations();
 
 		initState();
 
@@ -106,6 +116,20 @@ public class App extends JFrame{
 		splitPanel.setTopComponent(tabPanel);
 	}
 
+	private void initDefaultAppOperations(){
+		addWindowListener(new WindowAdapter(){
+			@Override
+			public void windowClosing(WindowEvent e){
+				exit();
+			}
+		});
+		
+		addAppClosingOperation((app)->{
+			tabPanel.closeAllTabs();
+			return true;
+		});
+	}
+
 	private void initState(){
 		AppStateManager.initAppState();
 	}
@@ -133,6 +157,12 @@ public class App extends JFrame{
 	}
 
 	public void exit(){
+		for(AppOperation operation : appClosingOperations){
+			if(!operation.performOperation(this)){
+				setMessage("A fatal error has occured while closing the App, Aborting Exit!. Save All your editors and kill the app.", "fatal", "closing", "kill the app");
+				return;
+			}
+		}
 		dispose();
 	}
 
@@ -142,6 +172,11 @@ public class App extends JFrame{
 
 	public void setMessage(String text, String... highlights){
 		bottomPane.getMessagePane().setMessage(text, highlights);
+	}
+
+	public App addAppClosingOperation(AppOperation appOperation){
+		appClosingOperations.add(appOperation);
+		return this;
 	}
 
 	public omegaui.listener.KeyStrokeListener getAppWideKeyStrokeListener() {

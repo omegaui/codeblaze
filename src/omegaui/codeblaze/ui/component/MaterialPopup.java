@@ -7,10 +7,11 @@ import omegaui.listener.KeyStrokeListener;
 
 import java.util.LinkedList;
 
-import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 import java.awt.geom.RoundRectangle2D;
 
@@ -27,7 +28,7 @@ import static omegaui.component.animation.Animations.*;
 
 import static java.awt.event.KeyEvent.*;
 
-public final class MaterialPopup extends JDialog implements FocusListener {
+public final class MaterialPopup extends JDialog implements WindowFocusListener {
 
 	private int contextMenuVisiblityShortcut;
 
@@ -52,7 +53,7 @@ public final class MaterialPopup extends JDialog implements FocusListener {
 		setContentPane(panel);
 		setBackground(BACKGROUND);
 		panel.setBackground(BACKGROUND);
-		addFocusListener(this);
+		addWindowFocusListener(this);
 	}
 
 	public void initKeyStrokeListener(){
@@ -168,12 +169,12 @@ public final class MaterialPopup extends JDialog implements FocusListener {
 	}
 
 	@Override
-	public void focusGained(FocusEvent focusEvent) {
+	public void windowGainedFocus(WindowEvent focusEvent) {
 		
 	}
 
 	@Override
-	public void focusLost(FocusEvent focusEvent) {
+	public void windowLostFocus(WindowEvent focusEvent) {
 		setVisible(false);
 	}
 
