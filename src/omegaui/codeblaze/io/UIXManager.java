@@ -68,19 +68,23 @@ public final class UIXManager {
 	public static DynoFont UBUNTU_PX14 = new DynoFont("Ubuntu", 14).bold();
 	public static DynoFont UBUNTU_PX16 = new DynoFont("Ubuntu", 16).bold();
 
-	//Icons
+	//App Icons
 	public static BufferedImage appIcon = getIcon("blaze-182");
 	public static BufferedImage appSmallIcon = getIcon("blaze-32");
-	
+
+	//FileSelectionDialog Icons
 	public static BufferedImage backIcon = getIcon("back-64");
 	public static BufferedImage cancelIcon = getIcon("cancel-64");
 	public static BufferedImage fileIcon = getIcon("file-64");
 	public static BufferedImage folderIcon = getIcon("folder-50");
 	public static BufferedImage homeIcon = getIcon("home-folder-48");
 	public static BufferedImage levelUpIcon = getIcon("up-3-50");
-	public static BufferedImage templateIcon = getIcon("template-64");
 	public static BufferedImage tabsIcon = getIcon("apps-tab-96");
-	
+
+	//Template Icon
+	public static BufferedImage templateIcon = getIcon("template-64");
+
+	//Language Icons
 	public static BufferedImage cLangIcon = getIcon("c-programming-48");
 	public static BufferedImage cPlusPlusIcon = getIcon("c++-48");
 	public static BufferedImage rustIcon = getIcon("rust-48");
@@ -92,24 +96,35 @@ public final class UIXManager {
 	public static BufferedImage dartIcon = getIcon("dart-48");
 	public static BufferedImage juliaIcon = getIcon("julia-48");
 	public static BufferedImage xmlIcon = getIcon("xml-48");
-	
+
+	//File Icons
 	public static BufferedImage imageIcon = getIcon("panorama-96");
 	public static BufferedImage archiveIcon = getIcon("archive-48");
-	
+
+	//Platform Icons
 	public static BufferedImage linuxIcon = getIcon("penguin-50");
 	public static BufferedImage windowsIcon = getIcon("windows-10-50");
 	public static BufferedImage appleIcon = getIcon("apple-50");
 
+	//File Action Icons
 	public static BufferedImage closeIcon = getIcon("close-window-50");
 	public static BufferedImage openIcon = getIcon("open-58");
 	public static BufferedImage newIcon = getIcon("new-48");
 	public static BufferedImage recentsIcon = getIcon("time-card-48");
 	public static BufferedImage saveIcon = getIcon("hero-64");
 	public static BufferedImage exitIcon = getIcon("exit-sign-48");
-	
+
+	//View Action Icons
 	public static BufferedImage focusIcon = getIcon("focus-48");
-	
+
+	//Help Action Icons
 	public static BufferedImage questionIcon = getIcon("question-64");
+
+	//Execution Panel Icons
+	public static BufferedImage runIcon = getIcon("launch-48");
+	public static BufferedImage buildIcon = getIcon("built-48");
+	public static BufferedImage cookIcon = getIcon("cook-48");
+	public static BufferedImage reloadIcon = getIcon("reload-48");
 	
 	//Drawers
 	

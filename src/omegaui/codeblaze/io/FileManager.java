@@ -109,19 +109,22 @@ public final class FileManager {
 
 	public static MaterialPopup createPopup(CodeEditor editor){
 		MaterialPopup popup = new MaterialPopup().width(250);
-		popup.createItem("Compile", "Ctrl + B", ()->{
+		popup.createItem(cookIcon, "Build & Run", "Ctrl + SHIFT + R", ()->{
 			
 		});
-		popup.createItem("Execute", "Ctrl + L", ()->{
+		popup.createItem(buildIcon, "Build", "Ctrl + B", ()->{
 			
 		});
-		popup.createItem("Save", "Ctrl + S", ()->{
+		popup.createItem(runIcon, "Execute", "Ctrl + SHIFT + L", ()->{
+			
+		});
+		popup.createItem(saveIcon, "Save", "Ctrl + S", ()->{
 			editor.askAndSaveFile();
 		});
-		popup.createItem("Silent Save", "Ctrl + SHIFT + S", ()->{
+		popup.createItem(saveIcon, "Silent Save", "Ctrl + SHIFT + S", ()->{
 			editor.saveSilently();
 		});
-		popup.createItem("Reload", "Ctrl + R", ()->{
+		popup.createItem(reloadIcon, "Reload", "Ctrl + R", ()->{
 			editor.reloadFile();
 		});
 		return popup;
