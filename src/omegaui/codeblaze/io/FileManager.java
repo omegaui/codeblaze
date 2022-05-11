@@ -29,6 +29,8 @@ public final class FileManager {
 	private static DataBase recentFilesDataBase;
 	private static DataBase lastSessionDataBase;
 
+	public static final String RECENT_FILE_DATA_SET_NAME = "Recent Files Since First Startup";
+
 	static {
 		fileSelectionDialog = new FileSelectionDialog(AppInstanceProvider.getCurrentAppInstance());
 
@@ -39,6 +41,7 @@ public final class FileManager {
 		validateLastSessionDataBase();
 
 		AppInstanceProvider.getCurrentAppInstance().addAppClosingOperation((app)->{
+			recentFilesDataBase.save();
 			return true;
 		});
 	}
@@ -46,11 +49,11 @@ public final class FileManager {
 	public synchronized static void validateRecentFilesDataBase(){
 		recentFilesDataBase.clear();
 
-		LinkedList<String> filePaths = recentFilesDataBase.getEntriesAsString("Recent Files Since First Startup");
+		LinkedList<String> filePaths = recentFilesDataBase.getEntriesAsString(RECENT_FILE_DATA_SET_NAME);
 		if(!filePaths.isEmpty()){
 			for(String path : filePaths){
 				if(new File(path).exists())
-					recentFilesDataBase.addEntry("Recent Files Since First Startup", path);
+					recentFilesDataBase.addEntry(RECENT_FILE_DATA_SET_NAME, path);
 			}
 		}
 	}
@@ -106,9 +109,13 @@ public final class FileManager {
 	}
 
 	public static CodeEditor loadFile(File file){
+		if(isEditorPresent(file)){
+			return getEditor(file);
+		}
 		if(file.exists()){
 			CodeEditor editor = new CodeEditor(file);
 			codeEditors.add(editor);
+			recentFilesDataBase.addEntry(RECENT_FILE_DATA_SET_NAME, file.getAbsolutePath());
 			return editor;
 		}
 		return null;
@@ -127,17 +134,17 @@ public final class FileManager {
 
 	public static void huntEditor(CodeEditor editor){
 		AppInstanceProvider.getCurrentAppInstance().getTabPanel().addTab(
-		editor.getFile().getName(),
-		editor.getFile().getAbsolutePath(),
-		editor.getFile().getAbsolutePath(),
-		getPreferredIconForFile(editor.getFile()),
-		editor.getScrollPane(),
-		tertiaryColor,
-		()->{
-			editor.askAndSaveFile();
-			removeCodeEditor(editor);
-		},
-		createPopup(editor)
+			editor.getFile().getName(),
+			editor.getFile().getAbsolutePath(),
+			editor.getFile().getAbsolutePath(),
+			getPreferredIconForFile(editor.getFile()),
+			editor.getScrollPane(),
+			tertiaryColor,
+			()->{
+				editor.askAndSaveFile();
+				removeCodeEditor(editor);
+			},
+			createPopup(editor)
 		);
 
 		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
@@ -145,6 +152,22 @@ public final class FileManager {
 
 	public static void removeCodeEditor(CodeEditor editor){
 		codeEditors.remove(editor);
+	}
+
+	public static CodeEditor getEditor(File file){
+		for(CodeEditor editor : codeEditors){
+			if(editor.getFile().getAbsolutePath().equals(file.getAbsolutePath()))
+				return editor;
+		}
+		return null;
+	}
+
+	public static boolean isEditorPresent(File file){
+		for(CodeEditor editor : codeEditors){
+			if(editor.getFile().getAbsolutePath().equals(file.getAbsolutePath()))
+				return true;
+		}
+		return false;
 	}
 
 	public static MaterialPopup createPopup(CodeEditor editor){
