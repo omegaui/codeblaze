@@ -39,6 +39,7 @@ public class TextInputField extends JTextField implements ValidationAware{
 
 	private Runnable onAction = ()->{};
 	private Runnable onAnyKeyPressed = ()->{};
+	private Runnable onAnyKeyReleased = ()->{};
 
 	private TextInputFieldValidationTask validationTask = (field)->{
 		return true;
@@ -65,6 +66,9 @@ public class TextInputField extends JTextField implements ValidationAware{
 				onAnyKeyPressed.run();
 			}
 		});
+		keyListener.setOnAnyKeyReleased((e)->{
+			onAnyKeyReleased.run();
+		});
 		keyListener.putKeyStroke((e)->{
 			if(validationTask.performValidation(TextInputField.this)){
 				validationPassed();
@@ -79,14 +83,14 @@ public class TextInputField extends JTextField implements ValidationAware{
 		addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseExited(MouseEvent e){
-				if(getText().equals("") || getText().equals(TextInputField.this.pressHint)){
+				if(TextInputField.super.getText().equals("") || TextInputField.super.getText().equals(TextInputField.this.pressHint)){
 					setText(TextInputField.this.hint);
 					repaint();
 				}
 			}
 			@Override
 			public void mousePressed(MouseEvent e){
-				if(getText().equals(TextInputField.this.hint)){
+				if(TextInputField.super.getText().equals(TextInputField.this.hint)){
 					setText(TextInputField.this.pressHint);
 					repaint();
 				}
@@ -139,6 +143,11 @@ public class TextInputField extends JTextField implements ValidationAware{
 	}
 
 	@Override
+	public String getText(){
+		return super.getText().equals(hint) ? "" : super.getText();
+	}
+
+	@Override
 	public void resetValidationChecks() {
 		validationPassed();
 	}
@@ -168,7 +177,11 @@ public class TextInputField extends JTextField implements ValidationAware{
 	public void setOnAnyKeyPressed(java.lang.Runnable onAnyKeyPressed) {
 		this.onAnyKeyPressed = onAnyKeyPressed;
 	}
-	
+
+	public void setOnAnyKeyReleased(java.lang.Runnable onAnyKeyReleased) {
+		this.onAnyKeyReleased = onAnyKeyReleased;
+	}
+
 	public void setHint(String hint) {
 		this.hint = hint;
 		repaint();

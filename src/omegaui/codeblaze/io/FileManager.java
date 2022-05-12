@@ -2,6 +2,7 @@ package omegaui.codeblaze.io;
 import omegaui.dynamic.database.DataBase;
 
 import java.awt.BorderLayout;
+		
 
 import omegaui.codeblaze.ui.dialog.FileSelectionDialog;
 
@@ -41,7 +42,7 @@ public final class FileManager {
 		validateLastSessionDataBase();
 
 		AppInstanceProvider.getCurrentAppInstance().addAppClosingOperation((app)->{
-			System.out.println("saving ... " + recentFilesDataBase.getEntriesAsString(RECENT_FILE_DATA_SET_NAME).size());
+			System.out.println("Saving Recent Files DataBase ... Total Recent Files : " + recentFilesDataBase.getEntriesAsString(RECENT_FILE_DATA_SET_NAME).size());
 			recentFilesDataBase.save();
 			return true;
 		});
@@ -149,7 +150,7 @@ public final class FileManager {
 			editor.getFile().getAbsolutePath(),
 			getPreferredIconForFile(editor.getFile()),
 			editor.getScrollPane(),
-			tertiaryColor,
+			getPreferredColorForFile(editor.getFile()),
 			()->{
 				editor.askAndSaveFile();
 				removeCodeEditor(editor);

@@ -33,6 +33,7 @@ public class KeyStrokeListener implements KeyListener{
 	public LinkedList<KeyStrokeData> keyStrokes = new LinkedList<>();
 	public Component c;
 	public KeyStrokeDataListener onAnyKeyPressedListener = (e)->{};
+	public KeyStrokeDataListener onAnyKeyReleasedListener = (e)->{};
 
 	public KeyStrokeListener(Component c){
 		this.c = c;
@@ -79,9 +80,9 @@ public class KeyStrokeListener implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		synchronized(c){
-			onAnyKeyPressedListener.listen(e);
 			keys.forEach(key->key.checkPressed(e.getKeyCode(), true));
 			keyStrokes.forEach(keyStrokeData->keyStrokeData.stroke(e));
+			onAnyKeyPressedListener.listen(e);
 		}
 	}
 
@@ -89,6 +90,7 @@ public class KeyStrokeListener implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		synchronized(c){
 			keys.forEach(key->key.checkPressed(e.getKeyCode(), false));
+			onAnyKeyReleasedListener.listen(e);
 		}
 	}
 
@@ -101,6 +103,10 @@ public class KeyStrokeListener implements KeyListener{
 
 	public void setOnAnyKeyPressed(KeyStrokeDataListener listener){
 		this.onAnyKeyPressedListener = listener;
+	}
+
+	public void setOnAnyKeyReleased(KeyStrokeDataListener listener){
+		this.onAnyKeyReleasedListener = listener;
 	}
 
 	public interface KeyStrokeDataListener {

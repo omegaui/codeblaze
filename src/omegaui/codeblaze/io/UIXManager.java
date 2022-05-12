@@ -42,6 +42,17 @@ public final class UIXManager {
 	public static PixelColor back1 = new PixelColor(Color.decode("#f3f3f3"));
 	public static PixelColor back2 = new PixelColor(Color.decode("#fcfcfc"));
 	public static PixelColor back3 = new PixelColor(Color.decode("#eaeaea"));
+
+	//File Colors
+	public static final Color ANY_COLOR = tertiaryColor;
+	public static final Color SOURCE_COLOR = focusColor;
+	public static final Color BYTE_COLOR = new Color(150, 150, 50, 220);
+	public static final Color IMAGE_COLOR = new Color(50, 100, 50, 220);
+	public static final Color LINUX_COLOR = new Color(175, 50, 50, 220);
+	public static final Color EMPTY_COLOR = Color.LIGHT_GRAY;
+	public static final Color WEB_COLOR = focusColor;
+	public static final Color XML_COLOR = LINUX_COLOR;
+	public static final Color ARCHIVE_COLOR = ANY_COLOR;
 	
 	//Fonts
 	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12).bold();
@@ -205,6 +216,68 @@ public final class UIXManager {
 				return archiveIcon;
 		}
 		return fileIcon;
+	}
+
+	
+	public static Color getPreferredColorForFile(File file){
+		if(file.isDirectory()){
+			if(file.getName().charAt(0) == '.')
+				return warningColor;
+			return GLOW;
+		}
+		Color res = ANY_COLOR;
+		if(!file.getName().contains(".")){
+			return res;
+		}
+		if(file.getName().endsWith(".java") || file.getName().endsWith(".rs") || file.getName().endsWith(".py") || file.getName().endsWith(".groovy") || file.getName().endsWith(".kt")) {
+			res = SOURCE_COLOR;
+		}
+		else if(file.getName().endsWith(".class")){
+			res = BYTE_COLOR;
+		}
+		else if(file.getName().endsWith(".exe") || file.getName().endsWith(".msi")){
+			res = primaryColor;
+		}
+		else if(file.getName().endsWith(".dmg")){
+			res = primaryColor;
+		}
+		else if(file.getName().endsWith(".dll") || file.getName().endsWith(".so") || file.getName().endsWith(".dylib")){
+			res = secondaryColor;
+		}
+		else if(file.getName().endsWith(".deb") || file.getName().endsWith(".run")
+		|| file.getName().endsWith(".sh")){
+			res = LINUX_COLOR;
+		}
+		else if(file.getName().endsWith(".dependencies") || file.getName().endsWith(".sources")
+		|| file.getName().endsWith(".natives") || file.getName().endsWith(".resources")
+		|| file.getName().endsWith(".projectInfo") || file.getName().endsWith(".modules")
+		|| file.getName().endsWith(".snippets") || file.getName().endsWith(".args")){
+			res = primaryColor;
+		}
+		else if(file.getName().startsWith(".")){
+			res = warningColor;
+		}
+		else if(file.getName().endsWith(".js") || file.getName().endsWith(".html")){
+			res = WEB_COLOR;
+		}
+		else if(file.getName().endsWith(".xml") || file.getName().endsWith(".fxml")){
+			res = XML_COLOR;
+		}
+		else if(file.getName().endsWith(".txt")){
+			res = focusColor;
+		}
+		else if(file.getName().endsWith(".png") || file.getName().endsWith(".jpg")
+		|| file.getName().endsWith(".jpeg") || file.getName().endsWith(".gif")
+		|| file.getName().endsWith(".jp2") || file.getName().endsWith(".bmp")
+		|| file.getName().endsWith(".ico") || file.getName().endsWith(".svg")){
+			res = IMAGE_COLOR;
+		}
+		else if(file.getName().endsWith(".zip") || file.getName().endsWith(".7z") ||
+		file.getName().endsWith(".tar") || file.getName().endsWith(".tar.gz")
+		|| file.getName().endsWith(".jar")){
+			res = ARCHIVE_COLOR;
+		}
+		return res;
 	}
 
 }

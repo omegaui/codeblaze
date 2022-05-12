@@ -5,21 +5,11 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/io/FileManager.java
 -project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
--project-root$/src/omegaui/codeblaze/ui/component/TextInputField.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/io/FileManager.java
-|611
-|906
 -project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
-|628
-|921
--project-root$/src/omegaui/codeblaze/ui/component/TextInputField.java
-|882
-|1582
->Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
+|1657
+|2992
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots
