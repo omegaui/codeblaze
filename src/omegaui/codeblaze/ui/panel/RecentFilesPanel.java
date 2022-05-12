@@ -15,6 +15,7 @@ import omegaui.component.TextComp;
 
 import omegaui.codeblaze.ui.component.TextInputField;
 import omegaui.codeblaze.ui.component.MessagePane;
+import omegaui.codeblaze.ui.component.FileInfoComp;
 
 import omegaui.codeblaze.io.ResizeAware;
 import omegaui.codeblaze.io.FileManager;
@@ -38,7 +39,7 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 
 	private TextInputField textField;
 
-	private LinkedList<TextComp> fileComps = new LinkedList<>();
+	private LinkedList<FileInfoComp> fileComps = new LinkedList<>();
 
 	private JPanel panel;
 	private JScrollPane scrollPane;
@@ -97,7 +98,7 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 	public void recreateView(){
 		panel.removeAll();
 		fileComps.clear();
-		
+
 		messagePane.getMessageComp().setHighlightColor(primaryColor);
 
 		LinkedList<String> recentFiles = FileManager.getRecentFilesDataBase().getEntriesAsString(FileManager.RECENT_FILE_DATA_SET_NAME);
@@ -106,36 +107,33 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 			messagePane.setMessage("You haven't open any file yet, Open some files and get them listed here.", "haven't open any file");
 			return;
 		}
-		
+
 		String text = textField.getText();
 
-		int blockY = 5;
+		int blockY = 10;
 		int width = scrollPane.getWidth();
-		
+
 		for(String path : recentFiles){
 			File file = new File(path);
 			if(path.contains(text) || AppUtils.isMatching(path, text)){
-				Color fileColor = getPreferredColorForFile(file);
-				TextComp comp = new TextComp(file.getName(), HOVER, BACKGROUND, fileColor, ()->{
-					FileManager.openFile(file);
+				FileInfoComp comp = new FileInfoComp(file, ()->{
+					new Thread(()->FileManager.openFile(file)).start();
 				});
-				comp.setFont(PX16);
-				comp.setArc(6, 6);
-				comp.setImageCoordinates(9, 9);
-				comp.setImage(getPreferredIconForFile(file), 32, 32);
-				comp.setTextAlignment(TextComp.TEXT_ALIGNMENT_LEFT);
-				comp.setTextLeftAlignmentMargin(45);
-				comp.setBounds(5, blockY, width - 10, 40);
+				comp.setBounds(10, blockY, width - 50, 50);
 				panel.add(comp);
 				fileComps.add(comp);
 
-				blockY += 40 + 5;
+				blockY += 50 + 10;
 			}
 		}
+
+		messagePane.setMessage(fileComps.size() + " files were found!", String.valueOf(fileComps.size()));
 		
-		panel.setPreferredSize(new Dimension(width - 10, blockY - 40));
-		messagePane.setMessage(fileComps.size() + " files were found.", String.valueOf(fileComps.size()));
+		panel.setPreferredSize(new Dimension(width - 30, blockY));
 		panel.repaint();
+		scrollPane.getVerticalScrollBar().setValue(0);
+		scrollPane.getVerticalScrollBar().setVisible(false);
+		scrollPane.getVerticalScrollBar().setVisible(true);
 	}
 
 	@Override
@@ -154,7 +152,7 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 
 		textField.setBounds(getWidth()/2 - getWidth()/6, 150, getWidth()/3, 30);
 
-		scrollPane.setLocation(getWidth()/2 - 250, 200);
+		scrollPane.setBounds(getWidth()/2 - 250, 200, 500, getHeight() - 250);
 
 		messagePane.setBounds(0, getHeight() - 30, getWidth(), 30);
 	}

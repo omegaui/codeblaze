@@ -65,7 +65,8 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 			FileManager.openFile();
 		})
 		.createItem(recentsIcon, "Recent Files", "Ctrl + SHIFT + R", ()->{
-			
+			app.switchViewToGlassPane();
+			app.getGlassPanel().putToView(GlassPanel.getRecentFilesPanel());
 		})
 		.createItem(saveIcon, "Save All Editors", "Ctrl + Alt + S", ()->{
 			

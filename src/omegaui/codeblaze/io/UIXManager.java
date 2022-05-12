@@ -25,7 +25,7 @@ public final class UIXManager {
 	//Colors
 	public static PixelColor BACKGROUND = new PixelColor(255, 255, 255);
 	public static PixelColor GLOW = new PixelColor(80, 80, 80);
-	public static PixelColor HOVER = new PixelColor(200, 200, 200, 100);
+	public static PixelColor HOVER = new PixelColor(200, 200, 200, 100).withOpacity(0.2f);
 
 	public static PixelColor primaryColor = new PixelColor(26, 36, 219);
 	public static PixelColor secondaryColor = new PixelColor(223, 33, 15);
