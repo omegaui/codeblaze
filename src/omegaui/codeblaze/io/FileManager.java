@@ -31,7 +31,7 @@ public final class FileManager {
 
 	public static final String RECENT_FILE_DATA_SET_NAME = "Recent Files Since First Startup";
 
-	static {
+	public static void init(){
 		fileSelectionDialog = new FileSelectionDialog(AppInstanceProvider.getCurrentAppInstance());
 
 		recentFilesDataBase = new DataBase(combinePath(ROOT_DIR_NAME, "recent-files.data"));
@@ -41,6 +41,7 @@ public final class FileManager {
 		validateLastSessionDataBase();
 
 		AppInstanceProvider.getCurrentAppInstance().addAppClosingOperation((app)->{
+			System.out.println("saving ... " + recentFilesDataBase.getEntriesAsString(RECENT_FILE_DATA_SET_NAME).size());
 			recentFilesDataBase.save();
 			return true;
 		});
@@ -56,9 +57,9 @@ public final class FileManager {
 	}
 
 	public synchronized static void validateRecentFilesDataBase(){
-		recentFilesDataBase.clear();
-
 		LinkedList<String> filePaths = recentFilesDataBase.getEntriesAsString(RECENT_FILE_DATA_SET_NAME);
+		
+		recentFilesDataBase.clear();
 		if(!filePaths.isEmpty()){
 			for(String path : filePaths){
 				if(new File(path).exists())
@@ -68,9 +69,9 @@ public final class FileManager {
 	}
 
 	public synchronized static void validateLastSessionDataBase(){
-		lastSessionDataBase.clear();
-
 		LinkedList<String> filePaths = lastSessionDataBase.getEntriesAsString("Last Opened Files");
+		
+		lastSessionDataBase.clear();
 		if(!filePaths.isEmpty()){
 			for(String path : filePaths){
 				if(new File(path).exists())

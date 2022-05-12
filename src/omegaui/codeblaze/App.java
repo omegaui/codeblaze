@@ -117,6 +117,8 @@ public class App extends JFrame {
 	}
 
 	private void initDefaultAppOperations(){
+		FileManager.init();
+		
 		addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e){

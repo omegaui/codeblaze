@@ -47,4 +47,8 @@ public final class MessagePane extends JPanel {
 		messageComp.addHighlightText("running process");
 	}
 
+	public omegaui.component.TextComp getMessageComp() {
+		return messageComp;
+	}
+	
 }
