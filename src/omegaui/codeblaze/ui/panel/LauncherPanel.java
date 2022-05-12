@@ -24,6 +24,7 @@ public final class LauncherPanel extends JPanel implements ResizeAware{
 
 	private TextComp createFileComp;
 	private TextComp openFileComp;
+	private TextComp recentFilesComp;
 	
 	public LauncherPanel(App app){
 		this.app = app;
@@ -68,6 +69,13 @@ public final class LauncherPanel extends JPanel implements ResizeAware{
 		openFileComp.setFont(PX18.bold());
 		openFileComp.setArc(6, 6);
 		add(openFileComp);
+		
+		recentFilesComp = new TextComp("Recent Files", HOVER, BACKGROUND, tertiaryColor, ()->{
+			app.getGlassPanel().putToView(GlassPanel.getRecentFilesPanel());
+		});
+		recentFilesComp.setFont(PX18.bold());
+		recentFilesComp.setArc(6, 6);
+		add(recentFilesComp);
 	}
 
 	@Override
@@ -78,6 +86,7 @@ public final class LauncherPanel extends JPanel implements ResizeAware{
 
 		createFileComp.setBounds(getWidth()/2 - 250/2, getHeight() - 150, 250, 30);
 		openFileComp.setBounds(getWidth()/2 - 250/2, createFileComp.getY() + createFileComp.getHeight() + 5, 250, 30);
+		recentFilesComp.setBounds(getWidth()/2 - 250/2, openFileComp.getY() + openFileComp.getHeight() + 5, 250, 30);
 	}
 	
 	@Override

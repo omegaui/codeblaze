@@ -22,6 +22,7 @@ public final class GlassPanel extends JPanel {
 	// Views
 	private static LauncherPanel launcherPanel;
 	private static FileCreationPanel fileCreationPanel;
+	private static RecentFilesPanel recentFilesPanel;
 
 	public GlassPanel(App app){
 		super(new BorderLayout());
@@ -35,6 +36,7 @@ public final class GlassPanel extends JPanel {
 		
 		launcherPanel = new LauncherPanel(app);
 		fileCreationPanel = new FileCreationPanel(app);
+		recentFilesPanel = new RecentFilesPanel(app);
 
 		putToView(launcherPanel);
 		
@@ -54,6 +56,10 @@ public final class GlassPanel extends JPanel {
 	
 	public static omegaui.codeblaze.ui.panel.FileCreationPanel getFileCreationPanel() {
 		return fileCreationPanel;
+	}
+
+	public static omegaui.codeblaze.ui.panel.RecentFilesPanel getRecentFilesPanel() {
+		return recentFilesPanel;
 	}
 	
 }

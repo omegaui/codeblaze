@@ -5,6 +5,8 @@ import java.awt.geom.RoundRectangle2D;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import java.awt.Shape;
 import java.awt.Color;
@@ -36,6 +38,7 @@ public class TextInputField extends JTextField implements ValidationAware{
 	private Color color3;
 
 	private Runnable onAction = ()->{};
+	private Runnable onAnyKeyPressed = ()->{};
 
 	private TextInputFieldValidationTask validationTask = (field)->{
 		return true;
@@ -59,6 +62,7 @@ public class TextInputField extends JTextField implements ValidationAware{
 		keyListener.setOnAnyKeyPressed((e)->{
 			if(e.getKeyCode() != VK_ENTER){
 				resetValidationChecks();
+				onAnyKeyPressed.run();
 			}
 		});
 		keyListener.putKeyStroke((e)->{
@@ -86,6 +90,18 @@ public class TextInputField extends JTextField implements ValidationAware{
 					setText(TextInputField.this.pressHint);
 					repaint();
 				}
+			}
+		});
+		
+		addFocusListener(new FocusAdapter(){
+			@Override
+			public void focusGained(FocusEvent e){
+				setBorder(BorderFactory.createLineBorder(primaryColor, 2, true));
+			}
+			
+			@Override
+			public void focusLost(FocusEvent e){
+				setBorder(BorderFactory.createLineBorder(HOVER, 2, true));
 			}
 		});
 	}
@@ -149,6 +165,9 @@ public class TextInputField extends JTextField implements ValidationAware{
 		this.onAction = onAction;
 	}
 	
+	public void setOnAnyKeyPressed(java.lang.Runnable onAnyKeyPressed) {
+		this.onAnyKeyPressed = onAnyKeyPressed;
+	}
 	
 	public void setHint(String hint) {
 		this.hint = hint;

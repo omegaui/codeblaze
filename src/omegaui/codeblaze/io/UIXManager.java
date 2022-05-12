@@ -160,7 +160,7 @@ public final class UIXManager {
 	//Resource Providers
 	public static synchronized BufferedImage getIcon(String name){
 		try{
-			return ImageIO.read(UIXManager.class.getResourceAsStream("/icons/icons8-" + name + ".png"));
+			return ImageIO.read(UIXManager.class.getResource("/icons/icons8-" + name + ".png"));
 		}
 		catch(Exception e){
 			e.printStackTrace();

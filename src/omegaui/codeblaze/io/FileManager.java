@@ -46,6 +46,15 @@ public final class FileManager {
 		});
 	}
 
+	public synchronized static void addRecentFile(String path){
+		LinkedList<String> filePaths = recentFilesDataBase.getEntriesAsString(RECENT_FILE_DATA_SET_NAME);
+		for(String px : filePaths){
+			if(px.equals(path))
+				return;
+		}
+		recentFilesDataBase.addEntry(RECENT_FILE_DATA_SET_NAME, path);
+	}
+
 	public synchronized static void validateRecentFilesDataBase(){
 		recentFilesDataBase.clear();
 
@@ -53,7 +62,7 @@ public final class FileManager {
 		if(!filePaths.isEmpty()){
 			for(String path : filePaths){
 				if(new File(path).exists())
-					recentFilesDataBase.addEntry(RECENT_FILE_DATA_SET_NAME, path);
+					addRecentFile(path);
 			}
 		}
 	}
@@ -115,7 +124,7 @@ public final class FileManager {
 		if(file.exists()){
 			CodeEditor editor = new CodeEditor(file);
 			codeEditors.add(editor);
-			recentFilesDataBase.addEntry(RECENT_FILE_DATA_SET_NAME, file.getAbsolutePath());
+			addRecentFile(file.getAbsolutePath());
 			return editor;
 		}
 		return null;
