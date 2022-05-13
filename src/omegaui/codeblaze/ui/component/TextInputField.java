@@ -106,6 +106,10 @@ public class TextInputField extends JTextField implements ValidationAware{
 			@Override
 			public void focusLost(FocusEvent e){
 				setBorder(BorderFactory.createLineBorder(HOVER, 2, true));
+				if(TextInputField.super.getText().equals("") || TextInputField.super.getText().equals(TextInputField.this.pressHint)){
+					setText(TextInputField.this.hint);
+					repaint();
+				}
 			}
 		});
 	}

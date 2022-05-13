@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.panel;
+import omegaui.listener.KeyStrokeListener;
+
 import omegaui.paint.PixelColor;
 
 import java.io.File;
@@ -29,6 +31,8 @@ import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
 import static omegaui.component.animation.Animations.*;
 
+import static java.awt.event.KeyEvent.*;
+
 public final class RecentFilesPanel extends JPanel implements ResizeAware{
 
 	private App app;
@@ -40,6 +44,8 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 	private TextInputField textField;
 
 	private LinkedList<FileInfoComp> fileComps = new LinkedList<>();
+	
+	private int pointer;
 
 	private JPanel panel;
 	private JScrollPane scrollPane;
@@ -49,6 +55,30 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 	public RecentFilesPanel(App app){
 		this.app = app;
 		initUI();
+		initKeyStrokeListener();
+	}
+
+	public void initKeyStrokeListener(){
+		KeyStrokeListener listener = new KeyStrokeListener(this);
+		listener.putKeyStroke((e)->{
+			if(pointer - 1 >= 0){
+				fileComps.get(pointer).setEnter(false);
+				fileComps.get(--pointer).setEnter(true);
+				scrollPane.getVerticalScrollBar().setValue(pointer * 60);
+			}
+		}, VK_UP).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT);
+		listener.putKeyStroke((e)->{
+			if(pointer + 1 < fileComps.size()){
+				fileComps.get(pointer).setEnter(false);
+				fileComps.get(++pointer).setEnter(true);
+				scrollPane.getVerticalScrollBar().setValue(pointer * 60);
+			}
+		}, VK_DOWN).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT);
+		listener.putKeyStroke((e)->{
+			fileComps.get(pointer).doClick();
+		}, VK_ENTER).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT);
+//		addKeyListener(listener);
+		textField.addKeyListener(listener);
 	}
 
 	public void initUI(){
@@ -80,6 +110,10 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 		textField = new TextInputField("Type File Name Here", "");
 		textField.setFont(PX16);
 		textField.setOnAnyKeyReleased(this::recreateView);
+		textField.setOnAction(()->{
+			if(!fileComps.isEmpty() && pointer == 0)
+				fileComps.get(0).doClick();
+		});
 		add(textField);
 
 		scrollPane = new JScrollPane(panel = new JPanel(null));
@@ -131,14 +165,16 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 		
 		panel.setPreferredSize(new Dimension(width - 30, blockY));
 		panel.repaint();
-		scrollPane.getVerticalScrollBar().setValue(0);
 		scrollPane.getVerticalScrollBar().setVisible(false);
 		scrollPane.getVerticalScrollBar().setVisible(true);
+
+		fileComps.get(pointer).setEnter(true);
 	}
 
 	@Override
 	public void setVisible(boolean value){
 		if(value){
+			pointer = 0;
 			recreateView();
 		}
 		super.setVisible(value);

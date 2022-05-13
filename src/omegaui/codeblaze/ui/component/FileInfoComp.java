@@ -117,5 +117,8 @@ public final class FileInfoComp extends JComponent implements ResizeAware, Mouse
 		this.mouseEnter = mouseEnter;
 		repaint();
 	}
-	
+
+	public void doClick(){
+		onAction.run();
+	}
 }
