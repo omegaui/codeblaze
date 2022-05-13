@@ -1,4 +1,7 @@
 package omegaui.codeblaze.io;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+
 import java.io.File;
 
 import java.awt.Color;
@@ -21,7 +24,9 @@ public final class UIXManager {
 
 	//App Variables
 	public static int tabHeight = 30;
-	
+
+	public static volatile boolean darkmode = false;
+
 	//Colors
 	public static PixelColor BACKGROUND = new PixelColor(255, 255, 255);
 	public static PixelColor GLOW = new PixelColor(80, 80, 80);
@@ -38,22 +43,25 @@ public final class UIXManager {
 	public static PixelColor focusColorShade = focusColor.withOpacity(0.2f);
 	public static PixelColor warningColorShade = warningColor.withOpacity(0.2f);
 	public static PixelColor tertiaryColorShade = tertiaryColor.withOpacity(0.2f);
-	
+
 	public static PixelColor back1 = new PixelColor(Color.decode("#f3f3f3"));
 	public static PixelColor back2 = new PixelColor(Color.decode("#fcfcfc"));
 	public static PixelColor back3 = new PixelColor(Color.decode("#eaeaea"));
+	
+	public static Color LINE_NUMBER_COLOR = Color.BLACK;
+	public static Color CURRENT_LINE_NUMBER_COLOR = primaryColor;
 
 	//File Colors
-	public static final Color ANY_COLOR = tertiaryColor;
-	public static final Color SOURCE_COLOR = focusColor;
-	public static final Color BYTE_COLOR = new Color(150, 150, 50, 220);
-	public static final Color IMAGE_COLOR = new Color(50, 100, 50, 220);
-	public static final Color LINUX_COLOR = new Color(175, 50, 50, 220);
-	public static final Color EMPTY_COLOR = Color.LIGHT_GRAY;
-	public static final Color WEB_COLOR = focusColor;
-	public static final Color XML_COLOR = LINUX_COLOR;
-	public static final Color ARCHIVE_COLOR = ANY_COLOR;
-	
+	public static Color ANY_COLOR = tertiaryColor;
+	public static Color SOURCE_COLOR = focusColor;
+	public static Color BYTE_COLOR = new Color(150, 150, 50, 220);
+	public static Color IMAGE_COLOR = new Color(50, 100, 50, 220);
+	public static Color LINUX_COLOR = new Color(175, 50, 50, 220);
+	public static Color EMPTY_COLOR = Color.LIGHT_GRAY;
+	public static Color WEB_COLOR = focusColor;
+	public static Color XML_COLOR = LINUX_COLOR;
+	public static Color ARCHIVE_COLOR = ANY_COLOR;
+
 	//Fonts
 	public static DynoFont PX12 = new DynoFont("Ubuntu Mono", 12).bold();
 	public static DynoFont PX14 = new DynoFont("Ubuntu Mono", 14).bold();
@@ -74,7 +82,7 @@ public final class UIXManager {
 	public static DynoFont PX44 = new DynoFont("Ubuntu Mono", 44).bold();
 	public static DynoFont PX46 = new DynoFont("Ubuntu Mono", 46).bold();
 	public static DynoFont PX48 = new DynoFont("Ubuntu Mono", 48).bold();
-	
+
 	public static DynoFont UBUNTU_PX12 = new DynoFont("Ubuntu", 12).bold();
 	public static DynoFont UBUNTU_PX14 = new DynoFont("Ubuntu", 14).bold();
 	public static DynoFont UBUNTU_PX16 = new DynoFont("Ubuntu", 16).bold();
@@ -136,9 +144,8 @@ public final class UIXManager {
 	public static BufferedImage buildIcon = getIcon("built-48");
 	public static BufferedImage cookIcon = getIcon("cook-48");
 	public static BufferedImage reloadIcon = getIcon("reload-48");
-	
+
 	//Drawers
-	
 	public static int computeWidth(String name, Font font){
 		if(font == null)
 			return 8;
@@ -163,9 +170,41 @@ public final class UIXManager {
 	}
 
 
-	//Theme Providers
+	//Theme Management
+	public static void initDarkMode(){
+		FlatDarkLaf.install();
+
+		primaryColor = new PixelColor(Color.decode("#f0b40f"));
+		secondaryColor = new PixelColor(Color.decode("#D34D42"));
+		focusColor = new PixelColor(Color.decode("#24d673"));
+		warningColor = new PixelColor(Color.decode("#EB7201"));
+		tertiaryColor = new PixelColor(Color.decode("#7f6021"));
+
+		primaryColorShade = primaryColor.withOpacity(0.2f);
+		secondaryColorShade = secondaryColor.withOpacity(0.2f);
+		focusColorShade = focusColor.withOpacity(0.2f);
+		warningColorShade = warningColor.withOpacity(0.2f);
+		tertiaryColorShade = tertiaryColor.withOpacity(0.2f);
+
+		back1 = new PixelColor(Color.decode("#252526"));
+		back2 = new PixelColor(Color.decode("#2A2A2A"));
+		back3 = new PixelColor(Color.decode("#303030"));
+
+		GLOW = new PixelColor(Color.WHITE);
+		BACKGROUND = new PixelColor(Color.decode("#1e1e1e"));
+		HOVER = new PixelColor(51, 51, 51, 140).withOpacity(0.2f);
+
+		ANY_COLOR = tertiaryColor;
+		SOURCE_COLOR = focusColor;
+		WEB_COLOR = focusColor;
+
+		LINE_NUMBER_COLOR = Color.decode("#606364");
+		CURRENT_LINE_NUMBER_COLOR = Color.decode("#A4A3A1");
+
+	}
+
 	public static boolean isDarkMode(){
-		return false;
+		return darkmode;
 	}
 
 	//Resource Providers
@@ -178,7 +217,7 @@ public final class UIXManager {
 		}
 		return null;
 	}
-	
+
 	public static BufferedImage getPreferredIconForFile(File file){
 		if(file.isDirectory())
 			return folderIcon;
@@ -218,7 +257,7 @@ public final class UIXManager {
 		return fileIcon;
 	}
 
-	
+
 	public static Color getPreferredColorForFile(File file){
 		if(file.isDirectory()){
 			if(file.getName().charAt(0) == '.')

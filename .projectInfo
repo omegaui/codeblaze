@@ -5,25 +5,33 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+-/home/omegaui/Documents/omegaide/src/omega/io/UIManager.java
+-project-root$/src/omegaui/codeblaze/App.java
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
 -project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
 -project-root$/src/omegaui/codeblaze/ui/component/FileInfoComp.java
 >Caret Positions
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+|3839
+|8682
+-/home/omegaui/Documents/omegaide/src/omega/io/UIManager.java
+|2961
+|5304
+-project-root$/src/omegaui/codeblaze/App.java
+|2717
+|3772
+-project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
+|662
+|1329
 -project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
-|2142
-|3264
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopup.java
-|1325
-|1648
--project-root$/src/omegaui/codeblaze/ui/component/MaterialPopupItem.java
-|1074
-|2693
+|756
+|192
 -project-root$/src/omegaui/codeblaze/ui/component/FileInfoComp.java
-|0
-|39
+|756
+|307
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/component/FileInfoComp.java
+-project-root$/src/omegaui/codeblaze/App.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 >Project Classpath : Required Resource Roots

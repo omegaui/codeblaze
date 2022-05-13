@@ -49,8 +49,8 @@ public class CodeEditor extends RSyntaxTextArea {
 		
 		scrollPane = new RTextScrollPane(this);
 		scrollPane.setLineNumbersEnabled(true);
-		scrollPane.getGutter().setCurrentLineNumberColor(Color.BLACK);
-		scrollPane.getGutter().setLineNumberColor(GLOW);
+		scrollPane.getGutter().setCurrentLineNumberColor(CURRENT_LINE_NUMBER_COLOR);
+		scrollPane.getGutter().setLineNumberColor(LINE_NUMBER_COLOR);
 		scrollPane.getGutter().setLineNumberFont(getFont());
 	}
 
@@ -237,7 +237,7 @@ public class CodeEditor extends RSyntaxTextArea {
 
 	public void loadTheme(){
 		try{
-			Theme.load(getClass().getResourceAsStream("/editor-themes/light.xml"), getFont()).apply(this);
+			Theme.load(getClass().getResourceAsStream("/editor-themes/dark.xml"), getFont()).apply(this);
 		}
 		catch(Exception e){
 			e.printStackTrace();

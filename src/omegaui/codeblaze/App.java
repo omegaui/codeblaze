@@ -12,11 +12,10 @@ import omegaui.listener.KeyStrokeListener;
 import omegaui.codeblaze.ui.component.ToolMenu;
 import omegaui.codeblaze.ui.component.BottomPane;
 
-import com.formdev.flatlaf.FlatLightLaf;
-
 import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.AppStateManager;
 import omegaui.codeblaze.io.FileManager;
+import omegaui.codeblaze.io.UIXManager;
 
 import omegaui.codeblaze.ui.panel.GlassPanel;
 import omegaui.codeblaze.ui.panel.SplitPanel;
@@ -104,6 +103,8 @@ public class App extends JFrame {
 	}
 
 	private void initUI(){
+		initDarkMode();
+		
 		toolMenu = new ToolMenu(this);
 
 		bottomPane = new BottomPane(this);
@@ -148,6 +149,8 @@ public class App extends JFrame {
 	}
 
 	public void switchViewToContentPane(){
+		if(tabPanel.getTabs().isEmpty())
+			return;
 		viewState = CONTENT_VIEW;
 		remove(glassPanel);
 		add(toolMenu, BorderLayout.NORTH);
@@ -206,8 +209,6 @@ public class App extends JFrame {
 	}
 
 	public static void main(String[] args){
-		FlatLightLaf.install();
-
 		new App();
 	}
 }
