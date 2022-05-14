@@ -1,4 +1,6 @@
 package omegaui.codeblaze.io;
+import javax.swing.plaf.ColorUIResource;
+
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 
@@ -47,7 +49,7 @@ public final class UIXManager {
 	public static PixelColor back1 = new PixelColor(Color.decode("#f3f3f3"));
 	public static PixelColor back2 = new PixelColor(Color.decode("#fcfcfc"));
 	public static PixelColor back3 = new PixelColor(Color.decode("#eaeaea"));
-	
+
 	public static Color LINE_NUMBER_COLOR = Color.BLACK;
 	public static Color CURRENT_LINE_NUMBER_COLOR = primaryColor;
 
@@ -169,10 +171,24 @@ public final class UIXManager {
 		c.getHeight()/2 - computeHeight(g.getFont())/2 + g.getFontMetrics().getAscent() - g.getFontMetrics().getDescent() + 1);
 	}
 
-
 	//Theme Management
 	public static void initDarkMode(){
 		FlatDarkLaf.install();
+
+		Color x = Color.decode("#24d673");
+		Color y = Color.decode("#2A2A2A");
+		javax.swing.UIManager.put("ToolTip.foreground", new ColorUIResource(Color.WHITE));
+		javax.swing.UIManager.put("ToolTip.background", new ColorUIResource(y));
+		javax.swing.UIManager.put("Button.foreground", new ColorUIResource(Color.WHITE));
+		javax.swing.UIManager.put("Button.background", new ColorUIResource(y));
+		javax.swing.UIManager.put("Label.foreground", new ColorUIResource(Color.WHITE));
+		javax.swing.UIManager.put("Label.background", new ColorUIResource(y));
+		javax.swing.UIManager.put("ToolTip.font", PX14);
+		javax.swing.UIManager.put("Button.font", PX14);
+		javax.swing.UIManager.put("Label.font", PX14);
+		javax.swing.UIManager.put("ScrollBar.thumb", new ColorUIResource(x));
+		javax.swing.UIManager.put("ScrollBar.track", new ColorUIResource(y));
+		javax.swing.UIManager.put("ScrollPane.background", new ColorUIResource(y));
 
 		primaryColor = new PixelColor(Color.decode("#f0b40f"));
 		secondaryColor = new PixelColor(Color.decode("#D34D42"));

@@ -945,7 +945,7 @@ public class Gutter extends JPanel {
 
 		public GutterBorder(int top, int left, int bottom, int right) {
 			super(top, left, bottom, right);
-			color = new Color(221, 221, 221);
+			color = omegaui.codeblaze.io.UIXManager.back2;
 			visibleRect = new Rectangle();
 		}
 

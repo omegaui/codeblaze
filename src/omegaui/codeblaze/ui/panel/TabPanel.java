@@ -80,7 +80,7 @@ public class TabPanel extends JPanel{
 		this.tabsPosition = tabsPosition;
 
 		setBackground(back3);
-		setBorder(BorderFactory.createLineBorder(BACKGROUND));
+		setBorder(BorderFactory.createLineBorder(back2));
 		
 		init();
 	}

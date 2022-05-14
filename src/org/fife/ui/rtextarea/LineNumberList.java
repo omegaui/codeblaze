@@ -716,17 +716,9 @@ public class LineNumberList extends AbstractGutterComponent
 
 		// Adjust the amount of space the line numbers take up, if necessary.
 		if (textArea!=null) {
-			Font font = getFont();
+			Font font = textArea.getFont();
 			if (font!=null) {
-				FontMetrics fontMetrics = getFontMetrics(font);
-				int count = 0;
-				int lineCount = textArea.getLineCount() +
-						getLineNumberingStartIndex() - 1;
-				do {
-					lineCount = lineCount/10;
-					count++;
-				} while (lineCount >= 10);
-				cellWidth += fontMetrics.charWidth('9')*(count+1) + 3;
+				cellWidth = omegaui.codeblaze.io.UIXManager.computeWidth(String.valueOf(textArea.getLineCount()), font) + 15;
 			}
 		}
 
@@ -784,7 +776,6 @@ public class LineNumberList extends AbstractGutterComponent
 
 		public void install(RTextArea textArea) {
 			if (!installed) {
-				//System.out.println("Installing");
 				textArea.addCaretListener(this);
 				textArea.addPropertyChangeListener(this);
 				caretUpdate(null); // Force current line highlight repaint

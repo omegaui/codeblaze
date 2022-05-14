@@ -49,9 +49,9 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 
 	public void initUI(){
 
-		setBackground(BACKGROUND);
+		setBackground(back2);
 
-		iconComp = new TextComp(appSmallIcon, BACKGROUND, BACKGROUND, BACKGROUND, null);
+		iconComp = new TextComp(appSmallIcon, back2, back2, back2, null);
 		iconComp.setArc(0, 0);
 		iconComp.setClickable(false);
 		add(iconComp);
@@ -159,7 +159,7 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-			g.setColor(BACKGROUND);
+			g.setColor(back2);
 			g.fillRect(0, 0, getWidth(), getHeight());
 			g.setColor(secondaryColor);
 			g.setFont(getFont());
