@@ -104,24 +104,32 @@ public final class FileManager {
 		LinkedList<File> files = fileSelectionDialog.selectFiles();
 		if(!files.isEmpty()){
 			for(File file : files){
-				CodeEditor editor = loadFile(file);
-				if(editor != null)
-					huntEditor(editor);
+				if(isEditorPresent(file))
+					setActiveEditor(file);
+				else{
+					CodeEditor editor = loadFile(file);
+					if(editor != null)
+						huntEditor(editor);
+				}
 			}
+			AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
 		}
 	}
 
 	public static void openFile(File file){
-		if(file.exists()){
+		if(isEditorPresent(file))
+			setActiveEditor(file);
+		else if(file.exists()){
 			CodeEditor editor = loadFile(file);
 			if(editor != null)
 				huntEditor(editor);
 		}
+		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
 	}
 
 	public static CodeEditor loadFile(File file){
 		if(isEditorPresent(file)){
-			return getEditor(file);
+			return null;
 		}
 		if(file.exists()){
 			CodeEditor editor = new CodeEditor(file);
@@ -141,6 +149,13 @@ public final class FileManager {
 			return false;
 		}
 		return true;
+	}
+
+	public static void setActiveEditor(File file){
+		if(isEditorPresent(file)){
+			AppInstanceProvider.getCurrentAppInstance().getTabPanel().setActiveTab(AppInstanceProvider.getCurrentAppInstance().getTabPanel().getTab(file.getAbsolutePath()));
+			return;
+		}
 	}
 
 	public static void huntEditor(CodeEditor editor){
@@ -234,7 +249,7 @@ public final class FileManager {
 				execute(file);
 			}
 			else if(compilationScriptExitValue == 0){
-				execute(file);
+				execute(file);	
 			}
 		}).start();
 	}

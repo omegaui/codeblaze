@@ -42,11 +42,13 @@ import javax.swing.BorderFactory;
 import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppResourceManager.*;
 
+import static java.awt.event.KeyEvent.*;
+
 public class App extends JFrame {
 
 	public static final int CONTENT_VIEW = 1;
 	public static final int GLASS_VIEW = 2;
-	
+
 	private int viewState = -1;
 
 	private GlassPanel glassPanel;
@@ -73,7 +75,7 @@ public class App extends JFrame {
 		registerAppInstanceProvider();
 
 		initResources();
-		
+
 		initAppWideKeyStrokeListener();
 		initUI();
 		initDefaultAppOperations();
@@ -93,42 +95,58 @@ public class App extends JFrame {
 
 	private void initAppWideKeyStrokeListener(){
 		appWideKeyStrokeListener = new KeyStrokeListener(this);
-		
+		appWideKeyStrokeListener.putKeyStroke((e)->{
+			switchToCreateNewFilePanel();
+			e.consume();
+		}, VK_CONTROL, VK_N).setStopKeys(VK_ALT, VK_SHIFT);
+		appWideKeyStrokeListener.putKeyStroke((e)->{
+			FileManager.openFile();
+			e.consume();
+		}, VK_CONTROL, VK_SHIFT, VK_N).setStopKeys(VK_ALT);
+		appWideKeyStrokeListener.putKeyStroke((e)->{
+			switchToRecentFilesPanel();
+			e.consume();
+		}, VK_CONTROL, VK_SHIFT, VK_R).setStopKeys(VK_ALT);
+		appWideKeyStrokeListener.putKeyStroke((e)->{
+			saveAllEditors();
+			e.consume();
+		}, VK_CONTROL, VK_ALT, VK_S).setStopKeys(VK_SHIFT);
+
 		KeyEventDispatcher dispatcher = new KeyEventDispatcher(){
 			@Override
-	        public boolean dispatchKeyEvent(KeyEvent e) {
-	        	if (e.getID() == KeyEvent.KEY_PRESSED) {
-                	appWideKeyStrokeListener.keyPressed(e);
-	            } 
-	            else if (e.getID() == KeyEvent.KEY_RELEASED) {
-	                appWideKeyStrokeListener.keyReleased(e);
-	            }
-	            else if (e.getID() == KeyEvent.KEY_TYPED) {
-	                appWideKeyStrokeListener.keyTyped(e);
-	            }
-	            return false;
-	        }
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				if (e.getID() == KeyEvent.KEY_PRESSED) {
+					appWideKeyStrokeListener.keyPressed(e);
+				}
+				else if (e.getID() == KeyEvent.KEY_RELEASED) {
+					appWideKeyStrokeListener.keyReleased(e);
+				}
+				else if (e.getID() == KeyEvent.KEY_TYPED) {
+					appWideKeyStrokeListener.keyTyped(e);
+				}
+				return false;
+			}
 		};
-		
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(dispatcher);
+
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(dispatcher);
 	}
 
 	private void initUI(){
-		
+
 		if(!appDataBase().getEntryAt("App Theme Mode").getValue().equals("light"))
 			initDarkMode();
 		else
 			FlatLightLaf.install();
-		
+
 		toolMenu = new ToolMenu(this);
 
 		bottomPane = new BottomPane(this);
-		
+
 		glassPanel = new GlassPanel(this);
 
 		tabPanel = new TabPanel(TabPanel.TAB_LOCATION_TOP);
-		
+
 		processPanel = new ProcessPanel(this);
 
 		splitPanel = new SplitPanel(SplitPanel.VERTICAL_SPLIT);
@@ -138,14 +156,14 @@ public class App extends JFrame {
 
 	private void initDefaultAppOperations(){
 		FileManager.init();
-		
+
 		addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e){
 				exit();
 			}
 		});
-		
+
 		addAppClosingOperation((app)->{
 			tabPanel.closeAllTabs();
 			return true;
@@ -154,6 +172,16 @@ public class App extends JFrame {
 
 	private void initState(){
 		AppStateManager.initAppState();
+	}
+
+	public void switchToCreateNewFilePanel(){
+		switchViewToGlassPane();
+		getGlassPanel().putToView(GlassPanel.getFileCreationPanel());
+	}
+
+	public void switchToRecentFilesPanel(){
+		switchViewToGlassPane();
+		getGlassPanel().putToView(GlassPanel.getRecentFilesPanel());
 	}
 
 	public void switchViewToGlassPane(){
@@ -208,10 +236,19 @@ public class App extends JFrame {
 		return this;
 	}
 
+	public void saveAllEditors(){
+		tabPanel.getAllEditors().forEach((editor)->editor.saveSilently());
+		setMessage("You invoked Silent Save File on All Editors! -- Shortcut: Ctrl + ALT + S", "Silent Save", "All Editors");
+	}
+
+	public void closeAllEditors(){
+		tabPanel.closeAllTabs();
+	}
+
 	public omegaui.listener.KeyStrokeListener getAppWideKeyStrokeListener() {
 		return appWideKeyStrokeListener;
 	}
-	
+
 	public omegaui.codeblaze.ui.panel.GlassPanel getGlassPanel() {
 		return glassPanel;
 	}
@@ -223,11 +260,11 @@ public class App extends JFrame {
 	public omegaui.codeblaze.ui.panel.ProcessPanel getProcessPanel() {
 		return processPanel;
 	}
-	
+
 	public omegaui.codeblaze.ui.component.ToolMenu getToolMenu() {
 		return toolMenu;
 	}
-	
+
 	public omegaui.codeblaze.ui.component.BottomPane getBottomPane() {
 		return bottomPane;
 	}
@@ -235,7 +272,7 @@ public class App extends JFrame {
 	public omegaui.codeblaze.ui.panel.SplitPanel getSplitPanel() {
 		return splitPanel;
 	}
-	
+
 	public int getViewState() {
 		return viewState;
 	}

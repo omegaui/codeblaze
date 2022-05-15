@@ -97,8 +97,8 @@ public class TabComp extends JComponent implements FocusListener{
 		tabData.getComponent().addKeyListener(keyStrokelistener);
 
 		if(tabData.getComponent() instanceof RTextScrollPane scrollPane){
-			scrollPane.getViewport().getView().addFocusListener(this);
-			scrollPane.getViewport().getView().addKeyListener(keyStrokelistener);
+			scrollPane.getTextArea().addFocusListener(this);
+			scrollPane.getTextArea().addKeyListener(keyStrokelistener);
 		}
 
 		else if(tabData.getComponent() instanceof JScrollPane scrollPane){

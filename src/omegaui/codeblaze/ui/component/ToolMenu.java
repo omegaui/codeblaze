@@ -58,21 +58,19 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 
 		filePopup = new MaterialPopup();
 		filePopup.createItem(newIcon, "Create a New File", "Ctrl + N", ()->{
-			app.switchViewToGlassPane();
-			app.getGlassPanel().putToView(GlassPanel.getFileCreationPanel());
+			app.switchToCreateNewFilePanel();
 		})
 		.createItem(openIcon, "Open a Local File", "Ctrl + SHIFT + N", ()->{
 			FileManager.openFile();
 		})
 		.createItem(recentsIcon, "Recent Files", "Ctrl + SHIFT + R", ()->{
-			app.switchViewToGlassPane();
-			app.getGlassPanel().putToView(GlassPanel.getRecentFilesPanel());
+			app.switchToRecentFilesPanel();
 		})
-		.createItem(saveIcon, "Save All Editors", "Ctrl + Alt + S", ()->{
-			
+		.createItem(saveIcon, "Save All Editors (Silent)", "Ctrl + Alt + S", ()->{
+			app.saveAllEditors();
 		})
 		.createItem(closeIcon, "Close All Editors", "Ctrl + Alt + X", ()->{
-			
+			app.closeAllEditors();
 		})
 		.createItem(exitIcon, "Exit", "Alt + F4", AppInstanceProvider.getCurrentAppInstance()::exit);
 		fileMenu = new Menu(filePopup, "File");

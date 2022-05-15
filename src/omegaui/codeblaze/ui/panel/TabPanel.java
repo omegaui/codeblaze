@@ -247,14 +247,15 @@ public class TabPanel extends JPanel{
 		return false;
 	}
 
-	public CodeEditor getCurrentEditor() {
-		if(activeTabData == null)
-			return null;
-		if(activeTabData.getComponent() instanceof CodeEditor editor)
-			return editor;
-		return null;
+	public LinkedList<CodeEditor> getAllEditors(){
+		LinkedList<CodeEditor> editors = new LinkedList<>();
+		for(TabData tabData : tabs){
+			if(tabData.getComponent() instanceof RTextScrollPane scrollPane)
+				editors.add((CodeEditor)scrollPane.getTextArea());
+		}
+		return editors;
 	}
-
+	
 	public void closeAllTabs() {
 		tabsHolder.triggerAllClose();
 		tabs.clear();

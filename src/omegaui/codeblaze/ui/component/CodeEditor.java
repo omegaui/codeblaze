@@ -203,7 +203,7 @@ public class CodeEditor extends RSyntaxTextArea {
 	public void askAndSaveFile(){
 		int choice = ChoiceDialog.CHOICE1;
 		if(!isFileSaved()){
-			choice = ChoiceDialog.makeChoice("Do you want to Save this file?", "Yes, Save!", "No, Lose Data!");
+			choice = ChoiceDialog.makeChoice("Do you want to Save " + file.getName() + " file?", "Yes, Save!", "No, Lose Data!");
 		}
 		
 		if(choice != ChoiceDialog.CHOICE1){

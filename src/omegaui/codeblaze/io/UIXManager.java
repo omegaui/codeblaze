@@ -90,8 +90,8 @@ public final class UIXManager {
 	public static DynoFont UBUNTU_PX16 = new DynoFont("Ubuntu", 16).bold();
 
 	//App Icons
-	public static BufferedImage appIcon = getIcon("blaze-182");
-	public static BufferedImage appSmallIcon = getIcon("blaze-32");
+	public static BufferedImage appIcon = getAppIcon();
+	public static BufferedImage appSmallIcon = getAppIcon32();
 
 	//FileSelectionDialog Icons
 	public static BufferedImage backIcon = getIcon("back-64");
@@ -178,6 +178,9 @@ public final class UIXManager {
 
 	//Theme Management
 	public static void initDarkMode(){
+//		appIcon = getAppIcon();
+//		appSmallIcon = getAppIcon32();
+		
 		FlatDarkLaf.install();
 
 		Color x = Color.decode("#24d673");
@@ -229,6 +232,28 @@ public final class UIXManager {
 	}
 
 	//Resource Providers
+	public static synchronized BufferedImage getAppIcon(){
+		try{
+			String name = "blaze-182";
+			return ImageIO.read(UIXManager.class.getResource("/icons/icons8-" + name + ".png"));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static synchronized BufferedImage getAppIcon32(){
+		try{
+			String name = "blaze-32";
+			return ImageIO.read(UIXManager.class.getResource("/icons/icons8-" + name + ".png"));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static synchronized BufferedImage getIcon(String name){
 		try{
 			return ImageIO.read(UIXManager.class.getResource("/icons/icons8-" + name + ".png"));
