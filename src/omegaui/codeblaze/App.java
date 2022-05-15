@@ -191,6 +191,10 @@ public class App extends JFrame {
 		System.exit(0);
 	}
 
+	public void resetMessage(){
+		bottomPane.getMessagePane().resetMessage();
+	}
+
 	public void setMessage(String text){
 		bottomPane.getMessagePane().setMessage(text);
 	}

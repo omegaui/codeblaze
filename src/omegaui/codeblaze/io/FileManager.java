@@ -206,17 +206,23 @@ public final class FileManager {
 
 	public static synchronized void compile(File file){
 		new Thread(()->{
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Compiling " + file.getName() + " ...", "Compiling");
 			if(ExecutionManager.compile(file) == 404){
 				AppInstanceProvider.getCurrentAppInstance().setMessage("No Compiler Script is available for " + file.getName(), "No");
 			}
+			else
+				AppInstanceProvider.getCurrentAppInstance().resetMessage();
 		}).start();
 	}
 
 	public static synchronized void execute(File file){
 		new Thread(()->{
+			AppInstanceProvider.getCurrentAppInstance().setMessage("Executing " + file.getName() + " ...", "Executing");
 			if(ExecutionManager.execute(file) == 404){
 				AppInstanceProvider.getCurrentAppInstance().setMessage("No Interpreter Script is available for " + file.getName(), "No");
 			}
+			else
+				AppInstanceProvider.getCurrentAppInstance().resetMessage();
 		}).start();
 	}
 
