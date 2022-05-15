@@ -20,6 +20,7 @@ import omegaui.codeblaze.io.UIXManager;
 import omegaui.codeblaze.ui.panel.GlassPanel;
 import omegaui.codeblaze.ui.panel.SplitPanel;
 import omegaui.codeblaze.ui.panel.TabPanel;
+import omegaui.codeblaze.ui.panel.ProcessPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -53,6 +54,7 @@ public class App extends JFrame {
 
 	private SplitPanel splitPanel;
 	private TabPanel tabPanel;
+	private ProcessPanel processPanel;
 
 	private LinkedList<AppOperation> appClosingOperations = new LinkedList<>();
 
@@ -112,9 +114,12 @@ public class App extends JFrame {
 		glassPanel = new GlassPanel(this);
 
 		tabPanel = new TabPanel(TabPanel.TAB_LOCATION_TOP);
+		
+		processPanel = new ProcessPanel(this);
 
 		splitPanel = new SplitPanel(SplitPanel.VERTICAL_SPLIT);
 		splitPanel.setTopComponent(tabPanel);
+		splitPanel.setBottomComponent(processPanel);
 	}
 
 	private void initDefaultAppOperations(){
@@ -169,6 +174,7 @@ public class App extends JFrame {
 			}
 		}
 		dispose();
+		System.exit(0);
 	}
 
 	public void setMessage(String text){
@@ -196,6 +202,10 @@ public class App extends JFrame {
 		return tabPanel;
 	}
 
+	public omegaui.codeblaze.ui.panel.ProcessPanel getProcessPanel() {
+		return processPanel;
+	}
+	
 	public omegaui.codeblaze.ui.component.ToolMenu getToolMenu() {
 		return toolMenu;
 	}
@@ -204,6 +214,10 @@ public class App extends JFrame {
 		return bottomPane;
 	}
 
+	public omegaui.codeblaze.ui.panel.SplitPanel getSplitPanel() {
+		return splitPanel;
+	}
+	
 	public int getViewState() {
 		return viewState;
 	}

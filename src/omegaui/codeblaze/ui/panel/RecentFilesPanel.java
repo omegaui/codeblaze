@@ -147,7 +147,8 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 		int blockY = 10;
 		int width = scrollPane.getWidth();
 
-		for(String path : recentFiles){
+		for(int i = recentFiles.size() - 1; i >= 0; i--){
+			String path = recentFiles.get(i);
 			File file = new File(path);
 			if(path.contains(text) || AppUtils.isMatching(path, text)){
 				FileInfoComp comp = new FileInfoComp(file, ()->{

@@ -27,6 +27,11 @@ public class TabHistory implements TabPanelListener{
 
 	private LinkedList<TabData> tabs = new LinkedList<>();
 
+	private Runnable onOutOfTabs = ()->{
+		tabs.clear();
+		AppInstanceProvider.getCurrentAppInstance().switchViewToGlassPane();
+	};
+
 	public TabHistory(TabPanel tabPanel){
 		this.tabPanel = tabPanel;
 		tabPanel.addTabPanelListener(this);
@@ -58,8 +63,11 @@ public class TabHistory implements TabPanelListener{
 
 	@Override
 	public void goneEmpty(TabPanel tabPanel) {
-		tabs.clear();
-		AppInstanceProvider.getCurrentAppInstance().switchViewToGlassPane();
+		onOutOfTabs.run();
+	}
+
+	public void setOnOutOfTabs(Runnable action){
+		this.onOutOfTabs = action;
 	}
 
 	public java.util.LinkedList getActivatedTabs() {

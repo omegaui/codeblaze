@@ -15,6 +15,10 @@ public final class AppResourceManager {
 	
 	public static final String ROOT_DIR_NAME = ".codeblaze";
 	public static final String TEMPLATE_DIR_NAME = "templates";
+	public static final String COMPILER_SCRIPT_DIR_NAME = "compiler-scripts";
+	public static final String INTERPRETER_SCRIPT_DIR_NAME = "event-scripts";
+	public static final String EVENT_SCRIPT_DIR_NAME = "interpreter-scripts";
+	public static final String EXE_EXT = File.separator.equals("/") ? ".sh" : ".bat";
 
 	private static DataBase appDataBase;
 
@@ -35,11 +39,11 @@ public final class AppResourceManager {
 		//Creating up configuration structure
 		
 		createDir(ROOT_DIR_NAME);
-		createDir(ROOT_DIR_NAME, "templates");
-		createDir(ROOT_DIR_NAME, "compiler-scripts");
-		createDir(ROOT_DIR_NAME, "interpreter-scripts");
-		createDir(ROOT_DIR_NAME, "event-scripts");
-		createDir(ROOT_DIR_NAME, "event-scripts", "onFileSaved");
+		createDir(ROOT_DIR_NAME, TEMPLATE_DIR_NAME);
+		createDir(ROOT_DIR_NAME, COMPILER_SCRIPT_DIR_NAME);
+		createDir(ROOT_DIR_NAME, INTERPRETER_SCRIPT_DIR_NAME);
+		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME);
+		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, "onFileSaved");
 
 		appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
 	}
@@ -84,6 +88,14 @@ public final class AppResourceManager {
 			pathx += px + File.separator;
 		pathx = pathx.substring(0, pathx.length() - 1);
 		return pathx;
+	}
+
+	public static synchronized String combineToAbsolutePath(String... path){
+		String pathx = "";
+		for(String px : path)
+			pathx += px + File.separator;
+		pathx = pathx.substring(0, pathx.length() - 1);
+		return new File(pathx).getAbsolutePath();
 	}
 
 	public static synchronized DataBase appDataBase(){

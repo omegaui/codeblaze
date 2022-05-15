@@ -4,7 +4,69 @@
 -omegaui.codeblaze.App
 >Language Tag
 -0
+>Opened Editors on Main Tab Panel
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+-project-root$/src/omegaui/codeblaze/App.java
+-project-root$/src/omegaui/codeblaze/io/TabData.java
+-project-root$/src/omegaui/codeblaze/io/ScriptManager.java
+-project-root$/src/omegaui/codeblaze/io/ExecutionManager.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
+-project-root$/src/omegaui/codeblaze/io/TabHistory.java
+-project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
+-project-root$/src/omegaui/codeblaze/ui/panel/ProcessPanel.java
+-project-root$/src/omegaui/codeblaze/ui/panel/SplitPanel.java
+-project-root$/src/omegaui/codeblaze/ui/component/TerminalComp.java
+>Caret Positions
+-project-root$/src/omegaui/codeblaze/io/UIXManager.java
+|2646
+|6859
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+|1172
+|3248
+-project-root$/src/omegaui/codeblaze/App.java
+|1951
+|2767
+-project-root$/src/omegaui/codeblaze/io/TabData.java
+|756
+|1374
+-project-root$/src/omegaui/codeblaze/io/ScriptManager.java
+|0
+|108
+-project-root$/src/omegaui/codeblaze/io/ExecutionManager.java
+|0
+|962
+-project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
+|2016
+|3928
+-project-root$/src/omegaui/codeblaze/io/TabHistory.java
+|649
+|1828
+-project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
+|2835
+|4659
+-project-root$/src/omegaui/codeblaze/ui/panel/ProcessPanel.java
+|61
+|439
+-project-root$/src/omegaui/codeblaze/ui/panel/SplitPanel.java
+|783
+|2388
+-project-root$/src/omegaui/codeblaze/ui/component/TerminalComp.java
+|1970
+|2190
+>Last Active Editor
+-project-root$/src/omegaui/codeblaze/ui/component/TerminalComp.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
+-project-root$/lib/annotations-20.1.0.jar
+-project-root$/lib/jediterm-pty-2.67-SNAPSHOT.jar
+-project-root$/lib/jediterm-typeahead-2.67-SNAPSHOT.jar
+-project-root$/lib/jna-5.10.0.jar
+-project-root$/lib/jna-platform-5.10.0.jar
+-project-root$/lib/pty4j-0.12.7.jar
+-project-root$/lib/purejavacomm-0.0.11.1.jar
+-project-root$/lib/slf4j-api-1.7.32.jar
+-project-root$/lib/slf4j-jdk14-1.7.32.jar
+-project-root$/lib/terminal-2.67.jar
 >Project Classpath : Required Resource Roots
 -project-root$/res

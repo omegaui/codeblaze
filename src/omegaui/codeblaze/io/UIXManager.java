@@ -147,6 +147,11 @@ public final class UIXManager {
 	public static BufferedImage cookIcon = getIcon("cook-48");
 	public static BufferedImage reloadIcon = getIcon("reload-48");
 
+	//Platform Related
+	public static boolean onWindows(){
+		return File.separator.equals("\\");
+	}
+
 	//Drawers
 	public static int computeWidth(String name, Font font){
 		if(font == null)
@@ -271,6 +276,15 @@ public final class UIXManager {
 				return archiveIcon;
 		}
 		return fileIcon;
+	}
+
+	public static BufferedImage getPlatformImage(){
+		String name = System.getProperty("os.name");
+		if(name.contains("indows"))
+			return windowsIcon;
+		else if(name.contains("nux"))
+			return linuxIcon;
+		return appleIcon;
 	}
 
 

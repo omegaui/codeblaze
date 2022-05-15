@@ -183,11 +183,11 @@ public final class FileManager {
 
 	public static MaterialPopup createPopup(CodeEditor editor){
 		MaterialPopup popup = new MaterialPopup().width(250);
-		popup.createItem(cookIcon, "Build & Run", "Ctrl + SHIFT + R", ()->{
+		popup.createItem(cookIcon, "Compile & Run", "Ctrl + SHIFT + R", ()->{
 
 		});
-		popup.createItem(buildIcon, "Build", "Ctrl + B", ()->{
-
+		popup.createItem(buildIcon, "Compile", "Ctrl + B", ()->{
+			compile(editor.getFile());
 		});
 		popup.createItem(runIcon, "Execute", "Ctrl + SHIFT + L", ()->{
 
@@ -202,6 +202,14 @@ public final class FileManager {
 			editor.reloadFile();
 		});
 		return popup;
+	}
+
+	public static synchronized void compile(File file){
+		new Thread(()->{
+			if(!ExecutionManager.compile(file)){
+				AppInstanceProvider.getCurrentAppInstance().setMessage("No Compiler Scripts available for " + file.getName(), "No");
+			}
+		}).start();
 	}
 
 	public static java.util.LinkedList getCodeEditors() {
