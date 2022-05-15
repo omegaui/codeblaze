@@ -1,4 +1,6 @@
 package omegaui.codeblaze;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import omegaui.component.io.AppOperation;
 
 import java.util.LinkedList;
@@ -16,6 +18,7 @@ import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.AppStateManager;
 import omegaui.codeblaze.io.FileManager;
 import omegaui.codeblaze.io.UIXManager;
+import omegaui.codeblaze.io.AppResourceManager;
 
 import omegaui.codeblaze.ui.panel.GlassPanel;
 import omegaui.codeblaze.ui.panel.SplitPanel;
@@ -37,6 +40,7 @@ import javax.swing.UIManager;
 import javax.swing.BorderFactory;
 
 import static omegaui.codeblaze.io.UIXManager.*;
+import static omegaui.codeblaze.io.AppResourceManager.*;
 
 public class App extends JFrame {
 
@@ -67,6 +71,8 @@ public class App extends JFrame {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		registerAppInstanceProvider();
+
+		initResources();
 		
 		initAppWideKeyStrokeListener();
 		initUI();
@@ -79,6 +85,10 @@ public class App extends JFrame {
 
 	private void registerAppInstanceProvider(){
 		AppInstanceProvider.setCurrentAppInstance(this);
+	}
+
+	private void initResources(){
+		AppResourceManager.checkResources();
 	}
 
 	private void initAppWideKeyStrokeListener(){
@@ -105,7 +115,11 @@ public class App extends JFrame {
 	}
 
 	private void initUI(){
-		initDarkMode();
+		
+		if(!appDataBase().getEntryAt("App Theme Mode").getValue().equals("light"))
+			initDarkMode();
+		else
+			FlatLightLaf.install();
 		
 		toolMenu = new ToolMenu(this);
 

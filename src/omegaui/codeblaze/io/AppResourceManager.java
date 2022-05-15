@@ -45,13 +45,15 @@ public final class AppResourceManager {
 		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME);
 		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, "onFileSaved");
 
+		copyResourceIfNotExists("/.codeblaze/app.settings", combineToAbsolutePath(ROOT_DIR_NAME, "app.settings"));
+		
 		appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
 	}
 
 	public static void createDir(String path){
 		File dir = new File(path);
 		if(!dir.exists())
-			dir.mkdir();
+			dir.mkdirs();
 	}
 
 	public static void createDir(String... path){
@@ -76,6 +78,11 @@ public final class AppResourceManager {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static void copyResourceIfNotExists(String resourcePath, String targetPath){
+		if(!isPathExists(targetPath))
+			copyResource(resourcePath, targetPath);
 	}
 
 	public static synchronized boolean isPathExists(String... path){

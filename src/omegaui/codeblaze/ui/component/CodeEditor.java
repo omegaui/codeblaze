@@ -237,7 +237,7 @@ public class CodeEditor extends RSyntaxTextArea {
 
 	public void loadTheme(){
 		try{
-			Theme.load(getClass().getResourceAsStream("/editor-themes/dark.xml"), getFont()).apply(this);
+			Theme.load(getClass().getResourceAsStream("/editor-themes/" + (isDarkMode() ? "dark.xml" : "light.xml")), getFont()).apply(this);
 		}
 		catch(Exception e){
 			e.printStackTrace();
