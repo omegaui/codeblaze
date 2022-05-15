@@ -27,7 +27,7 @@ public final class UIXManager {
 	//App Variables
 	public static int tabHeight = 30;
 
-	public static volatile boolean darkmode = false;
+	public static volatile boolean darkmode = true;
 
 	//Colors
 	public static PixelColor BACKGROUND = new PixelColor(255, 255, 255);

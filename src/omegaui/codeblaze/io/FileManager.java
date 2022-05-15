@@ -184,13 +184,13 @@ public final class FileManager {
 	public static MaterialPopup createPopup(CodeEditor editor){
 		MaterialPopup popup = new MaterialPopup().width(250);
 		popup.createItem(cookIcon, "Compile & Run", "Ctrl + SHIFT + R", ()->{
-
+			compileAndExecute(editor.getFile());
 		});
 		popup.createItem(buildIcon, "Compile", "Ctrl + B", ()->{
 			compile(editor.getFile());
 		});
 		popup.createItem(runIcon, "Execute", "Ctrl + SHIFT + L", ()->{
-
+			execute(editor.getFile());
 		});
 		popup.createItem(saveIcon, "Save", "Ctrl + S", ()->{
 			editor.askAndSaveFile();
@@ -206,8 +206,29 @@ public final class FileManager {
 
 	public static synchronized void compile(File file){
 		new Thread(()->{
-			if(!ExecutionManager.compile(file)){
-				AppInstanceProvider.getCurrentAppInstance().setMessage("No Compiler Scripts available for " + file.getName(), "No");
+			if(ExecutionManager.compile(file) == 404){
+				AppInstanceProvider.getCurrentAppInstance().setMessage("No Compiler Script is available for " + file.getName(), "No");
+			}
+		}).start();
+	}
+
+	public static synchronized void execute(File file){
+		new Thread(()->{
+			if(ExecutionManager.execute(file) == 404){
+				AppInstanceProvider.getCurrentAppInstance().setMessage("No Interpreter Script is available for " + file.getName(), "No");
+			}
+		}).start();
+	}
+
+	public static synchronized void compileAndExecute(File file){
+		new Thread(()->{
+			int compilationScriptExitValue = ExecutionManager.compile(file);
+			if(compilationScriptExitValue == 404){
+				AppInstanceProvider.getCurrentAppInstance().setMessage("No Interpreter Script is available for " + file.getName(), "No");
+				execute(file);
+			}
+			else if(compilationScriptExitValue == 0){
+				execute(file);
 			}
 		}).start();
 	}

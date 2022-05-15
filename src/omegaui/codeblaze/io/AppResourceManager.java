@@ -9,15 +9,22 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 
+import static omegaui.codeblaze.io.UIXManager.*;
+
 public final class AppResourceManager {
 
 	public static final String USER_HOME = System.getProperty("user.home");
 	
+	public static final String APP_DARK_THEME_VALUE = "dark";
+	public static final String APP_LIGHT_THEME_VALUE = "light";
+	
+	public static final String APP_THEME_MODE_PROPERTY = "App Theme Mode";
+	
 	public static final String ROOT_DIR_NAME = ".codeblaze";
 	public static final String TEMPLATE_DIR_NAME = "templates";
 	public static final String COMPILER_SCRIPT_DIR_NAME = "compiler-scripts";
-	public static final String INTERPRETER_SCRIPT_DIR_NAME = "event-scripts";
-	public static final String EVENT_SCRIPT_DIR_NAME = "interpreter-scripts";
+	public static final String INTERPRETER_SCRIPT_DIR_NAME = "interpreter-scripts";
+	public static final String EVENT_SCRIPT_DIR_NAME = "event-scripts";
 	public static final String EXE_EXT = File.separator.equals("/") ? ".sh" : ".bat";
 
 	private static DataBase appDataBase;
@@ -36,8 +43,7 @@ public final class AppResourceManager {
 			e.printStackTrace();
 		}
 
-		//Creating up configuration structure
-		
+		//Building up configuration structure
 		createDir(ROOT_DIR_NAME);
 		createDir(ROOT_DIR_NAME, TEMPLATE_DIR_NAME);
 		createDir(ROOT_DIR_NAME, COMPILER_SCRIPT_DIR_NAME);
@@ -48,6 +54,7 @@ public final class AppResourceManager {
 		copyResourceIfNotExists("/.codeblaze/app.settings", combineToAbsolutePath(ROOT_DIR_NAME, "app.settings"));
 		
 		appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
+		darkmode = appDataBase().getEntryAt(APP_THEME_MODE_PROPERTY).getValue().equals(APP_DARK_THEME_VALUE);
 	}
 
 	public static void createDir(String path){

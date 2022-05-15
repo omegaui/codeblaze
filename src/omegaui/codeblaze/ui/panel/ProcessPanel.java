@@ -29,7 +29,7 @@ public final class ProcessPanel extends JPanel {
 
 		setBackground(back2);
 
-		tabPanel = new TabPanel(TabPanel.TAB_LOCATION_BOTTOM);
+		tabPanel = new TabPanel(TabPanel.TAB_LOCATION_TOP);
 		tabPanel.getTabHistory().setOnOutOfTabs(()->{
 			setVisible(false);
 		});
