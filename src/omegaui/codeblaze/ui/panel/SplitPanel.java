@@ -1,36 +1,36 @@
 /*
-  * SplitPanel
-  * Copyright (C) 2021 Omega UI
+ * SplitPanel
+ * Copyright (C) 2022 Omega UI
 
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 3 of the License, or
-  * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package omegaui.codeblaze.ui.panel;
 import java.awt.Component;
 
 import javax.swing.JSplitPane;
 public class SplitPanel extends JSplitPane{
-	
+
 	private int splitType;
 	private int dividerSize;
-	
+
 	public SplitPanel(int splitType){
 		super(splitType);
 		this.splitType = splitType;
 		this.dividerSize = getDividerSize();
 	}
-	
+
 	public void analyzeDivider(){
 		if(splitType == HORIZONTAL_SPLIT){
 			if(getLeftComponent() == null || getRightComponent() == null || getLeftComponent().getWidth() == 0 || getRightComponent().getWidth() == 0 || !getLeftComponent().isVisible() || !getRightComponent().isVisible()){
@@ -79,7 +79,7 @@ public class SplitPanel extends JSplitPane{
 		super.setBottomComponent(component);
 		layout();
 	}
-	
+
 	@Override
 	public void layout(){
 		analyzeDivider();

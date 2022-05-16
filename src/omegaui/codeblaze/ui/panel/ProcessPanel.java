@@ -1,6 +1,7 @@
 package omegaui.codeblaze.ui.panel;
 import omegaui.codeblaze.io.TabData;
 import omegaui.codeblaze.io.ResizeAware;
+import omegaui.codeblaze.io.AppInstanceProvider;
 
 import omegaui.codeblaze.App;
 
@@ -38,8 +39,31 @@ public final class ProcessPanel extends JPanel {
 	}
 
 	public void addTab(TabData tabData){
+		if(tabPanel.getTab(tabData.getUniqueName()) != null){
+			optimizeTabName(tabData);
+		}
 		tabPanel.addTab(tabData);
 		if(!isVisible())
 			super.setVisible(true);
+	}
+
+	public void optimizeTabName(TabData tabData){
+		int count = 0;
+		for(TabData tx : tabPanel.getTabs()){
+			if(tx.getUniqueName().startsWith(tabData.getUniqueName()))
+				count++;
+		}
+		tabData.setUniqueName(tabData.getUniqueName() + count);
+		tabData.setName(tabData.getName() + " " + count);
+	}
+
+	@Override
+	public void setVisible(boolean value){
+		super.setVisible(value);
+		if(value){
+			setSize(100, 100);
+			setPreferredSize(getSize());
+			AppInstanceProvider.getCurrentAppInstance().getSplitPanel().setDividerLocation(100);
+		}
 	}
 }

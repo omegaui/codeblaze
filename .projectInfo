@@ -5,49 +5,11 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
 -project-root$/src/omegaui/codeblaze/ui/panel/SplitPanel.java
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
--project-root$/src/omegaui/codeblaze/App.java
--project-root$/src/omegaui/codeblaze/io/AppStateManager.java
--project-root$/src/omegaui/codeblaze/io/ExecutionManager.java
--project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
--project-root$/src/omegaui/codeblaze/ui/panel/ProcessPanel.java
--project-root$/src/omegaui/codeblaze/io/FileManager.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/ui/panel/RecentFilesPanel.java
-|2835
-|4225
 -project-root$/src/omegaui/codeblaze/ui/panel/SplitPanel.java
-|783
-|2388
--project-root$/src/omegaui/codeblaze/io/UIXManager.java
-|60
-|754
--project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
-|3815
-|9244
--project-root$/src/omegaui/codeblaze/App.java
-|979
-|1441
--project-root$/src/omegaui/codeblaze/io/AppStateManager.java
-|0
-|68
--project-root$/src/omegaui/codeblaze/io/ExecutionManager.java
-|155
-|732
--project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
-|120
-|692
--project-root$/src/omegaui/codeblaze/ui/panel/ProcessPanel.java
-|75
-|145
--project-root$/src/omegaui/codeblaze/io/FileManager.java
-|4035
-|5947
->Last Active Editor
--project-root$/src/omegaui/codeblaze/io/ExecutionManager.java
+|360
+|1010
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 -project-root$/lib/annotations-20.1.0.jar

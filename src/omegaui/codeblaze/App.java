@@ -168,6 +168,11 @@ public class App extends JFrame {
 			tabPanel.closeAllTabs();
 			return true;
 		});
+
+		addAppClosingOperation((app)->{
+			AppResourceManager.saveAppDataBase();
+			return true;
+		});
 	}
 
 	private void initState(){

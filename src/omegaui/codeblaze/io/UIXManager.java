@@ -137,6 +137,7 @@ public final class UIXManager {
 
 	//View Action Icons
 	public static BufferedImage focusIcon = getIcon("focus-48");
+	public static BufferedImage themeIcon = getIcon("change-theme-48");
 
 	//Help Action Icons
 	public static BufferedImage questionIcon = getIcon("question-64");

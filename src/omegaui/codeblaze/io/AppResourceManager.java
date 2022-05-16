@@ -29,9 +29,13 @@ public final class AppResourceManager {
 
 	private static DataBase appDataBase;
 
+	public static synchronized void saveAppDataBase(){
+		appDataBase.updateEntry(APP_THEME_MODE_PROPERTY, isDarkMode() ? APP_DARK_THEME_VALUE : APP_LIGHT_THEME_VALUE, 0);
+		appDataBase.save();
+	}
+
 	public static void checkResources(){
 		//Installing Fonts
-
 		try{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, AppResourceManager.class.getResourceAsStream("/Ubuntu-Bold.ttf")));
