@@ -1,4 +1,11 @@
 package omegaui.codeblaze;
+import org.fife.ui.rtextarea.RTextScrollPane;
+
+import java.io.File;
+
+import omegaui.dynamic.database.DataBase;
+import omegaui.dynamic.database.DataEntry;
+
 import com.formdev.flatlaf.FlatLightLaf;
 
 import omegaui.component.io.AppOperation;
@@ -13,6 +20,7 @@ import omegaui.listener.KeyStrokeListener;
 
 import omegaui.codeblaze.ui.component.ToolMenu;
 import omegaui.codeblaze.ui.component.BottomPane;
+import omegaui.codeblaze.ui.component.CodeEditor;
 
 import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.AppStateManager;
@@ -62,6 +70,7 @@ public class App extends JFrame {
 	private TabPanel tabPanel;
 	private ProcessPanel processPanel;
 
+	private LinkedList<AppOperation> appOpeningOperations = new LinkedList<>();
 	private LinkedList<AppOperation> appClosingOperations = new LinkedList<>();
 
 	private App(){
@@ -71,6 +80,7 @@ public class App extends JFrame {
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setIconImage(appIcon);
 
 		registerAppInstanceProvider();
 
@@ -139,6 +149,8 @@ public class App extends JFrame {
 		else
 			FlatLightLaf.install();
 
+		setBackground(back2);
+
 		toolMenu = new ToolMenu(this);
 
 		bottomPane = new BottomPane(this);
@@ -152,6 +164,7 @@ public class App extends JFrame {
 		splitPanel = new SplitPanel(SplitPanel.VERTICAL_SPLIT);
 		splitPanel.setTopComponent(tabPanel);
 		splitPanel.setBottomComponent(processPanel);
+
 	}
 
 	private void initDefaultAppOperations(){
@@ -164,8 +177,45 @@ public class App extends JFrame {
 			}
 		});
 
-		addAppClosingOperation((app)->{
-			tabPanel.closeAllTabs();
+		addAppOpeningOperation((app)->{
+			DataEntry extendedStateProperty = FileManager.getLastSessionDataBase().getEntryAt(LAST_APP_WINDOW_STATE_PROPERTY);
+			if(extendedStateProperty != null){
+				setExtendedState(extendedStateProperty.getValueAsInt());
+			}
+			LinkedList<DataEntry> entries = FileManager.getLastSessionDataBase().getEntries(LAST_SESSION_FILES_PROPERTY);
+			if(!entries.isEmpty())
+				switchViewToContentPane();
+			else
+				return true;
+			System.out.println("Restoring " + entries.size() + " Editors!");
+			for(DataEntry entry : entries){
+				File file = new File(entry.lines().get(0));
+				if(file.exists()){
+					FileManager.openFile(file);
+				}
+			}
+			new Thread(()->{
+				try{
+					Thread.sleep(100);
+				}catch(Exception e){
+					
+				}
+				for(DataEntry entry : entries){
+					File file = new File(entry.lines().get(0));
+					CodeEditor editor = FileManager.getEditor(file);
+					if(editor != null){
+						editor.setCaretPosition(Integer.parseInt(entry.lines().get(1)));
+						editor.getScrollPane().getVerticalScrollBar().setValue(Integer.parseInt(entry.lines().get(2)));
+					}
+				}
+				DataEntry entry = FileManager.getLastSessionDataBase().getEntryAt(LAST_FOCUSSED_EDITOR_PROPERTY);
+				if(entry != null){
+					File file = new File(entry.getValue());
+					if(file.exists()){
+						tabPanel.setActiveTab(tabPanel.getTab(file.getAbsolutePath()));
+					}
+				}
+			}).start();
 			return true;
 		});
 
@@ -173,10 +223,43 @@ public class App extends JFrame {
 			AppResourceManager.saveAppDataBase();
 			return true;
 		});
+
+		addAppClosingOperation((app)->{
+			DataBase lastSessionDataBase = FileManager.getLastSessionDataBase();
+			lastSessionDataBase.clear();
+			lastSessionDataBase.addEntry(LAST_APP_WINDOW_STATE_PROPERTY, String.valueOf(getExtendedState()));
+			if(tabPanel.isEmpty()){
+				lastSessionDataBase.save();
+				return true;
+			}
+			LinkedList<CodeEditor> allEditors = FileManager.getCodeEditors();
+			System.out.println("Found " + allEditors.size() + " Editors Left Open!");
+			System.out.print("Saving Session Data ... ");
+			for(CodeEditor editor : allEditors){
+				lastSessionDataBase.addEntry(LAST_SESSION_FILES_PROPERTY, editor.getFile().getAbsolutePath() + "\n" + editor.getCaretPosition() + "\n" + editor.getScrollPane().getVerticalScrollBar().getValue());
+			}
+			CodeEditor editor = (CodeEditor)(((RTextScrollPane)(tabPanel.getLastActiveTabData().getComponent())).getTextArea());
+			lastSessionDataBase.addEntry(LAST_FOCUSSED_EDITOR_PROPERTY, editor.getFile().getAbsolutePath());
+			lastSessionDataBase.save();
+			System.out.println("Done!");
+			return true;
+		});
+
+		addAppClosingOperation((app)->{
+			tabPanel.closeAllTabs();
+			return true;
+		});
+
 	}
 
 	private void initState(){
 		AppStateManager.initAppState();
+		for(AppOperation operation : appOpeningOperations){
+			if(!operation.performOperation(this)){
+				setMessage("Some Error Occured during initialization, If you launched CodeBlaze from the Command Line there may be some logs.", "Error", "Command Line");
+				return;
+			}
+		}
 	}
 
 	public void switchToCreateNewFilePanel(){
@@ -234,6 +317,11 @@ public class App extends JFrame {
 
 	public void setMessage(String text, String... highlights){
 		bottomPane.getMessagePane().setMessage(text, highlights);
+	}
+
+	public App addAppOpeningOperation(AppOperation appOperation){
+		appOpeningOperations.add(appOperation);
+		return this;
 	}
 
 	public App addAppClosingOperation(AppOperation appOperation){

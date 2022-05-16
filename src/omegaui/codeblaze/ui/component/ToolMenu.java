@@ -80,7 +80,7 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		viewPopup = new MaterialPopup();
 		viewPopup.createItem(themeIcon, "Toggle Theme (Requires Restart)", ()->{
 			darkmode = !darkmode;
-			app.setMessage("Applied " + (isDarkMode() ? "Dark" : "Light") + " Mode, Restart CodeBlaze now for the changes to take effect.", "CodeBlaze", "Restart", "Theme Preference");
+			app.setMessage("Applied " + (isDarkMode() ? "Dark" : "Light") + " Mode, Restart CodeBlaze now for the changes to take effect.", "CodeBlaze", "Restart", "Dark", "Light", "Mode");
 		});
 		viewMenu = new Menu(viewPopup, "View");
 		viewPopup.setContextMenuVisiblityShortcut(KeyEvent.VK_V, viewMenu::showPopup);

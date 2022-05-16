@@ -263,6 +263,10 @@ public class TabPanel extends JPanel{
 		activeTabData = null;
 	}
 
+	public omegaui.codeblaze.io.TabData getLastActiveTabData() {
+		return activeTabData;
+	}
+	
 	public boolean isEmpty(){
 		return tabs.isEmpty();
 	}

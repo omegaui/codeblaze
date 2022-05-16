@@ -44,7 +44,7 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 	private TextInputField textField;
 
 	private LinkedList<FileInfoComp> fileComps = new LinkedList<>();
-	
+
 	private int pointer;
 
 	private JPanel panel;
@@ -77,7 +77,7 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 		listener.putKeyStroke((e)->{
 			fileComps.get(pointer).doClick();
 		}, VK_ENTER).setStopKeys(VK_CONTROL, VK_SHIFT, VK_ALT);
-//		addKeyListener(listener);
+		addKeyListener(listener);
 		textField.addKeyListener(listener);
 	}
 
@@ -152,7 +152,7 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 			File file = new File(path);
 			if(path.contains(text) || AppUtils.isMatching(path, text)){
 				FileInfoComp comp = new FileInfoComp(file, ()->{
-					new Thread(()->FileManager.openFile(file)).start();
+					FileManager.openFile(file);
 				});
 				comp.setBounds(10, blockY, width - 50, 50);
 				panel.add(comp);
@@ -163,7 +163,7 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 		}
 
 		messagePane.setMessage(fileComps.size() + " files were found!", String.valueOf(fileComps.size()));
-		
+
 		panel.setPreferredSize(new Dimension(width - 30, blockY));
 		panel.repaint();
 		scrollPane.getVerticalScrollBar().setVisible(false);
@@ -179,6 +179,9 @@ public final class RecentFilesPanel extends JPanel implements ResizeAware{
 			recreateView();
 		}
 		super.setVisible(value);
+		if(value){
+			grabFocus();
+		}
 	}
 
 	@Override

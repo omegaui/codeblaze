@@ -5,11 +5,25 @@
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/ui/panel/SplitPanel.java
+-project-root$/src/omegaui/codeblaze/App.java
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+-project-root$/src/omegaui/codeblaze/io/FileManager.java
+-project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/ui/panel/SplitPanel.java
-|360
-|1010
+-project-root$/src/omegaui/codeblaze/App.java
+|4104
+|5917
+-project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
+|0
+|785
+-project-root$/src/omegaui/codeblaze/io/FileManager.java
+|540
+|1616
+-project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
+|5035
+|6937
+>Last Active Editor
+-project-root$/src/omegaui/codeblaze/App.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 -project-root$/lib/annotations-20.1.0.jar

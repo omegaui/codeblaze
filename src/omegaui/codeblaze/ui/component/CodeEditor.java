@@ -57,6 +57,15 @@ public class CodeEditor extends RSyntaxTextArea {
 	public void initKeyListener(){
 		keyStrokeListener = new KeyStrokeListener(this);
 		keyStrokeListener.putKeyStroke((e)->{
+			FileManager.compileAndExecute(file);
+		}, VK_CONTROL, VK_ALT, VK_R).setStopKeys(VK_SHIFT).useAutoReset();
+		keyStrokeListener.putKeyStroke((e)->{
+			FileManager.compile(file);
+		}, VK_CONTROL, VK_B).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
+		keyStrokeListener.putKeyStroke((e)->{
+			FileManager.execute(file);
+		}, VK_CONTROL, VK_SHIFT, VK_L).setStopKeys(VK_ALT).useAutoReset();
+		keyStrokeListener.putKeyStroke((e)->{
 			askAndSaveFile();
 		}, VK_CONTROL, VK_S).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		keyStrokeListener.putKeyStroke((e)->{

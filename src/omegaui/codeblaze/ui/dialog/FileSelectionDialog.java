@@ -86,6 +86,7 @@ public class FileSelectionDialog extends JDialog{
 	public FileSelectionDialog(JFrame f){
 		super(f, true);
 		setUndecorated(true);
+		setIconImage(f.getIconImage());
 		JPanel panel = new JPanel(null);
 		panel.setBackground(BACKGROUND);
 		setContentPane(panel);

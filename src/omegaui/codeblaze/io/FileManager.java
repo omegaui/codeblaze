@@ -39,7 +39,6 @@ public final class FileManager {
 		validateRecentFilesDataBase();
 
 		lastSessionDataBase = new DataBase(combinePath(ROOT_DIR_NAME, "last-session.data"));
-		validateLastSessionDataBase();
 
 		AppInstanceProvider.getCurrentAppInstance().addAppClosingOperation((app)->{
 			System.out.println("Saving Recent Files DataBase ... Total Recent Files : " + recentFilesDataBase.getEntriesAsString(RECENT_FILE_DATA_SET_NAME).size());
@@ -68,19 +67,7 @@ public final class FileManager {
 			}
 		}
 	}
-
-	public synchronized static void validateLastSessionDataBase(){
-		LinkedList<String> filePaths = lastSessionDataBase.getEntriesAsString("Last Opened Files");
-		
-		lastSessionDataBase.clear();
-		if(!filePaths.isEmpty()){
-			for(String path : filePaths){
-				if(new File(path).exists())
-					lastSessionDataBase.addEntry("Last Opened Files", path);
-			}
-		}
-	}
-
+	
 	public static synchronized String createNewFile(File file){
 		if(file.exists())
 			return "File With this Name Already Exists!";
@@ -129,7 +116,7 @@ public final class FileManager {
 
 	public static CodeEditor loadFile(File file){
 		if(isEditorPresent(file)){
-			return null;
+			return getEditor(file);
 		}
 		if(file.exists()){
 			CodeEditor editor = new CodeEditor(file);
@@ -198,7 +185,7 @@ public final class FileManager {
 
 	public static MaterialPopup createPopup(CodeEditor editor){
 		MaterialPopup popup = new MaterialPopup().width(250);
-		popup.createItem(cookIcon, "Compile & Run", "Ctrl + SHIFT + R", ()->{
+		popup.createItem(cookIcon, "Compile & Run", "Ctrl + ALT + R", ()->{
 			compileAndExecute(editor.getFile());
 		});
 		popup.createItem(buildIcon, "Compile", "Ctrl + B", ()->{
@@ -266,4 +253,8 @@ public final class FileManager {
 		return recentFilesDataBase;
 	}
 
+	public static omegaui.dynamic.database.DataBase getLastSessionDataBase() {
+		return lastSessionDataBase;
+	}
+	
 }
