@@ -1,12 +1,10 @@
 package omegaui.codeblaze.ui.panel;
 import omegaui.codeblaze.io.TabData;
-import omegaui.codeblaze.io.ResizeAware;
 import omegaui.codeblaze.io.AppInstanceProvider;
 
 import omegaui.codeblaze.App;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
@@ -18,6 +16,9 @@ public final class ProcessPanel extends JPanel {
 
 	private App app;
 	private TabPanel tabPanel;
+
+	private int lastDividerLocation = -1;
+	private int lastHeight = 400;
 
 	public ProcessPanel(App app){
 		super(new BorderLayout());
@@ -32,6 +33,8 @@ public final class ProcessPanel extends JPanel {
 
 		tabPanel = new TabPanel(TabPanel.TAB_LOCATION_TOP);
 		tabPanel.getTabHistory().setOnOutOfTabs(()->{
+			lastDividerLocation = AppInstanceProvider.getCurrentAppInstance().getSplitPanel().getDividerLocation();
+			lastHeight = getHeight();
 			setVisible(false);
 		});
 		add(tabPanel, BorderLayout.CENTER);
@@ -44,7 +47,7 @@ public final class ProcessPanel extends JPanel {
 		}
 		tabPanel.addTab(tabData);
 		if(!isVisible())
-			super.setVisible(true);
+			setVisible(true);
 	}
 
 	public void optimizeTabName(TabData tabData){
@@ -61,9 +64,9 @@ public final class ProcessPanel extends JPanel {
 	public void setVisible(boolean value){
 		super.setVisible(value);
 		if(value){
-			setSize(100, 100);
-			setPreferredSize(getSize());
-			AppInstanceProvider.getCurrentAppInstance().getSplitPanel().setDividerLocation(100);
+			if(lastDividerLocation == -1)
+				lastDividerLocation = AppInstanceProvider.getCurrentAppInstance().getHeight() - lastHeight;
+			AppInstanceProvider.getCurrentAppInstance().getSplitPanel().setDividerLocation(lastDividerLocation);
 		}
 	}
 }
