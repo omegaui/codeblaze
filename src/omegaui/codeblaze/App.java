@@ -27,6 +27,7 @@ import omegaui.codeblaze.io.AppStateManager;
 import omegaui.codeblaze.io.FileManager;
 import omegaui.codeblaze.io.UIXManager;
 import omegaui.codeblaze.io.AppResourceManager;
+import omegaui.codeblaze.io.TerminalManager;
 
 import omegaui.codeblaze.ui.panel.GlassPanel;
 import omegaui.codeblaze.ui.panel.SplitPanel;
@@ -216,6 +217,11 @@ public class App extends JFrame {
 					}
 				}
 			}).start();
+			return true;
+		});
+
+		addAppClosingOperation((app)->{
+			TerminalManager.closeAllTerminal();
 			return true;
 		});
 

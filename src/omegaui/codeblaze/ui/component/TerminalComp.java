@@ -73,7 +73,7 @@ public class TerminalComp extends JPanel{
 		widget = new JediTermWidget(jtsp);
 
 		if(command == null)
-			widget.setTtyConnector(getConnector(onWindows() ? "cmd.exe" : "bash"));
+			widget.setTtyConnector(getConnector(onWindows() ? "cmd.exe" : "/bin/bash"));
 		else
 			widget.setTtyConnector(getConnector(command));
 		
@@ -84,7 +84,7 @@ public class TerminalComp extends JPanel{
 		widget = new JediTermWidget(jtsp);
 
 		if(command == null)
-			widget.setTtyConnector(getConnector(onWindows() ? "cmd.exe" : "bash"));
+			widget.setTtyConnector(getConnector(onWindows() ? "cmd.exe" : "/bin/bash"));
 		else
 			widget.setTtyConnector(getConnector(command));
 

@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import omegaui.codeblaze.io.ResizeAware;
 import omegaui.codeblaze.io.AppInstanceProvider;
 import omegaui.codeblaze.io.FileManager;
+import omegaui.codeblaze.io.TerminalManager;
 
 import omegaui.component.TextComp;
 
@@ -81,6 +82,9 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		viewPopup.createItem(themeIcon, "Toggle Theme (Requires Restart)", ()->{
 			darkmode = !darkmode;
 			app.setMessage("Applied " + (isDarkMode() ? "Dark" : "Light") + " Mode, Restart CodeBlaze now for the changes to take effect.", "CodeBlaze", "Restart", "Dark", "Light", "Mode");
+		})
+		.createItem(terminalIcon, "New Terminal", "Ctrl + SHIFT + T", ()->{
+			TerminalManager.openNewTerminal();
 		});
 		viewMenu = new Menu(viewPopup, "View");
 		viewPopup.setContextMenuVisiblityShortcut(KeyEvent.VK_V, viewMenu::showPopup);

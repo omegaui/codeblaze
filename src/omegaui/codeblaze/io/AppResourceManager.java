@@ -63,6 +63,18 @@ public final class AppResourceManager {
 		
 		appDataBase = new DataBase(ROOT_DIR_NAME + File.separator + "app.settings");
 		darkmode = appDataBase().getEntryAt(APP_THEME_MODE_PROPERTY).getValue().equals(APP_DARK_THEME_VALUE);
+
+		copyResourceIfNotExists("/pty4j-native-libs/darwin/libpty.dylib", combineToAbsolutePath("darwin", "libpty.dylib"));
+		copyResourceIfNotExists("/pty4j-native-libs/freebsd/x86/libpty.so", combineToAbsolutePath("freebsd", "x86", "libpty.so"));
+		copyResourceIfNotExists("/pty4j-native-libs/freebsd/x86-64/libpty.so", combineToAbsolutePath("freebsd", "x86-64", "libpty.so"));
+		copyResourceIfNotExists("/pty4j-native-libs/linux/x86/libpty.so", combineToAbsolutePath("linux", "x86", "libpty.so"));
+		copyResourceIfNotExists("/pty4j-native-libs/linux/x86-64/libpty.so", combineToAbsolutePath("linux", "x86-64", "libpty.so"));
+		copyResourceIfNotExists("/pty4j-native-libs/win/x86/winpty-agent.exe", combineToAbsolutePath("win", "x86", "winpty-agent.exe"));
+		copyResourceIfNotExists("/pty4j-native-libs/win/x86/winpty.dll", combineToAbsolutePath("win", "x86", "winpty.dll"));
+		copyResourceIfNotExists("/pty4j-native-libs/win/x86-64/winpty-agent.exe", combineToAbsolutePath("win", "x86-64", "winpty-agent.exe"));
+		copyResourceIfNotExists("/pty4j-native-libs/win/x86-64/winpty.dll", combineToAbsolutePath("win", "x86-64", "winpty.dll"));
+		copyResourceIfNotExists("/pty4j-native-libs/win/x86-64/cyglaunch.exe", combineToAbsolutePath("win", "x86-64", "cyglaunch.exe"));
+		copyResourceIfNotExists("/pty4j-native-libs/win/x86-64/win-helper.dll", combineToAbsolutePath("win", "x86-64", "win-helper.dll"));
 	}
 
 	public static void createDir(String path){
@@ -72,9 +84,7 @@ public final class AppResourceManager {
 	}
 
 	public static void createDir(String... path){
-		File dir = new File(combinePath(path));
-		if(!dir.exists())
-			dir.mkdir();
+		createDir(combinePath(path));
 	}
 
 	public static void copyResource(String resourcePath, String targetPath){
