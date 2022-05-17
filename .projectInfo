@@ -12,8 +12,8 @@
 -project-root$/src/omegaui/codeblaze/ui/dialog/FileSelectionDialog.java
 >Caret Positions
 -project-root$/src/omegaui/codeblaze/App.java
-|963
-|2249
+|1623
+|2338
 -project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
 |180
 |881
@@ -24,10 +24,10 @@
 |5035
 |6937
 -project-root$/src/omegaui/codeblaze/ui/dialog/FileSelectionDialog.java
-|1440
-|2204
+|2220
+|3564
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/dialog/FileSelectionDialog.java
+-project-root$/src/omegaui/codeblaze/App.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 -project-root$/lib/annotations-20.1.0.jar

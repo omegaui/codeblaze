@@ -1,4 +1,13 @@
 package omegaui.codeblaze.ui.panel;
+import omegaui.dynamic.database.DataEntry;
+
+import java.util.LinkedList;
+
+import omegaui.codeblaze.ui.dialog.FileSelectionDialog;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import java.io.File;
 
 import omegaui.codeblaze.ui.component.TextInputField;
@@ -90,10 +99,28 @@ public final class FileCreationPanel extends JPanel implements ResizeAware {
 		parentDirLabel.setEnabled(false);
 		add(parentDirLabel);
 
-		parentDirField = new TextInputField(AppResourceManager.combinePath(AppResourceManager.USER_HOME, "Documents"));
+		String path = AppResourceManager.combinePath(AppResourceManager.USER_HOME, "Documents");
+		DataEntry entry = AppResourceManager.appDataBase().getEntryAt(AppResourceManager.FILE_CREATION_DIR_PROPERTY);
+		if(entry != null)
+			path = entry.getValue();
+		parentDirField = new TextInputField(path.substring(path.lastIndexOf(File.separatorChar) + 1));
 		parentDirField.setFont(PX16.bold());
 		parentDirField.setEditable(false);
-		parentDirField.setToolTipText(AppResourceManager.combinePath(AppResourceManager.USER_HOME, "Documents"));
+		parentDirField.setToolTipText(path);
+		parentDirField.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e){
+				FileSelectionDialog dialog = FileManager.getFileSelectionDialog();
+				dialog.setTitle("Select a Directory");
+				LinkedList<File> files = dialog.selectDirectories();
+				if(!files.isEmpty()){
+					File dir = files.get(0);
+					parentDirField.setToolTipText(dir.getAbsolutePath());
+					parentDirField.setText(dir.getName());
+					AppResourceManager.appDataBase().updateEntry(AppResourceManager.FILE_CREATION_DIR_PROPERTY, dir.getAbsolutePath(), 0);
+				}
+			}
+		});
 		add(parentDirField);
 
 		manageTemplateComp = new TextComp("Manage Templates", HOVER, BACKGROUND, GLOW, ()->{
