@@ -1,4 +1,8 @@
 bin/
-out/
+out/darwin
+out/freebsd
+out/.codeblaze
+out/win
+out/linux
 .sources
 .args
