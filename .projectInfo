@@ -9,25 +9,33 @@
 -project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
 -project-root$/src/omegaui/codeblaze/io/FileManager.java
 -project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
--project-root$/src/omegaui/codeblaze/ui/dialog/FileSelectionDialog.java
+-project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
+-project-root$/src/omegaui/codeblaze/ui/panel/ProcessPanel.java
+-/home/omegaui/Documents/omegaide/src/omega/ui/panel/OperationPane.java
 >Caret Positions
 -project-root$/src/omegaui/codeblaze/App.java
-|1623
-|2338
+|4203
+|6064
 -project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
-|180
-|881
+|195
+|1612
 -project-root$/src/omegaui/codeblaze/io/FileManager.java
-|540
-|1616
+|955
+|2256
 -project-root$/src/omegaui/codeblaze/ui/panel/TabPanel.java
 |5035
 |6937
--project-root$/src/omegaui/codeblaze/ui/dialog/FileSelectionDialog.java
-|2220
-|3564
+-project-root$/src/omegaui/codeblaze/ui/panel/FileCreationPanel.java
+|1735
+|3040
+-project-root$/src/omegaui/codeblaze/ui/panel/ProcessPanel.java
+|1908
+|3234
+-/home/omegaui/Documents/omegaide/src/omega/ui/panel/OperationPane.java
+|4235
+|6085
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/App.java
+-project-root$/src/omegaui/codeblaze/ui/panel/ProcessPanel.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 -project-root$/lib/annotations-20.1.0.jar
