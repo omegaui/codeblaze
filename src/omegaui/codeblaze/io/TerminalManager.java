@@ -13,6 +13,10 @@ public final class TerminalManager {
 		AppInstanceProvider.getCurrentAppInstance().getProcessPanel().addTab(new TabData("Terminal", getPlatformImage(), terminal, ()->{
 			terminal.exit();
 		}));
+		terminal.setOnProcessExited(()->{
+			AppInstanceProvider.getCurrentAppInstance().getProcessPanel().removeTab(terminal);
+		});
+		terminal.start();
 	}
 
 	public static TerminalComp createNewTerminal(){

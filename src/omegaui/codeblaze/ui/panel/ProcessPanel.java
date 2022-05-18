@@ -61,6 +61,18 @@ public final class ProcessPanel extends JPanel {
 			setVisible(true);
 	}
 
+	public TabData getTabData(JComponent comp){
+		return tabPanel.getTabData(comp);
+	}
+
+	public void removeTab(TabData tabData){
+		tabPanel.removeTab(tabData);
+	}
+
+	public void removeTab(JComponent comp){
+		removeTab(getTabData(comp));
+	}
+
 	public void optimizeTabName(TabData tabData){
 		int count = 0;
 		for(TabData tx : tabPanel.getTabs()){

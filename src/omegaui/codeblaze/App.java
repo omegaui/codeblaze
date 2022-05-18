@@ -106,22 +106,29 @@ public class App extends JFrame {
 
 	private void initAppWideKeyStrokeListener(){
 		appWideKeyStrokeListener = new KeyStrokeListener(this);
+		//File Menu Shortcuts
 		appWideKeyStrokeListener.putKeyStroke((e)->{
 			switchToCreateNewFilePanel();
 			e.consume();
-		}, VK_CONTROL, VK_N).setStopKeys(VK_ALT, VK_SHIFT);
+		}, VK_CONTROL, VK_N).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		appWideKeyStrokeListener.putKeyStroke((e)->{
 			FileManager.openFile();
 			e.consume();
-		}, VK_CONTROL, VK_SHIFT, VK_N).setStopKeys(VK_ALT);
+		}, VK_CONTROL, VK_SHIFT, VK_N).setStopKeys(VK_ALT).useAutoReset();
 		appWideKeyStrokeListener.putKeyStroke((e)->{
 			switchToRecentFilesPanel();
 			e.consume();
-		}, VK_CONTROL, VK_SHIFT, VK_R).setStopKeys(VK_ALT);
+		}, VK_CONTROL, VK_SHIFT, VK_R).setStopKeys(VK_ALT).useAutoReset();
 		appWideKeyStrokeListener.putKeyStroke((e)->{
 			saveAllEditors();
 			e.consume();
-		}, VK_CONTROL, VK_ALT, VK_S).setStopKeys(VK_SHIFT);
+		}, VK_CONTROL, VK_ALT, VK_S).setStopKeys(VK_SHIFT).useAutoReset();
+
+		//View Menu Shortcuts
+		appWideKeyStrokeListener.putKeyStroke((e)->{
+			TerminalManager.openNewTerminal();
+			e.consume();
+		}, VK_CONTROL, VK_SHIFT, VK_T).setStopKeys(VK_ALT).useAutoReset();
 
 		KeyEventDispatcher dispatcher = new KeyEventDispatcher(){
 			@Override

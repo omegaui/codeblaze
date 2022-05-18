@@ -34,7 +34,7 @@ public class TerminalComp extends JPanel{
 
 	public PtyProcess process;
 
-	public String[] command;
+	public String[] command = null;
 
 	public String directory;
 
@@ -108,7 +108,7 @@ public class TerminalComp extends JPanel{
 	            .setEnvironment(envs)
 	            .setDirectory(directory)
 	            .setConsole(false)
-	            .setUseWinConPty(true)
+	            .setUseWinConPty(onWindows())
 	            .start();
 			return new PtyProcessTtyConnector(process, Charset.forName("UTF-8"));
 		}
