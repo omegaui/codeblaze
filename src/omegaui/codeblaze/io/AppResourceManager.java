@@ -29,6 +29,8 @@ public final class AppResourceManager {
 	public static final String COMPILER_SCRIPT_DIR_NAME = "compiler-scripts";
 	public static final String INTERPRETER_SCRIPT_DIR_NAME = "interpreter-scripts";
 	public static final String EVENT_SCRIPT_DIR_NAME = "event-scripts";
+	public static final String FILE_LOADED_EVENT_SCRIPTS_DIR_NAME = "onFileLoaded";
+	public static final String FILE_SAVED_EVENT_SCRIPTS_DIR_NAME = "onFileSaved";
 	public static final String EXE_EXT = File.separator.equals("/") ? ".sh" : ".bat";
 
 	private static DataBase appDataBase;
@@ -57,7 +59,8 @@ public final class AppResourceManager {
 		createDir(ROOT_DIR_NAME, COMPILER_SCRIPT_DIR_NAME);
 		createDir(ROOT_DIR_NAME, INTERPRETER_SCRIPT_DIR_NAME);
 		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME);
-		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, "onFileSaved");
+		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_LOADED_EVENT_SCRIPTS_DIR_NAME);
+		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_SAVED_EVENT_SCRIPTS_DIR_NAME);
 
 		copyResourceIfNotExists("/.codeblaze/app.settings", combineToAbsolutePath(ROOT_DIR_NAME, "app.settings"));
 		

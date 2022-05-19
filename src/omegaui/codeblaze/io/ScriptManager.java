@@ -20,6 +20,14 @@ public final class ScriptManager {
 		return combineToAbsolutePath(ROOT_DIR_NAME, INTERPRETER_SCRIPT_DIR_NAME, getInterpreterScriptName(file));
 	}
 
+	public static String getFileLoadedEventScriptPath(File file){
+		return combineToAbsolutePath(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_LOADED_EVENT_SCRIPTS_DIR_NAME, getFileEventScriptName(file));
+	}
+
+	public static String getFileSavedEventScriptPath(File file){
+		return combineToAbsolutePath(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_SAVED_EVENT_SCRIPTS_DIR_NAME, getFileEventScriptName(file));
+	}
+
 	public static String getCompilerScriptName(File file){
 		return "compile-" + getQualifiedName(file) + EXE_EXT;
 	}
@@ -28,6 +36,10 @@ public final class ScriptManager {
 		return "interpret-" + getQualifiedName(file) + EXE_EXT;
 	}
 	
+	public static String getFileEventScriptName(File file){
+		return "script-" + getQualifiedName(file) + EXE_EXT;
+	}
+
 	public static boolean isCompileScriptAvailable(File file){
 		return isPathExists(ROOT_DIR_NAME, COMPILER_SCRIPT_DIR_NAME, getCompilerScriptName(file));
 	}
@@ -36,4 +48,12 @@ public final class ScriptManager {
 		return isPathExists(ROOT_DIR_NAME, INTERPRETER_SCRIPT_DIR_NAME, getInterpreterScriptName(file));
 	}
 	
+	public static boolean isFileLoadedEventScriptAvailable(File file){
+		return isPathExists(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_LOADED_EVENT_SCRIPTS_DIR_NAME, getFileEventScriptName(file));
+	}
+	
+	public static boolean isFileSavedEventScriptAvailable(File file){
+		return isPathExists(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_SAVED_EVENT_SCRIPTS_DIR_NAME, getFileEventScriptName(file));
+	}
+
 }

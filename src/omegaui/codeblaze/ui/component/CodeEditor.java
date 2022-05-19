@@ -180,6 +180,7 @@ public class CodeEditor extends RSyntaxTextArea {
 			read(fread, file);
 			fread.close();
 			savedText = getText();
+			FileManager.executeFileLoadedEventScript(file);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -234,6 +235,7 @@ public class CodeEditor extends RSyntaxTextArea {
 			return true;
 		if(FileManager.overwriteToFile(file, getText())){
 			savedText = getText();
+			FileManager.executeFileSavedEventScript(file);
 			return true;
 		}
 		return false;

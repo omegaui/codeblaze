@@ -2,7 +2,6 @@ package omegaui.codeblaze.io;
 import omegaui.dynamic.database.DataBase;
 
 import java.awt.BorderLayout;
-		
 
 import omegaui.codeblaze.ui.dialog.FileSelectionDialog;
 
@@ -238,6 +237,18 @@ public final class FileManager {
 			else if(compilationScriptExitValue == 0){
 				execute(file);	
 			}
+		}).start();
+	}
+
+	public static synchronized void executeFileLoadedEventScript(File file){
+		new Thread(()->{
+			ExecutionManager.executeEventScript(file, FILE_LOADED_EVENT_SCRIPTS_DIR_NAME);
+		}).start();
+	}
+
+	public static synchronized void executeFileSavedEventScript(File file){
+		new Thread(()->{
+			ExecutionManager.executeEventScript(file, FILE_SAVED_EVENT_SCRIPTS_DIR_NAME);
 		}).start();
 	}
 
