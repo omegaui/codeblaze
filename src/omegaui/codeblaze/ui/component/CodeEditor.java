@@ -1,4 +1,6 @@
 package omegaui.codeblaze.ui.component;
+import omegaui.dynamic.database.DataEntry;
+
 import omegaui.codeblaze.ui.dialog.ChoiceDialog;
 
 import omegaui.codeblaze.io.FileManager;
@@ -20,6 +22,7 @@ import org.fife.ui.rsyntaxtextarea.Theme;
 
 import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
+import static omegaui.codeblaze.io.AppResourceManager.*;
 import static omegaui.component.animation.Animations.*;
 
 import static java.awt.event.KeyEvent.*;
@@ -32,7 +35,7 @@ public class CodeEditor extends RSyntaxTextArea {
 	private RTextScrollPane scrollPane;
 
 	private KeyStrokeListener keyStrokeListener;
-	
+
 	public CodeEditor(File file){
 		this.file = file;
 		initUI();
@@ -43,15 +46,15 @@ public class CodeEditor extends RSyntaxTextArea {
 
 	public void initUI(){
 		setAutoscrolls(true);
-		loadTheme();
-		
-		setFont(new Font("JetBrains Mono", Font.PLAIN, 15));
-		
+
 		scrollPane = new RTextScrollPane(this);
 		scrollPane.setLineNumbersEnabled(true);
 		scrollPane.getGutter().setCurrentLineNumberColor(CURRENT_LINE_NUMBER_COLOR);
 		scrollPane.getGutter().setLineNumberColor(LINE_NUMBER_COLOR);
 		scrollPane.getGutter().setLineNumberFont(getFont());
+		scrollPane.setBorder(null);
+
+		loadTheme();
 	}
 
 	public void initKeyListener(){
@@ -74,6 +77,21 @@ public class CodeEditor extends RSyntaxTextArea {
 		keyStrokeListener.putKeyStroke((e)->{
 			reloadFile();
 		}, VK_CONTROL, VK_R).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
+
+		keyStrokeListener.putKeyStroke((e)->{
+			FileManager.increaseDocumentFontSize();
+		}, VK_CONTROL, VK_SHIFT, VK_EQUALS).setStopKeys(VK_ALT);
+		keyStrokeListener.putKeyStroke((e)->{
+			FileManager.decreaseDocumentFontSize();
+		}, VK_CONTROL, VK_SHIFT, VK_MINUS).setStopKeys(VK_ALT);
+
+		keyStrokeListener.putKeyStroke((e)->{
+			FileManager.increaseDocumentTabSize();
+		}, VK_CONTROL, VK_T, VK_EQUALS).setStopKeys(VK_ALT, VK_SHIFT);
+		keyStrokeListener.putKeyStroke((e)->{
+			FileManager.decreaseDocumentTabSize();
+		}, VK_CONTROL, VK_T, VK_MINUS).setStopKeys(VK_ALT, VK_SHIFT);
+
 		addKeyListener(keyStrokeListener);
 	}
 
@@ -215,12 +233,12 @@ public class CodeEditor extends RSyntaxTextArea {
 		if(!isFileSaved()){
 			choice = ChoiceDialog.makeChoice("Do you want to Save " + file.getName() + " file?", "Yes, Save!", "No, Lose Data!");
 		}
-		
+
 		if(choice != ChoiceDialog.CHOICE1){
 			AppInstanceProvider.getCurrentAppInstance().setMessage("Save Operation Cancelled for " + file.getName() + "!", "Cancelled");
 			return;
 		}
-		
+
 		AppInstanceProvider.getCurrentAppInstance().setMessage("Saving " + file.getName() + " ... ", file.getName());
 		if(saveFile()){
 			AppInstanceProvider.getCurrentAppInstance().setMessage("Saved " + file.getName() + "!", "Saved");
@@ -248,17 +266,46 @@ public class CodeEditor extends RSyntaxTextArea {
 
 	public void loadTheme(){
 		try{
-			Theme.load(getClass().getResourceAsStream("/editor-themes/" + (isDarkMode() ? "dark.xml" : "light.xml")), getFont()).apply(this);
+			String name = "JetBrains Mono";
+			int style = Font.PLAIN;
+			int size = 15;
+
+			DataEntry entry = appDataBase().getEntryAt(DOCUMENT_FONT_PROPERTY);
+			if(entry != null){
+				name = entry.lines().get(0);
+				style = Integer.parseInt(entry.lines().get(1));
+				size = Integer.parseInt(entry.lines().get(2));
+			}
+
+			int tabSize = getTabSize();
+			
+			entry = appDataBase().getEntryAt(DOCUMENT_TAB_SIZE_PROPERTY);
+			if(entry != null)
+				tabSize = entry.getValueAsInt();
+
+			Theme.load(getClass().getResourceAsStream("/editor-themes/" + (isDarkMode() ? "dark.xml" : "light.xml"))).apply(this);
+			setFont(new Font(name, style, size));
+			setTabSize(tabSize);
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
+	public void setFont(Font font){
+		super.setFont(font);
+		if(scrollPane != null){
+			scrollPane.getGutter().setLineNumberFont(font);
+			scrollPane.getGutter().setCurrentLineNumberColor(CURRENT_LINE_NUMBER_COLOR);
+			scrollPane.getGutter().setLineNumberColor(LINE_NUMBER_COLOR);
+		}
+	}
+
 	public java.io.File getFile() {
 		return file;
 	}
-	
+
 	public RTextScrollPane getScrollPane(){
 		return scrollPane;
 	}
@@ -266,5 +313,5 @@ public class CodeEditor extends RSyntaxTextArea {
 	public omegaui.listener.KeyStrokeListener getKeyStrokeListener() {
 		return keyStrokeListener;
 	}
-	
+
 }

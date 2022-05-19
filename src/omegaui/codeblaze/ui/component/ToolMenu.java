@@ -35,10 +35,12 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 	private TextComp iconComp;
 
 	private Menu fileMenu;
+	private Menu codeMenu;
 	private Menu viewMenu;
 	private Menu helpMenu;
 
 	private MaterialPopup filePopup;
+	private MaterialPopup codePopup;
 	private MaterialPopup viewPopup;
 	private MaterialPopup helpPopup;
 
@@ -78,6 +80,15 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		filePopup.setContextMenuVisiblityShortcut(KeyEvent.VK_F, fileMenu::showPopup);
 		add(fileMenu);
 
+		codePopup = new MaterialPopup();
+		codePopup.createItem(increaseFontSizeIcon, "Increase Document Font Size", "Ctrl + SHIFT + +", FileManager::increaseDocumentFontSize)
+		.createItem(decreaseFontSizeIcon, "Decrease Document Font Size", "Ctrl + SHIFT + -", FileManager::decreaseDocumentFontSize)
+		.createItem(tabKeyIcon, "Increase Document Tab Size", "Ctrl + T + +", FileManager::increaseDocumentTabSize)
+		.createItem(tabKeyIcon, "Decrease Document Tab Size", "Ctrl + T + -", FileManager::decreaseDocumentTabSize);
+		codeMenu = new Menu(codePopup, "Code");
+		codePopup.setContextMenuVisiblityShortcut(KeyEvent.VK_C, codeMenu::showPopup);
+		add(codeMenu);
+
 		viewPopup = new MaterialPopup();
 		viewPopup.createItem(themeIcon, "Toggle Theme (Requires Restart)", ()->{
 			darkmode = !darkmode;
@@ -106,8 +117,9 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		iconComp.setBounds(0, 0, 40, 40);
 
 		fileMenu.setBounds(45, 8, 50, 25);
-		viewMenu.setBounds(95, 8, 50, 25);
-		helpMenu.setBounds(145, 8, 50, 25);
+		codeMenu.setBounds(95, 8, 50, 25);
+		viewMenu.setBounds(145, 8, 50, 25);
+		helpMenu.setBounds(195, 8, 50, 25);
 	}
 
 	@Override

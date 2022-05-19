@@ -17,12 +17,15 @@ public final class AppResourceManager {
 	
 	public static final String APP_DARK_THEME_VALUE = "dark";
 	public static final String APP_LIGHT_THEME_VALUE = "light";
-	
 	public static final String APP_THEME_MODE_PROPERTY = "App Theme Mode";
+	
 	public static final String LAST_SESSION_FILES_PROPERTY = "Files Left Open in the Previous Session";
 	public static final String LAST_FOCUSSED_EDITOR_PROPERTY = "Last Focussed Editor in the Previous Session";
 	public static final String LAST_APP_WINDOW_STATE_PROPERTY = "App Window Extended State Value";
 	public static final String FILE_CREATION_DIR_PROPERTY = "Preferred File Creation Directory";
+	
+	public static final String DOCUMENT_FONT_PROPERTY = "Document Font";
+	public static final String DOCUMENT_TAB_SIZE_PROPERTY = "Document Tab Size";
 	
 	public static final String ROOT_DIR_NAME = ".codeblaze";
 	public static final String TEMPLATE_DIR_NAME = "templates";

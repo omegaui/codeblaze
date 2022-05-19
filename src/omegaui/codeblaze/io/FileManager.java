@@ -2,6 +2,7 @@ package omegaui.codeblaze.io;
 import omegaui.dynamic.database.DataBase;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 import omegaui.codeblaze.ui.dialog.FileSelectionDialog;
 
@@ -235,7 +236,7 @@ public final class FileManager {
 				execute(file);
 			}
 			else if(compilationScriptExitValue == 0){
-				execute(file);	
+				execute(file);
 			}
 		}).start();
 	}
@@ -250,6 +251,66 @@ public final class FileManager {
 		new Thread(()->{
 			ExecutionManager.executeEventScript(file, FILE_SAVED_EVENT_SCRIPTS_DIR_NAME);
 		}).start();
+	}
+
+	public static void increaseDocumentFontSize(){
+		if(codeEditors.isEmpty())
+			return;
+		
+		CodeEditor initialEditor = codeEditors.get(0);
+		
+		Font newFont = new Font(initialEditor.getFont().getName(), initialEditor.getFont().getStyle(), initialEditor.getFont().getSize() + 1);
+		codeEditors.forEach((editor)->{
+			editor.setFont(newFont);
+		});
+
+		appDataBase().updateEntry(DOCUMENT_FONT_PROPERTY, initialEditor.getFont().getName() + "\n" + initialEditor.getFont().getStyle() + "\n" + (initialEditor.getFont().getSize() + 1), 0);
+	}
+
+	public static void decreaseDocumentFontSize(){
+		if(codeEditors.isEmpty())
+			return;
+		
+		CodeEditor initialEditor = codeEditors.get(0);
+		if(initialEditor.getFont().getSize() <= 8)
+			return;
+		
+		Font newFont = new Font(initialEditor.getFont().getName(), initialEditor.getFont().getStyle(), initialEditor.getFont().getSize() - 1);
+		codeEditors.forEach((editor)->{
+			editor.setFont(newFont);
+		});
+		
+		appDataBase().updateEntry(DOCUMENT_FONT_PROPERTY, initialEditor.getFont().getName() + "\n" + initialEditor.getFont().getStyle() + "\n" + (initialEditor.getFont().getSize() - 1), 0);
+	}
+
+	public static void increaseDocumentTabSize(){
+		if(codeEditors.isEmpty())
+			return;
+		
+		CodeEditor initialEditor = codeEditors.get(0);
+		
+		int size = initialEditor.getTabSize() + 1;
+		codeEditors.forEach((editor)->{
+			editor.setTabSize(size);
+		});
+
+		appDataBase().updateEntry(DOCUMENT_TAB_SIZE_PROPERTY, String.valueOf(size), 0);
+	}
+
+	public static void decreaseDocumentTabSize(){
+		if(codeEditors.isEmpty())
+			return;
+		
+		CodeEditor initialEditor = codeEditors.get(0);
+		if(initialEditor.getTabSize() <= 2)
+			return;
+		
+		int size = initialEditor.getTabSize() - 1;
+		codeEditors.forEach((editor)->{
+			editor.setTabSize(size);
+		});
+
+		appDataBase().updateEntry(DOCUMENT_TAB_SIZE_PROPERTY, String.valueOf(size), 0);
 	}
 
 	public static java.util.LinkedList getCodeEditors() {

@@ -135,6 +135,11 @@ public final class UIXManager {
 	public static BufferedImage saveIcon = getIcon("hero-64");
 	public static BufferedImage exitIcon = getIcon("exit-sign-48");
 
+	//Code Action Icons
+	public static BufferedImage increaseFontSizeIcon = getIcon("increase-font-48");
+	public static BufferedImage decreaseFontSizeIcon = getIcon("decrease-font-48");
+	public static BufferedImage tabKeyIcon = getIcon("tab-key-48");
+
 	//View Action Icons
 	public static BufferedImage focusIcon = getIcon("focus-48");
 	public static BufferedImage themeIcon = getIcon("change-theme-48");
