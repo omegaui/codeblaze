@@ -1,4 +1,6 @@
 package omegaui.codeblaze;
+import omegaui.codeblaze.ui.dialog.PreferencesDialog;
+
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import java.io.File;
@@ -74,6 +76,8 @@ public class App extends JFrame {
 	private LinkedList<AppOperation> appOpeningOperations = new LinkedList<>();
 	private LinkedList<AppOperation> appClosingOperations = new LinkedList<>();
 
+	private PreferencesDialog preferencesDialog;
+
 	private App(){
 		super("CodeBlaze");
 
@@ -89,7 +93,7 @@ public class App extends JFrame {
 
 		initAppWideKeyStrokeListener();
 		initUI();
-		initDefaultAppOperations();
+		initDefaults();
 
 		initState();
 
@@ -123,6 +127,10 @@ public class App extends JFrame {
 			saveAllEditors();
 			e.consume();
 		}, VK_CONTROL, VK_ALT, VK_S).setStopKeys(VK_SHIFT).useAutoReset();
+		appWideKeyStrokeListener.putKeyStroke((e)->{
+			showPreferencesDialog();
+			e.consume();
+		}, VK_CONTROL, VK_ALT, VK_P).setStopKeys(VK_SHIFT).useAutoReset();
 
 		//View Menu Shortcuts
 		appWideKeyStrokeListener.putKeyStroke((e)->{
@@ -175,7 +183,9 @@ public class App extends JFrame {
 
 	}
 
-	private void initDefaultAppOperations(){
+	private void initDefaults(){
+		preferencesDialog = new PreferencesDialog(this);
+		
 		FileManager.init();
 
 		addWindowListener(new WindowAdapter(){
@@ -351,6 +361,10 @@ public class App extends JFrame {
 		tabPanel.closeAllTabs();
 	}
 
+	public void showPreferencesDialog(){
+		preferencesDialog.setVisible(true);
+	}
+
 	public omegaui.listener.KeyStrokeListener getAppWideKeyStrokeListener() {
 		return appWideKeyStrokeListener;
 	}
@@ -383,6 +397,10 @@ public class App extends JFrame {
 		return viewState;
 	}
 
+	public omegaui.codeblaze.ui.dialog.PreferencesDialog getPreferencesDialog() {
+		return preferencesDialog;
+	}
+	
 	public static void main(String[] args){
 		new App();
 	}

@@ -10,24 +10,28 @@
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
 -project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
 -project-root$/src/omegaui/codeblaze/io/FileManager.java
+-project-root$/src/omegaui/codeblaze/ui/dialog/PreferencesDialog.java
 >Caret Positions
 -project-root$/src/omegaui/codeblaze/ui/component/CodeEditor.java
 |1295
 |2819
 -project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
-|0
-|451
+|1020
+|2269
 -project-root$/src/omegaui/codeblaze/io/UIXManager.java
-|2760
+|2482
 |5706
 -project-root$/src/omegaui/codeblaze/io/AppResourceManager.java
-|455
+|382
 |574
 -project-root$/src/omegaui/codeblaze/io/FileManager.java
 |5654
 |9094
+-project-root$/src/omegaui/codeblaze/ui/dialog/PreferencesDialog.java
+|0
+|72
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/ui/component/ToolMenu.java
+-project-root$/src/omegaui/codeblaze/ui/dialog/PreferencesDialog.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 -project-root$/lib/annotations-20.1.0.jar

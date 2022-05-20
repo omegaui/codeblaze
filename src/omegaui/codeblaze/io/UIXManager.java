@@ -121,6 +121,7 @@ public final class UIXManager {
 	//File Icons
 	public static BufferedImage imageIcon = getIcon("panorama-96");
 	public static BufferedImage archiveIcon = getIcon("archive-48");
+	public static BufferedImage gearIcon = getIcon("gear-48");
 
 	//Platform Icons
 	public static BufferedImage linuxIcon = getIcon("penguin-50");

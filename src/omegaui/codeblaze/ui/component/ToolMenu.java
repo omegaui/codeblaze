@@ -75,6 +75,9 @@ public final class ToolMenu extends JPanel implements ResizeAware{
 		.createItem(closeIcon, "Close All Editors", "Ctrl + Alt + X", ()->{
 			app.closeAllEditors();
 		})
+		.createItem(gearIcon, "Preferences", "Ctrl + Alt + P", ()->{
+			app.showPreferencesDialog();
+		})
 		.createItem(exitIcon, "Exit", "Alt + F4", AppInstanceProvider.getCurrentAppInstance()::exit);
 		fileMenu = new Menu(filePopup, "File");
 		filePopup.setContextMenuVisiblityShortcut(KeyEvent.VK_F, fileMenu::showPopup);
