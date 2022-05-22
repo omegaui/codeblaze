@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package omegaui.component;
+import java.awt.Color;
+
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
@@ -41,6 +43,11 @@ public class HorizontalBox extends JPanel{
 		return this;
 	}
 
+	public HorizontalBox addSpring(){
+		add(Box.createHorizontalGlue());
+		return this;
+	}
+
 	public HorizontalBox push(JComponent c){
 		add(c);
 		c.setAlignmentX(getAlignmentX());
@@ -59,6 +66,12 @@ public class HorizontalBox extends JPanel{
 
 	public static HorizontalBox create(){
 		return new HorizontalBox();
+	}
+
+	public static HorizontalBox create(Color background){
+		var box = new HorizontalBox();
+		box.setBackground(background);
+		return box;
 	}
 
 }

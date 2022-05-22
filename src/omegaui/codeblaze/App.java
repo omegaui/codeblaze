@@ -269,7 +269,14 @@ public class App extends JFrame {
 		});
 
 		addAppClosingOperation((app)->{
-			tabPanel.closeAllTabs();
+			boolean silentSave = false;
+			DataEntry saveFileOnExitEntry = appDataBase().getEntryAt(AUTO_SAVE_FILE_ON_EXIT_PROPERTY);
+			if(saveFileOnExitEntry != null)
+				silentSave = saveFileOnExitEntry.getValueAsBoolean();
+			if(silentSave)
+				saveAllEditors();
+			else
+				tabPanel.closeAllTabs();
 			return true;
 		});
 
@@ -354,7 +361,7 @@ public class App extends JFrame {
 
 	public void saveAllEditors(){
 		tabPanel.getAllEditors().forEach((editor)->editor.saveSilently());
-		setMessage("You invoked Silent Save File on All Editors! -- Shortcut: Ctrl + ALT + S", "Silent Save", "All Editors");
+		setMessage("Invoked Silent Save File on All Editors! -- Shortcut: Ctrl + ALT + S", "Silent Save", "All Editors");
 	}
 
 	public void closeAllEditors(){

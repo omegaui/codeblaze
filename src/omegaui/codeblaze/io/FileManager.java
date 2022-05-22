@@ -1,5 +1,6 @@
 package omegaui.codeblaze.io;
 import omegaui.dynamic.database.DataBase;
+import omegaui.dynamic.database.DataEntry;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -186,13 +187,13 @@ public final class FileManager {
 	public static MaterialPopup createPopup(CodeEditor editor){
 		MaterialPopup popup = new MaterialPopup().width(250);
 		popup.createItem(cookIcon, "Compile & Run", "Ctrl + ALT + R", ()->{
-			compileAndExecute(editor.getFile());
+			compileAndExecute(editor);
 		});
 		popup.createItem(buildIcon, "Compile", "Ctrl + B", ()->{
-			compile(editor.getFile());
+			compile(editor);
 		});
 		popup.createItem(runIcon, "Execute", "Ctrl + SHIFT + L", ()->{
-			execute(editor.getFile());
+			execute(editor);
 		});
 		popup.createItem(saveIcon, "Save", "Ctrl + S", ()->{
 			editor.askAndSaveFile();
@@ -206,8 +207,16 @@ public final class FileManager {
 		return popup;
 	}
 
-	public static synchronized void compile(File file){
+	public static synchronized void performAutoSaveIfPreferred(CodeEditor editor){
+		DataEntry entry = get(AUTO_SAVE_FILE_BEFORE_LAUNCH_PROPERTY);
+		if(entry != null && entry.getValueAsBoolean())
+			editor.saveSilently();
+	}
+
+	public static synchronized void compile(CodeEditor editor){
 		new Thread(()->{
+			performAutoSaveIfPreferred(editor);
+			File file = editor.getFile();
 			AppInstanceProvider.getCurrentAppInstance().setMessage("Compiling " + file.getName() + " ...", "Compiling");
 			if(ExecutionManager.compile(file) == 404){
 				AppInstanceProvider.getCurrentAppInstance().setMessage("No Compiler Script is available for " + file.getName(), "No");
@@ -217,8 +226,10 @@ public final class FileManager {
 		}).start();
 	}
 
-	public static synchronized void execute(File file){
+	public static synchronized void execute(CodeEditor editor){
 		new Thread(()->{
+			performAutoSaveIfPreferred(editor);
+			File file = editor.getFile();
 			AppInstanceProvider.getCurrentAppInstance().setMessage("Executing " + file.getName() + " ...", "Executing");
 			if(ExecutionManager.execute(file) == 404){
 				AppInstanceProvider.getCurrentAppInstance().setMessage("No Interpreter Script is available for " + file.getName(), "No");
@@ -228,27 +239,31 @@ public final class FileManager {
 		}).start();
 	}
 
-	public static synchronized void compileAndExecute(File file){
+	public static synchronized void compileAndExecute(CodeEditor editor){
 		new Thread(()->{
+			performAutoSaveIfPreferred(editor);
+			File file = editor.getFile();
 			int compilationScriptExitValue = ExecutionManager.compile(file);
 			if(compilationScriptExitValue == 404){
 				AppInstanceProvider.getCurrentAppInstance().setMessage("No Interpreter Script is available for " + file.getName(), "No");
-				execute(file);
+				execute(editor);
 			}
 			else if(compilationScriptExitValue == 0){
-				execute(file);
+				execute(editor);
 			}
 		}).start();
 	}
 
-	public static synchronized void executeFileLoadedEventScript(File file){
+	public static synchronized void executeFileLoadedEventScript(CodeEditor editor){
 		new Thread(()->{
+			File file = editor.getFile();
 			ExecutionManager.executeEventScript(file, FILE_LOADED_EVENT_SCRIPTS_DIR_NAME);
 		}).start();
 	}
 
-	public static synchronized void executeFileSavedEventScript(File file){
+	public static synchronized void executeFileSavedEventScript(CodeEditor editor){
 		new Thread(()->{
+			File file = editor.getFile();
 			ExecutionManager.executeEventScript(file, FILE_SAVED_EVENT_SCRIPTS_DIR_NAME);
 		}).start();
 	}

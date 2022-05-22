@@ -3,6 +3,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Font;
 
 import omegaui.dynamic.database.DataBase;
+import omegaui.dynamic.database.DataEntry;
 
 
 import java.io.File;
@@ -27,6 +28,9 @@ public final class AppResourceManager {
 	public static final String DOCUMENT_FONT_PROPERTY = "Document Font";
 	public static final String DOCUMENT_TAB_SIZE_PROPERTY = "Document Tab Size";
 	
+	public static final String AUTO_SAVE_FILE_ON_EXIT_PROPERTY = "Auto Save File on Exit";
+	public static final String AUTO_SAVE_FILE_BEFORE_LAUNCH_PROPERTY = "Auto Save File before Launch";
+	
 	public static final String ROOT_DIR_NAME = ".codeblaze";
 	public static final String TEMPLATE_DIR_NAME = "templates";
 	public static final String COMPILER_SCRIPT_DIR_NAME = "compiler-scripts";
@@ -34,6 +38,8 @@ public final class AppResourceManager {
 	public static final String EVENT_SCRIPT_DIR_NAME = "event-scripts";
 	public static final String FILE_LOADED_EVENT_SCRIPTS_DIR_NAME = "onFileLoaded";
 	public static final String FILE_SAVED_EVENT_SCRIPTS_DIR_NAME = "onFileSaved";
+	public static final String CODEBLAZE_READY_EVENT_SCRIPTS_DIR_NAME = "onCodeBlazeReady";
+	public static final String CODEBLAZE_EXITING_EVENT_SCRIPTS_DIR_NAME = "onCodeBlazeExiting";
 	public static final String EXE_EXT = File.separator.equals("/") ? ".sh" : ".bat";
 
 	private static DataBase appDataBase;
@@ -41,6 +47,10 @@ public final class AppResourceManager {
 	public static synchronized void saveAppDataBase(){
 		appDataBase.updateEntry(APP_THEME_MODE_PROPERTY, isDarkMode() ? APP_DARK_THEME_VALUE : APP_LIGHT_THEME_VALUE, 0);
 		appDataBase.save();
+	}
+
+	public static synchronized DataEntry get(String property){
+		return appDataBase.getEntryAt(property);
 	}
 
 	public static void checkResources(){
@@ -64,6 +74,8 @@ public final class AppResourceManager {
 		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME);
 		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_LOADED_EVENT_SCRIPTS_DIR_NAME);
 		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, FILE_SAVED_EVENT_SCRIPTS_DIR_NAME);
+		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, CODEBLAZE_READY_EVENT_SCRIPTS_DIR_NAME);
+		createDir(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, CODEBLAZE_EXITING_EVENT_SCRIPTS_DIR_NAME);
 
 		copyResourceIfNotExists("/.codeblaze/app.settings", combineToAbsolutePath(ROOT_DIR_NAME, "app.settings"));
 		

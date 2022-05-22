@@ -60,13 +60,13 @@ public class CodeEditor extends RSyntaxTextArea {
 	public void initKeyListener(){
 		keyStrokeListener = new KeyStrokeListener(this);
 		keyStrokeListener.putKeyStroke((e)->{
-			FileManager.compileAndExecute(file);
+			FileManager.compileAndExecute(this);
 		}, VK_CONTROL, VK_ALT, VK_R).setStopKeys(VK_SHIFT).useAutoReset();
 		keyStrokeListener.putKeyStroke((e)->{
-			FileManager.compile(file);
+			FileManager.compile(this);
 		}, VK_CONTROL, VK_B).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 		keyStrokeListener.putKeyStroke((e)->{
-			FileManager.execute(file);
+			FileManager.execute(this);
 		}, VK_CONTROL, VK_SHIFT, VK_L).setStopKeys(VK_ALT).useAutoReset();
 		keyStrokeListener.putKeyStroke((e)->{
 			askAndSaveFile();
@@ -198,7 +198,7 @@ public class CodeEditor extends RSyntaxTextArea {
 			read(fread, file);
 			fread.close();
 			savedText = getText();
-			FileManager.executeFileLoadedEventScript(file);
+			FileManager.executeFileLoadedEventScript(this);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -253,7 +253,7 @@ public class CodeEditor extends RSyntaxTextArea {
 			return true;
 		if(FileManager.overwriteToFile(file, getText())){
 			savedText = getText();
-			FileManager.executeFileSavedEventScript(file);
+			FileManager.executeFileSavedEventScript(this);
 			return true;
 		}
 		return false;
