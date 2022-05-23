@@ -30,6 +30,7 @@ import omegaui.codeblaze.io.FileManager;
 import omegaui.codeblaze.io.UIXManager;
 import omegaui.codeblaze.io.AppResourceManager;
 import omegaui.codeblaze.io.TerminalManager;
+import omegaui.codeblaze.io.ExecutionManager;
 
 import omegaui.codeblaze.ui.panel.GlassPanel;
 import omegaui.codeblaze.ui.panel.SplitPanel;
@@ -98,6 +99,8 @@ public class App extends JFrame {
 		initState();
 
 		setVisible(true);
+
+		ExecutionManager.executeEventScripts(CODEBLAZE_READY_EVENT_NAME, CODEBLAZE_READY_EVENT_SCRIPTS_DIR_NAME);
 	}
 
 	private void registerAppInstanceProvider(){
@@ -277,6 +280,11 @@ public class App extends JFrame {
 				saveAllEditors();
 			else
 				tabPanel.closeAllTabs();
+			return true;
+		});
+
+		addAppClosingOperation((app)->{
+			ExecutionManager.executeEventScriptsAndWait(CODEBLAZE_EXITING_EVENT_NAME, CODEBLAZE_EXITING_EVENT_SCRIPTS_DIR_NAME);
 			return true;
 		});
 

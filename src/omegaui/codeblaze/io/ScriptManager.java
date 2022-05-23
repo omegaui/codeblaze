@@ -1,4 +1,6 @@
 package omegaui.codeblaze.io;
+import java.util.LinkedList;
+
 import java.io.File;
 
 import static omegaui.codeblaze.io.AppResourceManager.*;
@@ -38,6 +40,19 @@ public final class ScriptManager {
 	
 	public static String getFileEventScriptName(File file){
 		return "script-" + getQualifiedName(file) + EXE_EXT;
+	}
+
+	public static LinkedList<File> getAllEventScripts(String eventSciprtDir){
+		LinkedList<File> eventScripts = new LinkedList<>();
+		File dir = new File(combineToAbsolutePath(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, eventSciprtDir));
+		if(!dir.exists())
+			return eventScripts;
+		File[] F = dir.listFiles();
+		for(File fx : F){
+			if(fx.getName().endsWith(EXE_EXT))
+				eventScripts.add(fx);
+		}
+		return eventScripts;
 	}
 
 	public static boolean isCompileScriptAvailable(File file){

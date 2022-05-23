@@ -2,6 +2,7 @@ package omegaui.codeblaze.io;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.LinkedList;
 
 import com.pty4j.PtyProcessBuilder;
 
@@ -120,6 +121,62 @@ public final class ExecutionManager {
 			System.out.println(scriptType + " is not available in current version.");
 			System.out.println("Must be either 'onFileLoaded' or 'onFileSaved'.");
 		}
+	}
+
+	public static synchronized void executeEventScripts(String eventType, String eventScriptDir){
+		LinkedList<File> files = getAllEventScripts(eventScriptDir);
+		if(files.isEmpty())
+			return;
+		new Thread(()->{
+			files.forEach((file)->{
+				try{
+					Process p = new PtyProcessBuilder()
+					.setCommand(new String[]{ file.getAbsolutePath(), eventType })
+					.setDirectory(combineToAbsolutePath(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, eventScriptDir))
+					.setConsole(false)
+					.setUseWinConPty(onWindows())
+					.start();
+					Scanner inputStreamReader = new Scanner(p.getInputStream());
+					Scanner errorStreamReader = new Scanner(p.getErrorStream());
+					while(p.isAlive()){
+						while(inputStreamReader.hasNextLine())
+							System.out.println(inputStreamReader.nextLine());
+						while(errorStreamReader.hasNextLine())
+							System.err.println(errorStreamReader.nextLine());
+					}
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+			});
+		}).start();
+	}
+	
+	public static synchronized void executeEventScriptsAndWait(String eventType, String eventScriptDir){
+		LinkedList<File> files = getAllEventScripts(eventScriptDir);
+		if(files.isEmpty())
+			return;
+		files.forEach((file)->{
+			try{
+				Process p = new PtyProcessBuilder()
+				.setCommand(new String[]{ file.getAbsolutePath(), eventType })
+				.setDirectory(combineToAbsolutePath(ROOT_DIR_NAME, EVENT_SCRIPT_DIR_NAME, eventScriptDir))
+				.setConsole(false)
+				.setUseWinConPty(onWindows())
+				.start();
+				Scanner inputStreamReader = new Scanner(p.getInputStream());
+				Scanner errorStreamReader = new Scanner(p.getErrorStream());
+				while(p.isAlive()){
+					while(inputStreamReader.hasNextLine())
+						System.out.println(inputStreamReader.nextLine());
+					while(errorStreamReader.hasNextLine())
+						System.err.println(errorStreamReader.nextLine());
+				}
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		});
 	}
 
 }

@@ -16,6 +16,9 @@ public final class AppResourceManager {
 
 	public static final String USER_HOME = System.getProperty("user.home");
 	
+	public static final String CODEBLAZE_READY_EVENT_NAME = "codeblaze-ready";
+	public static final String CODEBLAZE_EXITING_EVENT_NAME = "codeblaze-exiting";
+	
 	public static final String APP_DARK_THEME_VALUE = "dark";
 	public static final String APP_LIGHT_THEME_VALUE = "light";
 	public static final String APP_THEME_MODE_PROPERTY = "App Theme Mode";
@@ -40,6 +43,7 @@ public final class AppResourceManager {
 	public static final String FILE_SAVED_EVENT_SCRIPTS_DIR_NAME = "onFileSaved";
 	public static final String CODEBLAZE_READY_EVENT_SCRIPTS_DIR_NAME = "onCodeBlazeReady";
 	public static final String CODEBLAZE_EXITING_EVENT_SCRIPTS_DIR_NAME = "onCodeBlazeExiting";
+	
 	public static final String EXE_EXT = File.separator.equals("/") ? ".sh" : ".bat";
 
 	private static DataBase appDataBase;
