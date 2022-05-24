@@ -77,6 +77,9 @@ public class CodeEditor extends RSyntaxTextArea {
 		keyStrokeListener.putKeyStroke((e)->{
 			reloadFile();
 		}, VK_CONTROL, VK_R).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
+		keyStrokeListener.putKeyStroke((e)->{
+			closeFile();
+		}, VK_CONTROL, VK_W).setStopKeys(VK_ALT, VK_SHIFT).useAutoReset();
 
 		keyStrokeListener.putKeyStroke((e)->{
 			FileManager.increaseDocumentFontSize();
@@ -262,6 +265,10 @@ public class CodeEditor extends RSyntaxTextArea {
 	public void saveSilently(){
 		saveFile();
 		AppInstanceProvider.getCurrentAppInstance().setMessage("Saved!, You Called Silent Save File on " + file.getName() + " -- Shortcut : Ctrl + SHIFT + S", "Silent Save");
+	}
+
+	public void closeFile(){
+		FileManager.closeEditor(this);
 	}
 
 	public void loadTheme(){

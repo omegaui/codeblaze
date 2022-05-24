@@ -168,6 +168,14 @@ public final class FileManager {
 		codeEditors.remove(editor);
 	}
 
+	public static void closeEditor(CodeEditor editor){
+		AppInstanceProvider.getCurrentAppInstance().setMessage("Closing " + editor.getFile().getName() + " ... ", "Closing");
+		editor.askAndSaveFile();
+		removeCodeEditor(editor);
+		AppInstanceProvider.getCurrentAppInstance().getTabPanel().removeTab(AppInstanceProvider.getCurrentAppInstance().getTabPanel().getTabData(editor.getScrollPane()));
+		AppInstanceProvider.getCurrentAppInstance().resetMessage();
+	}
+
 	public static CodeEditor getEditor(File file){
 		for(CodeEditor editor : codeEditors){
 			if(editor.getFile().getAbsolutePath().equals(file.getAbsolutePath()))
