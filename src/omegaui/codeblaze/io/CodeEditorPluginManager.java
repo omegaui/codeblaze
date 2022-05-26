@@ -1,5 +1,6 @@
 package omegaui.codeblaze.io;
 import omegaui.codeblaze.io.plugins.codeeditor.BasicSymbolCompletionPlugin;
+import omegaui.codeblaze.io.plugins.codeeditor.BasicEditorShortcutsPlugin;
 
 import omegaui.codeblaze.ui.component.CodeEditor;
 
@@ -10,6 +11,7 @@ public final class CodeEditorPluginManager {
 	
 	static{
 		add(new BasicSymbolCompletionPlugin());
+		add(new BasicEditorShortcutsPlugin());
 	}
 
 	public static void add(CodeEditorPlugin plugin){
@@ -22,7 +24,6 @@ public final class CodeEditorPluginManager {
 
 	public static void installPlugins(CodeEditor editor){
 		getAvailablePlugins(editor).forEach((plugin)->{
-			System.out.println(plugin.getName());
 			plugin.install(editor);
 		});
 	}
@@ -37,7 +38,7 @@ public final class CodeEditorPluginManager {
 		LinkedList<CodeEditorPlugin> availablePlugins = new LinkedList<>();
 		String language = editor.getSyntaxEditingStyle();
 		for(CodeEditorPlugin px : plugins){
-			if(px.getLanguage().equals("*") || px.getLanguage().equals(language))
+			if(px.isCompatible(editor))
 				availablePlugins.add(px);
 		}
 		return availablePlugins;

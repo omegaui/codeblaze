@@ -21,8 +21,8 @@ public class BasicSymbolCompletionPlugin implements CodeEditorPlugin, KeyListene
 	}
 
 	@Override
-	public String getLanguage() {
-		return "*";
+	public boolean isCompatible(CodeEditor editor){
+		return !editor.getSyntaxEditingStyle().equals(CodeEditor.SYNTAX_STYLE_NONE);
 	}
 
 	@Override
