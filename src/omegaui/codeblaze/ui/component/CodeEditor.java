@@ -1,10 +1,13 @@
 package omegaui.codeblaze.ui.component;
+import javax.swing.DropMode;
+
 import omegaui.dynamic.database.DataEntry;
 
 import omegaui.codeblaze.ui.dialog.ChoiceDialog;
 
 import omegaui.codeblaze.io.FileManager;
 import omegaui.codeblaze.io.AppInstanceProvider;
+import omegaui.codeblaze.io.CodeEditorPluginManager;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -41,11 +44,27 @@ public class CodeEditor extends RSyntaxTextArea {
 		initUI();
 		initKeyListener();
 		initSyntaxScheme(this, file);
+		initPlugins();
 		loadFile();
 	}
 
 	public void initUI(){
+		
+		setAnimateBracketMatching(true);
+		setAntiAliasingEnabled(true);
+		setAutoIndentEnabled(true);
 		setAutoscrolls(true);
+		setBracketMatchingEnabled(true);
+		setCloseCurlyBraces(true);
+		setPaintMatchedBracketPair(true);
+		setHyperlinksEnabled(true);
+		setHyperlinkForeground(GLOW);
+		setCodeFoldingEnabled(true);
+		setFadeCurrentLineHighlight(false);
+		setShowMatchedBracketPopup(true);
+		setHighlightSecondaryLanguages(true);
+		setDragEnabled(true);
+		setDropMode(DropMode.USE_SELECTION);
 
 		scrollPane = new RTextScrollPane(this);
 		scrollPane.setLineNumbersEnabled(true);
@@ -195,6 +214,10 @@ public class CodeEditor extends RSyntaxTextArea {
 			e.setSyntaxEditingStyle(CodeEditor.SYNTAX_STYLE_MARKDOWN);
 	}
 
+	public void initPlugins(){
+		CodeEditorPluginManager.installPlugins(this);
+	}
+	
 	public boolean loadFile(){
 		try{
 			BufferedReader fread = new BufferedReader(new FileReader(file));
