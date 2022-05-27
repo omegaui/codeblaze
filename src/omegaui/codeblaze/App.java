@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2022 Omega UI
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ */
+
 package omegaui.codeblaze;
 import omegaui.codeblaze.ui.dialog.PreferencesDialog;
 
@@ -56,29 +73,84 @@ import static omegaui.codeblaze.io.AppResourceManager.*;
 
 import static java.awt.event.KeyEvent.*;
 
-public class App extends JFrame {
+/*
+ * The Sole Main Frame of the whole application,
+ * Every track ends up joining this.
+ */
 
+public class App extends JFrame {
+	
+	/**
+	 * The Main Frame has two view modes,
+	 * Content View : Contains the Tool Menu, the Tab System, etc.
+	 * Glass View : Contains Views like File Creation Panel, Launcher, etc.
+	 */
 	public static final int CONTENT_VIEW = 1;
 	public static final int GLASS_VIEW = 2;
 
+	/**
+	 * Initial View state is set to -1 but is inferred by AppStateManager class.
+	 */
 	private int viewState = -1;
-
+	
+	/**
+	 * The Object of the Glass Panel.
+	 * GlassPanel gains visibility when switchViewToGlassPane() is called.
+	 */
 	private GlassPanel glassPanel;
-
+	
+	/**
+	 * The Object of the Tool Menu.
+	 * Gains Visibility when switchViewToContentPane() is called.
+	 */
 	private ToolMenu toolMenu;
+	
+	/**
+	 * The Object of the Bottom Pane.
+	 * Gains Visibility when switchViewToContentPane() is called.
+	 */
 	private BottomPane bottomPane;
 
+	/**
+	 * App<->Wide KeyStrokeListener.
+	 * This is directory registered to the KeyBoardFocusManager.
+	 */
 	private KeyStrokeListener appWideKeyStrokeListener;
-
+	
+	/**
+	 * The Custom Functionality SplitPanel from omegaide.
+	 * Uses Vertical Split Mode.
+	 */
 	private SplitPanel splitPanel;
+	
+	/**
+	 * The Awesome Custom Tab Panel UI Element written from scratch. 
+	 */
 	private TabPanel tabPanel;
+	
+	/**
+	 * The Panel that shows any executing process like File Launches and Active Terminals.
+	 */
 	private ProcessPanel processPanel;
-
+	
+	/**
+	 * List of AppOperations to be executed after CodeBlaze initializes.
+	 */
 	private LinkedList<AppOperation> appOpeningOperations = new LinkedList<>();
+	
+	/**
+	 * List of AppOperations to be executed before CodeBlaze quits.
+	 */
 	private LinkedList<AppOperation> appClosingOperations = new LinkedList<>();
-
+	
+	/**
+	 * The Object of the Preferences Dialog.
+	 */
 	private PreferencesDialog preferencesDialog;
 
+	/**
+	 * A private constructor to prevent launching multiple instances on the same JVM cause we have some static data like app.settings
+	 */
 	private App(){
 		super("CodeBlaze");
 
@@ -102,15 +174,24 @@ public class App extends JFrame {
 
 		ExecutionManager.executeEventScripts(CODEBLAZE_READY_EVENT_NAME, CODEBLAZE_READY_EVENT_SCRIPTS_DIR_NAME);
 	}
-
+	
+	/**
+	 * Does what its name says.
+	 */
 	private void registerAppInstanceProvider(){
 		AppInstanceProvider.setCurrentAppInstance(this);
 	}
 
+	/**
+	 * Triggers AppResourceManager.
+	 */
 	private void initResources(){
 		AppResourceManager.checkResources();
 	}
 
+	/**
+	 * Initializes App<->Wide KeyStrokeListener with its default shortcuts.
+	 */
 	private void initAppWideKeyStrokeListener(){
 		appWideKeyStrokeListener = new KeyStrokeListener(this);
 		//File Menu Shortcuts
@@ -161,6 +242,9 @@ public class App extends JFrame {
 		manager.addKeyEventDispatcher(dispatcher);
 	}
 
+	/**
+	 * Does what the name spells like.
+	 */
 	private void initUI(){
 
 		if(!appDataBase().getEntryAt("App Theme Mode").getValue().equals("light"))
@@ -186,6 +270,9 @@ public class App extends JFrame {
 
 	}
 
+	/**
+	 * Initialized any App Dialogs and Default AppOperations.
+	 */
 	private void initDefaults(){
 		preferencesDialog = new PreferencesDialog(this);
 		
@@ -290,6 +377,9 @@ public class App extends JFrame {
 
 	}
 
+	/**
+	 * Initialized AppStateManager and Trigger App Opening Operations.
+	 */
 	private void initState(){
 		AppStateManager.initAppState();
 		for(AppOperation operation : appOpeningOperations){
@@ -300,16 +390,25 @@ public class App extends JFrame {
 		}
 	}
 
+	/**
+	 * Passes Visibility to the FileCreationPanel
+	 */
 	public void switchToCreateNewFilePanel(){
 		switchViewToGlassPane();
 		getGlassPanel().putToView(GlassPanel.getFileCreationPanel());
 	}
 
+	/**
+	 * Passes Visibility to the RecentFilesPanel
+	 */
 	public void switchToRecentFilesPanel(){
 		switchViewToGlassPane();
 		getGlassPanel().putToView(GlassPanel.getRecentFilesPanel());
 	}
 
+	/**
+	 * Puts GlassPanel into view.
+	 */
 	public void switchViewToGlassPane(){
 		viewState = GLASS_VIEW;
 		remove(toolMenu);
@@ -321,6 +420,9 @@ public class App extends JFrame {
 		getContentPane().setVisible(true);
 	}
 
+	/**
+	 * Puts App's Content Pane into view.
+	 */
 	public void switchViewToContentPane(){
 		if(tabPanel.getTabs().isEmpty())
 			return;
@@ -334,6 +436,9 @@ public class App extends JFrame {
 		getContentPane().setVisible(true);
 	}
 
+	/**
+	 * Triggers App Closing Operations and closes the App.
+	 */
 	public void exit(){
 		for(AppOperation operation : appClosingOperations){
 			if(!operation.performOperation(this)){
@@ -345,37 +450,62 @@ public class App extends JFrame {
 		System.exit(0);
 	}
 
+	/**
+	 * Resets the message shown on the BottomPane.
+	 */
 	public void resetMessage(){
 		bottomPane.getMessagePane().resetMessage();
 	}
 
+	/**
+	 * Sets the message to be displayed on the BottomPane's MessageBox.
+	 */
 	public void setMessage(String text){
 		bottomPane.getMessagePane().setMessage(text);
 	}
 
+	/**
+	 * Sets the message to be displayed on the BottomPane's MessageBox.
+	 * Also takes varargs containing texts to be highlighted.
+	 */
 	public void setMessage(String text, String... highlights){
 		bottomPane.getMessagePane().setMessage(text, highlights);
 	}
 
+	/**
+	 * Builder Form Method to add AppOperation for App Opening Event.
+	 */
 	public App addAppOpeningOperation(AppOperation appOperation){
 		appOpeningOperations.add(appOperation);
 		return this;
 	}
 
+	/**
+	 * Builder Form Method to add AppOperation for App Closing Event.
+	 */
 	public App addAppClosingOperation(AppOperation appOperation){
 		appClosingOperations.add(appOperation);
 		return this;
 	}
 
+	/**
+	 * Saves All the Editors present in the current instance.
+	 */
 	public void saveAllEditors(){
 		tabPanel.getAllEditors().forEach((editor)->editor.saveSilently());
 		setMessage("Invoked Silent Save File on All Editors! -- Shortcut: Ctrl + ALT + S", "Silent Save", "All Editors");
 	}
 
+	/**
+	 * Closes All the Editors present in the current instance.
+	 */
 	public void closeAllEditors(){
 		tabPanel.closeAllTabs();
 	}
 
+	/**
+	 * Shows the Preferences Dialog
+	 */
 	public void showPreferencesDialog(){
 		preferencesDialog.setVisible(true);
 	}
@@ -416,6 +546,9 @@ public class App extends JFrame {
 		return preferencesDialog;
 	}
 	
+	/**
+	 * The Entry Point of the Whole Application, you know well.
+	 */
 	public static void main(String[] args){
 		new App();
 	}

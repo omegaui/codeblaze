@@ -1,25 +1,17 @@
 >JDK Path
 -/usr/lib/jvm/jdk-17
 >Main Class
--omegaui.codeblaze.App
+-omegaui.codeblaze.io.AppResourceManager
 >Language Tag
 -0
 >Opened Editors on Main Tab Panel
--project-root$/src/omegaui/codeblaze/io/plugins/codeeditor/BasicEditorShortcutsPlugin.java
--project-root$/src/omegaui/codeblaze/io/CodeEditorUtils.java
--project-root$/src/omegaui/codeblaze/io/CodeEditorPluginManager.java
+-project-root$/src/omegaui/codeblaze/App.java
 >Caret Positions
--project-root$/src/omegaui/codeblaze/io/plugins/codeeditor/BasicEditorShortcutsPlugin.java
-|0
-|564
--project-root$/src/omegaui/codeblaze/io/CodeEditorUtils.java
-|0
-|114
--project-root$/src/omegaui/codeblaze/io/CodeEditorPluginManager.java
-|0
-|477
+-project-root$/src/omegaui/codeblaze/App.java
+|1140
+|2387
 >Last Active Editor
--project-root$/src/omegaui/codeblaze/io/plugins/codeeditor/BasicEditorShortcutsPlugin.java
+-project-root$/src/omegaui/codeblaze/App.java
 >Project Classpath : Required Jars
 -project-root$/lib/flatlaf-0.46.jar
 -project-root$/lib/annotations-20.1.0.jar
@@ -32,5 +24,6 @@
 -project-root$/lib/slf4j-api-1.7.32.jar
 -project-root$/lib/slf4j-jdk14-1.7.32.jar
 -project-root$/lib/terminal-2.67.jar
+-project-root$/lib/rhino-1.7.14.jar
 >Project Classpath : Required Resource Roots
 -project-root$/res
