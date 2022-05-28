@@ -16,6 +16,25 @@
  */
 
 package omegaui.codeblaze.io;
+/*
+ * ResizeAware interface is created to simplify how a component in a custom layout resizes.
+ * Should be called in the layout() of the Component.
+ * e.g:
+ 	@Override
+ 	public void layout(){
+ 		super.layout();
+ 		manageBounds();
+ 	}
+ */
 public interface ResizeAware {
+
+	/**
+	 * All component resize code should be written in here.
+	 * e.g when you implement this interface:
+	 	@Override
+	 	public void manageBounds(){
+	 		comp.setBounds(getWidth()/2 - width/2, getHeight()/2 - height/2, widht, height);
+ 		}
+	 */
 	void manageBounds();
 }

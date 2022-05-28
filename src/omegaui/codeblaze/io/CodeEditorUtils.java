@@ -19,8 +19,15 @@ package omegaui.codeblaze.io;
 import javax.swing.text.Document;
 
 import omegaui.codeblaze.ui.component.CodeEditor;
+/*
+ * Contains some common CodeEditor utility methods.
+ */
 public final class CodeEditorUtils {
-
+	
+	/**
+	 * Duplicates the selected text in a CodeEditor.
+	 * If no text is selected then, the current line from the 0th offset to the CaretPosition is duplicated on the next line.
+	 */
 	public synchronized static void duplicateSelection(CodeEditor editor){
 		String selection = editor.getSelectedText();
 		if(selection == null){
@@ -30,6 +37,10 @@ public final class CodeEditorUtils {
 		editor.insert(selection, editor.getCaretPosition());
 	}
 
+	/**
+	 * Finds and Highlights the occurences of the current selected text
+	 * (Unimplemented yet!)
+	 */
 	public synchronized static void findSelection(CodeEditor editor){
 		
 	}

@@ -32,9 +32,16 @@ import static omegaui.codeblaze.io.AppResourceManager.*;
 import static omegaui.codeblaze.io.UIXManager.*;
 import static omegaui.codeblaze.io.AppDataProvider.*;
 import static omegaui.component.animation.Animations.*;
-
+/*
+ * ExecutionManager is responsible for launching processes.
+ * Processes of File Compilation, Execution, and other Event Scripts get executed from here.
+ * To understand how compilation, execution and event-scripts see wiki.
+ */
 public final class ExecutionManager {
-
+	
+	/**
+	 * Compiles the file if its corresponding shell script is available.
+	 */
 	public static int compile(File file){
 		if(isCompileScriptAvailable(file)){
 			TerminalComp terminal = new TerminalComp(new String[]{
@@ -56,6 +63,9 @@ public final class ExecutionManager {
 		return 404;
 	}
 
+	/**
+	 * Executes the file if its corresponding shell script is available.
+	 */
 	public static int execute(File file){
 		if(isInterpreterScriptAvailable(file)){
 			TerminalComp terminal = new TerminalComp(new String[]{
@@ -77,6 +87,11 @@ public final class ExecutionManager {
 		return 404;
 	}
 
+	/**
+	 * Fires the event script of corresponding file of scriptType.
+	 * scriptType can be "onFileSaved", etc,
+	 * See the available directories at .codeblaze/event-scripts to know more.
+	 */
 	public static void executeEventScript(File file, String scriptType){
 		Map<String, String> envsX = System.getenv();
 		HashMap<String, String> envs = new HashMap<>();
@@ -140,6 +155,11 @@ public final class ExecutionManager {
 		}
 	}
 
+	/**
+	 * Fires the event script of corresponding app event of type eventType in a non-blocking way.
+	 * eventType can be "onCodeBlazeReady", etc,
+	 * See the available directories at .codeblaze/event-scripts to know more.
+	 */
 	public static synchronized void executeEventScripts(String eventType, String eventScriptDir){
 		LinkedList<File> files = getAllEventScripts(eventScriptDir);
 		if(files.isEmpty())
@@ -169,6 +189,11 @@ public final class ExecutionManager {
 		}).start();
 	}
 	
+	/**
+	 * Fires the event script of corresponding app event of type eventType in a blocking way.
+	 * eventType can be "onCodeBlazeReady", etc,
+	 * See the available directories at .codeblaze/event-scripts to know more.
+	 */
 	public static synchronized void executeEventScriptsAndWait(String eventType, String eventScriptDir){
 		LinkedList<File> files = getAllEventScripts(eventScriptDir);
 		if(files.isEmpty())

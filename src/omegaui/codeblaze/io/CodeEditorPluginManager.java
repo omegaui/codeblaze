@@ -22,35 +22,63 @@ import omegaui.codeblaze.io.plugins.codeeditor.BasicEditorShortcutsPlugin;
 import omegaui.codeblaze.ui.component.CodeEditor;
 
 import java.util.LinkedList;
+/*
+ * CodeEditorPluginManager manages plugin implantation into the CodeEditor.
+ * Contains a mutable list of available plugins.
+ * Deals in Installation and Uninstallation of CodeEditor plugins.
+ * Can provide the list of all Compatible plugins for a CodeEditor instance.
+ */
 public final class CodeEditorPluginManager {
 	
-	private static LinkedList<CodeEditorPlugin> plugins = new LinkedList<>();
+	/**
+	 * List of available CodeEditorPlugins.
+	 * To add/remove your own plugin see add(CodeEditorPlugin) and remove(CodeEditorPlugin)
+	 */
+	private static final LinkedList<CodeEditorPlugin> plugins = new LinkedList<>();
 	
+	/*
+	 * Some Default Plugins are getting implanted here.
+	 */
 	static{
 		add(new BasicSymbolCompletionPlugin());
 		add(new BasicEditorShortcutsPlugin());
 	}
-
+	
+	/**
+	 * Adds a CodeEditorPlugin to the list.
+	 */
 	public static void add(CodeEditorPlugin plugin){
 		plugins.add(plugin);
 	}
 
+	/**
+	 * Removes a CodeEditorPlugin from the list.
+	 */
 	public static void remove(CodeEditorPlugin plugin){
 		plugins.remove(plugin);
 	}
 
+	/**
+	 * Installs all compatible plugin to a CodeEditor.
+	 */
 	public static void installPlugins(CodeEditor editor){
 		getAvailablePlugins(editor).forEach((plugin)->{
 			plugin.install(editor);
 		});
 	}
 
+	/**
+	 * Uninstall all compatible plugins from a CodeEditor.
+	 */
 	public static void uninstallPlugins(CodeEditor editor){
 		getAvailablePlugins(editor).forEach((plugin)->{
 			plugin.uninstall(editor);
 		});
 	}
 
+	/**
+	 * Returns the list of available plugins for a CodeEditor.
+	 */
 	public static LinkedList<CodeEditorPlugin> getAvailablePlugins(CodeEditor editor){
 		LinkedList<CodeEditorPlugin> availablePlugins = new LinkedList<>();
 		String language = editor.getSyntaxEditingStyle();
