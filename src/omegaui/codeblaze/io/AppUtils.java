@@ -21,7 +21,14 @@ import java.util.LinkedList;
 import java.awt.Desktop;
 
 import java.io.File;
+/*
+ * Contains some utility functions that can be used App<->Wide.
+ */
 public class AppUtils {
+
+	/**
+	 * Triggers Desktop.browse(file).
+	 */
 	public static void browse(File file){
 		try{
 			Desktop.getDesktop().open(file);
@@ -31,6 +38,9 @@ public class AppUtils {
 		}
 	}
 
+	/**
+	 * Returns if the match text is found in text.
+	 */
 	public static boolean isMatching(String text, String match){
 		LinkedList<String> parts = new LinkedList<>();
 		

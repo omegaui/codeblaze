@@ -21,18 +21,30 @@ package omegaui.codeblaze.io;
  */
 public final class AppDataProvider {
 	
-	public static final String releaseName(){
+	/**
+	 * Returns the full qualified app release title
+	 */
+	public static final String releaseTitle(){
 		return "codeblaze-v" + appVersion() + "-" + buildState();
 	}
 	
+	/**
+	 * Returns the App Version Semantic with build state
+	 */
 	public static final String appVersionSemantic(){
 		return appVersion() + "-" + buildState();
 	}
 
+	/**
+	 * Returns the App Version
+	 */
 	public static final float appVersion(){
 		return 1.0f;
 	}
 
+	/**
+	 * Returns the build state of the current instance (alpha, stable, unstable, beta)
+	 */
 	public static final String buildState(){
 		return "alpha";
 	}

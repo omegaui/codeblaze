@@ -16,13 +16,18 @@
  */
 
 package omegaui.codeblaze.io;
+/*
+ * Sets the default view state of App to GlassPanel.
+ * May be we can do more things here in future.
+ */
 public final class AppStateManager {
 	
+	/**
+	 * Initializes the Default View State.
+	 */
 	public static synchronized void initAppState(){
 		
 		AppInstanceProvider.getCurrentAppInstance().switchViewToGlassPane();
-
-//		AppInstanceProvider.getCurrentAppInstance().switchViewToContentPane();
 		
 	}
 	

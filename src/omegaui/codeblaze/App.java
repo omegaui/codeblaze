@@ -378,7 +378,7 @@ public class App extends JFrame {
 	}
 
 	/**
-	 * Initialized AppStateManager and Trigger App Opening Operations.
+	 * Initialized AppStateManager and Triggers App Opening Operations.
 	 */
 	private void initState(){
 		AppStateManager.initAppState();

@@ -17,6 +17,10 @@
 
 package omegaui.codeblaze.io;
 import omegaui.codeblaze.App;
+
+/*
+ * Just in case we require the current app instance, here sits AppInstanceProvider.
+ */
 public final class AppInstanceProvider {
 	private static App currentAppInstance;
 
