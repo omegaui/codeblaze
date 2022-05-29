@@ -236,7 +236,7 @@ public final class UIXManager {
 		tertiaryColorShade = tertiaryColor.withOpacity(0.2f);
 
 		back1 = new PixelColor(Color.decode("#252526"));
-		back2 = new PixelColor(Color.decode("#2A2A2A"));
+		back2 = new PixelColor(Color.decode("#262626"));
 		back3 = new PixelColor(Color.decode("#303030"));
 
 		GLOW = new PixelColor(Color.WHITE);

@@ -149,11 +149,11 @@ public class App extends JFrame {
 	private PreferencesDialog preferencesDialog;
 
 	/**
-	 * A private constructor to prevent launching multiple instances on the same JVM cause we have some static data like app.settings
+	 * A private constructor to prevent launching multiple instances on the same JVM as we have some static data like app.settings
 	 */
 	private App(){
 		super("CodeBlaze");
-
+		
 		setSize(1000, 650);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null);
@@ -305,9 +305,10 @@ public class App extends JFrame {
 			new Thread(()->{
 				try{
 					Thread.sleep(100);
-				}catch(Exception e){
-					
 				}
+				catch(Exception e){
+				}
+				
 				for(DataEntry entry : entries){
 					File file = new File(entry.lines().get(0));
 					CodeEditor editor = FileManager.getEditor(file);
