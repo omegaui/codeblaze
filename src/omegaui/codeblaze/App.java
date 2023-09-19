@@ -82,7 +82,7 @@ public class App extends JFrame {
 	
 	/**
 	 * The Main Frame has two view modes,
-	 * Content View : Contains the Tool Menu, the Tab System, etc.
+	 * Content View: Contains the Tool Menu, the Tab System, etc.
 	 * Glass View : Contains Views like File Creation Panel, Launcher, etc.
 	 */
 	public static final int CONTENT_VIEW = 1;
